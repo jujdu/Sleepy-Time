@@ -13,7 +13,7 @@
         <!--Sleepy time-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,43 +21,51 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ype-aO-W5V">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qOe-Lu-W7k">
-                                <rect key="frame" x="12" y="217.5" width="351" height="232"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qOe-Lu-W7k">
+                                <rect key="frame" x="12" y="194.5" width="351" height="278.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Я должен проснуться в..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2x-Pk-4VQ">
-                                        <rect key="frame" x="75.5" y="0.0" width="200" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I have to wake up at..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2x-Pk-4VQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="351" height="25"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QbL-h6-17H">
-                                        <rect key="frame" x="110.5" y="32.5" width="130" height="30"/>
-                                        <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" title="Установить время"/>
-                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pick time" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-xJ-zCP">
+                                        <rect key="frame" x="0.0" y="37" width="351" height="47"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="34"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ih-48-cQ3">
-                                        <rect key="frame" x="138.5" y="74.5" width="74" height="30"/>
+                                        <rect key="frame" x="0.0" y="96" width="351" height="36"/>
                                         <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" title="Расчитать"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                        <state key="normal" title="Calculate"/>
+                                        <connections>
+                                            <action selector="wakeUptoTimeBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jFQ-Dv-ad2"/>
+                                            <segue destination="nBF-KJ-xDU" kind="show" identifier="wakeUpToTime" id="krb-Hq-330"/>
+                                        </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="или" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-vI-nWU">
-                                        <rect key="frame" x="161" y="116.5" width="29.5" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-vI-nWU">
+                                        <rect key="frame" x="0.0" y="144" width="351" height="25"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Вычислить когда нужно проснуться, если пойду спать прямо сейчас:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dq4-By-eQj">
-                                        <rect key="frame" x="6" y="149" width="339.5" height="41"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find out when to get up if you go to bed right now" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dq4-By-eQj">
+                                        <rect key="frame" x="0.0" y="181" width="351" height="49.5"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-WY-5Av">
-                                        <rect key="frame" x="160.5" y="202" width="30" height="30"/>
+                                        <rect key="frame" x="0.0" y="242.5" width="351" height="36"/>
                                         <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" title="zzz"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                        <state key="normal" title="zzZ"/>
                                         <connections>
-                                            <segue destination="nBF-KJ-xDU" kind="show" id="0Ci-o7-Wco"/>
+                                            <action selector="wakeUpFromNowBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="npR-95-K69"/>
+                                            <segue destination="nBF-KJ-xDU" kind="show" identifier="wakeUpFromNow" id="0Ci-o7-Wco"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -79,42 +87,67 @@
                     <navigationItem key="navigationItem" title="Sleepy time" id="tAe-B5-yHa">
                         <barButtonItem key="rightBarButtonItem" systemItem="organize" id="waw-kc-QHl"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="wakeUpFromNowBtn" destination="c0T-WY-5Av" id="yqg-3N-zME"/>
+                        <outlet property="wakeUpToTimeBtn" destination="0Ih-48-cQ3" id="vxk-Lc-tNR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1798" y="-237"/>
         </scene>
-        <!--View Controller-->
+        <!--DetailVC-->
         <scene sceneID="Pw0-76-g9f">
             <objects>
-                <viewController id="nBF-KJ-xDU" sceneMemberID="viewController">
+                <viewController id="nBF-KJ-xDU" customClass="DetailVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V5q-Zh-ahv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="BBx-bP-Tnv">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="udD-np-iN4">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="144" width="375" height="474"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you head to bed right now, you should try to wake up at one of the following times:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPU-5r-XtO">
+                                <rect key="frame" x="12" y="64" width="351" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="7xr-dx-Xhw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8FV-gx-qco" firstAttribute="trailing" secondItem="udD-np-iN4" secondAttribute="trailing" id="6QF-wD-vLu"/>
+                            <constraint firstItem="CPU-5r-XtO" firstAttribute="leading" secondItem="8FV-gx-qco" secondAttribute="leading" constant="12" id="9yr-5J-13l"/>
                             <constraint firstItem="udD-np-iN4" firstAttribute="leading" secondItem="8FV-gx-qco" secondAttribute="leading" id="DrW-oR-6tX"/>
+                            <constraint firstItem="udD-np-iN4" firstAttribute="top" secondItem="CPU-5r-XtO" secondAttribute="bottom" id="GAL-lo-ggJ"/>
+                            <constraint firstAttribute="trailing" secondItem="CPU-5r-XtO" secondAttribute="trailing" constant="12" id="NJo-J2-48k"/>
                             <constraint firstItem="8FV-gx-qco" firstAttribute="bottom" secondItem="udD-np-iN4" secondAttribute="bottom" id="yaE-jS-kP5"/>
-                            <constraint firstItem="udD-np-iN4" firstAttribute="top" secondItem="8FV-gx-qco" secondAttribute="top" id="zbI-Vh-tCv"/>
+                            <constraint firstItem="CPU-5r-XtO" firstAttribute="top" secondItem="8FV-gx-qco" secondAttribute="top" id="zEY-g9-rks"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8FV-gx-qco"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="udD-np-iN4" id="Uga-7g-jE9"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUe-uZ-0Kg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2583" y="-237"/>
+            <point key="canvasLocation" x="2581.5999999999999" y="-237.03148425787109"/>
         </scene>
-        <!--View Controller-->
+        <!--SettingsVC-->
         <scene sceneID="Alg-i7-nGH">
             <objects>
-                <viewController id="xLZ-if-8Db" sceneMemberID="viewController">
+                <viewController id="xLZ-if-8Db" customClass="SettingsVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ROB-Ad-OVL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -152,7 +185,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wM3-Ip-Q6n"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="more" id="9by-5S-3gj"/>
+                    <tabBarItem key="tabBarItem" title="" id="9by-5S-3gj"/>
+                    <connections>
+                        <outlet property="tableView" destination="xM0-0c-iHk" id="rj1-gZ-A1T"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dBW-Qe-0hD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -164,6 +200,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="wtW-ek-GtR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="v1g-eC-Lub">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -180,11 +217,14 @@
         <scene sceneID="QEV-6t-jsP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v3X-ol-OIP" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="9Pd-N4-nvs"/>
+                    <tabBarItem key="tabBarItem" title="" id="9Pd-N4-nvs"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="U0j-rT-f9b">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -199,4 +239,7 @@
     <resources>
         <image name="background" width="1166" height="2048"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="krb-Hq-330"/>
+    </inferredMetricsTieBreakers>
 </document>
