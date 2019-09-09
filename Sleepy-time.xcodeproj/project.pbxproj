@@ -54,14 +54,38 @@
 		6FB5391B2326B38500B5DB92 /* Sleepy-time */ = {
 			isa = PBXGroup;
 			children = (
+				6FB539302326B7B400B5DB92 /* Model */,
+				6FB5392F2326B7AD00B5DB92 /* View */,
+				6FB5392E2326B7A600B5DB92 /* Controller */,
 				6FB5391C2326B38500B5DB92 /* AppDelegate.swift */,
-				6FB5391E2326B38500B5DB92 /* ViewController.swift */,
 				6FB539202326B38500B5DB92 /* Main.storyboard */,
 				6FB539232326B38B00B5DB92 /* Assets.xcassets */,
 				6FB539252326B38B00B5DB92 /* LaunchScreen.storyboard */,
 				6FB539282326B38B00B5DB92 /* Info.plist */,
 			);
 			path = "Sleepy-time";
+			sourceTree = "<group>";
+		};
+		6FB5392E2326B7A600B5DB92 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				6FB5391E2326B38500B5DB92 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		6FB5392F2326B7AD00B5DB92 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6FB539302326B7B400B5DB92 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
