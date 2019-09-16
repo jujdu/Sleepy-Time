@@ -9,6 +9,12 @@
 import Foundation
 
 struct AlarmTime {
-    var cycleIndex: Int
+    var cycle: Int
     var date: Date
+    var type: AlarmTimeType
+}
+
+enum AlarmTimeType {
+    case toTime
+    case fromNow
 }

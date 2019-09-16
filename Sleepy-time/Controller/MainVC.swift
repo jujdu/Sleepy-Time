@@ -12,45 +12,79 @@ class MainVC: UIViewController {
     
     @IBOutlet weak var wakeUpToTimeBtn: UIButton!
     @IBOutlet weak var wakeUpFromNowBtn: UIButton!
+    @IBOutlet weak var pickTimeTxt: UITextField!
     
-    var alarmTime = [Date]()
+    private var datePicker: UIDatePicker?
+    
+    var choosenTime: AlarmTime!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        pickTimeTxt.delegate = self
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .time
+        datePicker?.minuteInterval = 5
+        datePicker?.addTarget(self,
+                              action: #selector(dateChanged(datePicker:)),
+                              for: .valueChanged)
+        pickTimeTxt.tintColor = UIColor.clear
+
+        pickTimeTxt.inputView = datePicker
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(gestureRecognazer:)))
+        view.addGestureRecognizer(tapGesture)
+        
+        wakeUpToTimeBtn.isEnabled = false
     }
     
-    func calculateWakeUpTime(time: Date) -> [Date] {
-        var wakeUpTime = [time]
-        for i in 1..<6 {
-            let date = Date(timeInterval: 5400, since: wakeUpTime[i - 1])
-            wakeUpTime.insert(date, at: i)
-        }
-        return wakeUpTime
+    @objc func viewTapped(gestureRecognazer: UITapGestureRecognizer) {
+        view.endEditing(true)
     }
     
-    override func performSegue(withIdentifier identifier: String, sender: Any?) {
+    @objc func dateChanged(datePicker: UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h:mm a"
+        dateFormatter.timeZone = .current
         
+        pickTimeTxt.text = dateFormatter.string(from: datePicker.date)
+        choosenTime = AlarmTime(date: datePicker.date, type: .toTime)
+        wakeUpToTimeBtn.isEnabled = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destination = segue.destination as? DetailVC {
-            if segue.identifier == Segues.wakeUpToTime {
-                destination.alarmTime = calculateWakeUpTime(time: Date())
-            } else {
-                destination.alarmTime = calculateWakeUpTime(time: Date())
+        if segue.identifier == Segues.wakeUpToTime {
+            if let destination = segue.destination as? ToTimeVC {
+                destination.choosenTime = choosenTime
+            }
+        } else if segue.identifier == Segues.wakeUpFromNow {
+            if let destination = segue.destination as? FromNowVC {
+                destination.choosenTime = AlarmTime(date: Date(), type: .fromNow)
             }
         }
     }
     
     @IBAction func wakeUptoTimeBtnPressed(_ sender: Any) {
-//        alarmTime = calculateWakeUpTime(time: Date())
-    }
-    
-    @IBAction func wakeUpFromNowBtnPressed(_ sender: Any) {
-//        alarmTime = calculateWakeUpTime(time: Date())
+//        add animate to textfield
     }
 }
+
+//extension MainVC: UITextFieldDelegate {
+//
+//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+//        pickTimeTxt.isUserInteractionEnabled = false
+//        return true
+//    }
+//
+//    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+//        pickTimeTxt.isUserInteractionEnabled = true
+//
+//    }
+//
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//        return false
+//    }
+//}
+
 
 //func calculateWakeUpTime(time: [AlarmTime]) -> [AlarmTime] {
 //    var wakeUpTime = alarmTime

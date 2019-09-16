@@ -18,8 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ype-aO-W5V">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ype-aO-W5V">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qOe-Lu-W7k">
                                 <rect key="frame" x="12" y="194.5" width="351" height="278.5"/>
@@ -30,7 +31,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pick time" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-xJ-zCP">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pick time" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-xJ-zCP" customClass="TimePickerTextField" customModule="Sleepy_time" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="37" width="351" height="47"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="34"/>
@@ -43,7 +44,7 @@
                                         <state key="normal" title="Calculate"/>
                                         <connections>
                                             <action selector="wakeUptoTimeBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jFQ-Dv-ad2"/>
-                                            <segue destination="nBF-KJ-xDU" kind="show" identifier="wakeUpToTime" id="krb-Hq-330"/>
+                                            <segue destination="nBF-KJ-xDU" kind="show" identifier="wakeUpToTime" id="dDQ-OB-93b"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-vI-nWU">
@@ -64,8 +65,7 @@
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <state key="normal" title="zzZ"/>
                                         <connections>
-                                            <action selector="wakeUpFromNowBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="npR-95-K69"/>
-                                            <segue destination="nBF-KJ-xDU" kind="show" identifier="wakeUpFromNow" id="0Ci-o7-Wco"/>
+                                            <segue destination="uU7-eJ-wVm" kind="show" identifier="wakeUpFromNow" id="tzJ-oy-fn2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -83,11 +83,17 @@
                             <constraint firstItem="qOe-Lu-W7k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="12" id="xnX-aL-lHn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ype-aO-W5V"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Sleepy time" id="tAe-B5-yHa">
                         <barButtonItem key="rightBarButtonItem" systemItem="organize" id="waw-kc-QHl"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="pickTimeTxt" destination="6B7-xJ-zCP" id="5QE-4n-No5"/>
                         <outlet property="wakeUpFromNowBtn" destination="c0T-WY-5Av" id="yqg-3N-zME"/>
                         <outlet property="wakeUpToTimeBtn" destination="0Ih-48-cQ3" id="vxk-Lc-tNR"/>
                     </connections>
@@ -96,17 +102,18 @@
             </objects>
             <point key="canvasLocation" x="1798" y="-237"/>
         </scene>
-        <!--DetailVC-->
+        <!--To TimeVC-->
         <scene sceneID="Pw0-76-g9f">
             <objects>
-                <viewController id="nBF-KJ-xDU" customClass="DetailVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="nBF-KJ-xDU" customClass="ToTimeVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V5q-Zh-ahv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="BBx-bP-Tnv">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BBx-bP-Tnv">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="udD-np-iN4">
                                 <rect key="frame" x="0.0" y="144" width="375" height="474"/>
@@ -114,11 +121,13 @@
                                 <color key="separatorColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you head to bed right now, you should try to wake up at one of the following times:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPU-5r-XtO">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPU-5r-XtO">
                                 <rect key="frame" x="12" y="64" width="351" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="7xr-dx-Xhw"/>
                                 </constraints>
+                                <string key="text">You should try to fall asleep at one of the following times:
+</string>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -142,7 +151,56 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUe-uZ-0Kg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2581.5999999999999" y="-237.03148425787109"/>
+            <point key="canvasLocation" x="2721" y="-537"/>
+        </scene>
+        <!--From NowVC-->
+        <scene sceneID="c1V-Nu-eg5">
+            <objects>
+                <viewController id="uU7-eJ-wVm" customClass="FromNowVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mDi-TL-mUX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BMm-hT-qcM">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nyW-an-B9N">
+                                <rect key="frame" x="0.0" y="144" width="375" height="474"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="separatorColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you head to bed right now, you should try to wake up at one of the following times:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgP-V5-2fi">
+                                <rect key="frame" x="12" y="64" width="351" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="711-7d-jkh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hdS-jL-9Q8" firstAttribute="bottom" secondItem="nyW-an-B9N" secondAttribute="bottom" id="Dq3-ed-xVI"/>
+                            <constraint firstItem="hdS-jL-9Q8" firstAttribute="trailing" secondItem="nyW-an-B9N" secondAttribute="trailing" id="Fil-eC-ikI"/>
+                            <constraint firstAttribute="trailing" secondItem="ZgP-V5-2fi" secondAttribute="trailing" constant="12" id="I1u-aG-fJd"/>
+                            <constraint firstItem="nyW-an-B9N" firstAttribute="leading" secondItem="hdS-jL-9Q8" secondAttribute="leading" id="cbu-oq-Puk"/>
+                            <constraint firstItem="ZgP-V5-2fi" firstAttribute="top" secondItem="hdS-jL-9Q8" secondAttribute="top" id="cs5-w6-Plg"/>
+                            <constraint firstItem="ZgP-V5-2fi" firstAttribute="leading" secondItem="hdS-jL-9Q8" secondAttribute="leading" constant="12" id="gXb-sf-yxv"/>
+                            <constraint firstItem="nyW-an-B9N" firstAttribute="top" secondItem="ZgP-V5-2fi" secondAttribute="bottom" id="vBW-Dj-JEI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hdS-jL-9Q8"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="nyW-an-B9N" id="XWS-M9-bI2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eel-z0-nma" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2721" y="206"/>
         </scene>
         <!--SettingsVC-->
         <scene sceneID="Alg-i7-nGH">
@@ -239,7 +297,4 @@
     <resources>
         <image name="background" width="1166" height="2048"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="krb-Hq-330"/>
-    </inferredMetricsTieBreakers>
 </document>
