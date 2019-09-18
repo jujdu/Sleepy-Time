@@ -15,8 +15,16 @@ struct Segues {
 
 struct Identifires {
     static let cycleCell = "cycleCell"
+    static let fromNowCycleCell = "fromNowCycleCell"
 }
 
 struct Xibs {
     static let cycleCell = "CycleCell"
+    static let fromNowCycleCell = "FromNowCycleCell"
+}
+
+struct UserDefaultKeys {
+    static let minToRepeatLbl = "minToRepeatLbl"
+    static let minToRepeatSlider = "minToRepeatSlider"
+    static let repeatSwitch = "repeatSwitch"
 }

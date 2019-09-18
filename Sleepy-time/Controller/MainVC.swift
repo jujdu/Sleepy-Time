@@ -47,7 +47,7 @@ class MainVC: UIViewController {
         dateFormatter.timeZone = .current
         
         pickTimeTxt.text = dateFormatter.string(from: datePicker.date)
-        choosenTime = AlarmTime(date: datePicker.date, type: .toTime)
+        choosenTime = AlarmTime(cycle: 0, date: datePicker.date, needTimeToFallAsleep: nil, type: .toTime)
         wakeUpToTimeBtn.isEnabled = true
     }
     
@@ -58,7 +58,7 @@ class MainVC: UIViewController {
             }
         } else if segue.identifier == Segues.wakeUpFromNow {
             if let destination = segue.destination as? FromNowVC {
-                destination.choosenTime = AlarmTime(date: Date(), type: .fromNow)
+                destination.choosenTime = AlarmTime(cycle: 0, date: Date(), needTimeToFallAsleep: nil, type: .fromNow)
             }
         }
     }
@@ -66,6 +66,8 @@ class MainVC: UIViewController {
     @IBAction func wakeUptoTimeBtnPressed(_ sender: Any) {
 //        add animate to textfield
     }
+    
+    @IBAction func unwindSegueToMainVC(_ sender: UIStoryboardSegue) {}
 }
 
 //extension MainVC: UITextFieldDelegate {

@@ -19,8 +19,8 @@ class ToTimeVC: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: Xibs.cycleCell, bundle: nil),
-                           forCellReuseIdentifier: Identifires.cycleCell)
+        tableView.register(UINib(nibName: Xibs.fromNowCycleCell, bundle: nil),
+                           forCellReuseIdentifier: Identifires.fromNowCycleCell)
         alarmTime = calculateWakeUpTime(choosenTime: choosenTime)
     }
     
@@ -40,7 +40,7 @@ extension ToTimeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: Identifires.cycleCell, for: indexPath) as? ToTimeCycleCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: Identifires.fromNowCycleCell, for: indexPath) as? FromNowCycleCell {
             cell.setupUI(time: alarmTime[indexPath.row], index: indexPath.row)
             return cell
         }

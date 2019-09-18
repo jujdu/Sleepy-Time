@@ -11,6 +11,7 @@ import Foundation
 struct AlarmTime {
     var cycle: Int
     var date: Date
+    var needTimeToFallAsleep: Int?
     var type: AlarmTimeType
 }
 
