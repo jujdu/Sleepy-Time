@@ -14,6 +14,7 @@ class FromNowVC: UIViewController {
     
     var choosenTime: AlarmTime!
     var alarmTime: [Date]!
+    let userDefaults = UserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,10 @@ class FromNowVC: UIViewController {
     }
     
     func calculateWakeUpTime(choosenTime: AlarmTime) -> [Date] {
-        var wakeUpTimeArray = [Date(timeInterval: 5400, since: choosenTime.date)]
+        let minToFallAsleep = userDefaults.double(forKey: UserDefaultKeys.fallAsleepSlider)
+        print(minToFallAsleep)
+
+        var wakeUpTimeArray = [Date(timeInterval: 5400 + (minToFallAsleep * 60), since: choosenTime.date)]
         for i in 1..<6 {
             let date = Date(timeInterval: 5400, since: wakeUpTimeArray[i - 1])
             wakeUpTimeArray.insert(date, at: i)
@@ -49,7 +53,8 @@ extension FromNowVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 70
     }
+    
 }
 

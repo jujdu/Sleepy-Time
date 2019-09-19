@@ -11,9 +11,11 @@ import UIKit
 class ToTimeVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var infoLbl: UILabel!
     
     var choosenTime: AlarmTime!
     var alarmTime: [Date]!
+    let userDefaults = UserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,11 +23,13 @@ class ToTimeVC: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: Xibs.fromNowCycleCell, bundle: nil),
                            forCellReuseIdentifier: Identifires.fromNowCycleCell)
+        infoLbl.text = "If you want to wake up at \(convertedDateToString(date: choosenTime.date)), you should try to fall asleep at one of the following times:"
         alarmTime = calculateWakeUpTime(choosenTime: choosenTime)
     }
     
     func calculateWakeUpTime(choosenTime: AlarmTime) -> [Date] {
-        var wakeUpTimeArray = [Date(timeInterval: -5400, since: choosenTime.date)]
+        let minToFallAsleep = userDefaults.double(forKey: UserDefaultKeys.fallAsleepSlider)
+        var wakeUpTimeArray = [Date(timeInterval: -5400 - (minToFallAsleep * 60), since: choosenTime.date)]
         for i in 1..<6 {
             let date = Date(timeInterval: -5400, since: wakeUpTimeArray[i - 1])
             wakeUpTimeArray.insert(date, at: i)
@@ -48,6 +52,10 @@ extension ToTimeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 70
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }

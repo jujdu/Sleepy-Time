@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F025F87233011D80038E36D /* TimePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F025F86233011D80038E36D /* TimePickerTextField.swift */; };
+		6F93248923340CF6006E97B1 /* SupportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F93248823340CF6006E97B1 /* SupportFile.swift */; };
 		6FB5391D2326B38500B5DB92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5391C2326B38500B5DB92 /* AppDelegate.swift */; };
 		6FB5391F2326B38500B5DB92 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5391E2326B38500B5DB92 /* MainVC.swift */; };
 		6FB539222326B38500B5DB92 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FB539202326B38500B5DB92 /* Main.storyboard */; };
@@ -22,11 +23,13 @@
 		6FB7D8AF2331AD5A00B40711 /* FromNowCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AD2331AD5A00B40711 /* FromNowCycleCell.swift */; };
 		6FB7D8B02331AD5A00B40711 /* FromNowCycleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AE2331AD5A00B40711 /* FromNowCycleCell.xib */; };
 		6FB7D8B22332BDCB00B40711 /* SupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8B12332BDCB00B40711 /* SupportVC.swift */; };
+		6FB7D8B42333F08F00B40711 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8B32333F08F00B40711 /* RoundedButton.swift */; };
 		6FEA7BA723302A0E00D580DD /* FromNowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEA7BA623302A0E00D580DD /* FromNowVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6F025F86233011D80038E36D /* TimePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerTextField.swift; sourceTree = "<group>"; };
+		6F93248823340CF6006E97B1 /* SupportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportFile.swift; sourceTree = "<group>"; };
 		6FB539192326B38500B5DB92 /* Sleepy-time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleepy-time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FB5391C2326B38500B5DB92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FB5391E2326B38500B5DB92 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
@@ -43,6 +46,7 @@
 		6FB7D8AD2331AD5A00B40711 /* FromNowCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromNowCycleCell.swift; sourceTree = "<group>"; };
 		6FB7D8AE2331AD5A00B40711 /* FromNowCycleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FromNowCycleCell.xib; sourceTree = "<group>"; };
 		6FB7D8B12332BDCB00B40711 /* SupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportVC.swift; sourceTree = "<group>"; };
+		6FB7D8B32333F08F00B40711 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		6FEA7BA623302A0E00D580DD /* FromNowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromNowVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				6F025F86233011D80038E36D /* TimePickerTextField.swift */,
+				6FB7D8B32333F08F00B40711 /* RoundedButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -122,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				6FB539352326C2C800B5DB92 /* Constants.swift */,
+				6F93248823340CF6006E97B1 /* SupportFile.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -216,8 +222,10 @@
 				6FB5391F2326B38500B5DB92 /* MainVC.swift in Sources */,
 				6F025F87233011D80038E36D /* TimePickerTextField.swift in Sources */,
 				6FB539392326C3C800B5DB92 /* AlarmTime.swift in Sources */,
+				6F93248923340CF6006E97B1 /* SupportFile.swift in Sources */,
 				6FB5393E2326C98400B5DB92 /* ToTimeCycleCell.swift in Sources */,
 				6FB7D8B22332BDCB00B40711 /* SupportVC.swift in Sources */,
+				6FB7D8B42333F08F00B40711 /* RoundedButton.swift in Sources */,
 				6FB539342326C12C00B5DB92 /* ToTimeVC.swift in Sources */,
 				6FB5391D2326B38500B5DB92 /* AppDelegate.swift in Sources */,
 				6FEA7BA723302A0E00D580DD /* FromNowVC.swift in Sources */,

@@ -22,24 +22,30 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qOe-Lu-W7k">
-                                <rect key="frame" x="12" y="194.5" width="351" height="278.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qOe-Lu-W7k">
+                                <rect key="frame" x="12" y="185.5" width="351" height="296.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I have to wake up at..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2x-Pk-4VQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="351" height="25"/>
+                                        <rect key="frame" x="87" y="0.0" width="177" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="177" id="Hhh-eN-pcn"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pick time" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-xJ-zCP" customClass="TimePickerTextField" customModule="Sleepy_time" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="37" width="351" height="47"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pick time" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-xJ-zCP" customClass="TimePickerTextField" customModule="Sleepy_time" customModuleProvider="target">
+                                        <rect key="frame" x="105" y="37" width="141.5" height="47"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="34"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ih-48-cQ3">
-                                        <rect key="frame" x="0.0" y="96" width="351" height="36"/>
+                                        <rect key="frame" x="87" y="96" width="177" height="45"/>
                                         <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="Pgi-DK-sKv"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <state key="normal" title="Calculate"/>
                                         <connections>
@@ -48,20 +54,23 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-vI-nWU">
-                                        <rect key="frame" x="0.0" y="144" width="351" height="25"/>
+                                        <rect key="frame" x="167" y="153" width="17" height="25"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find out when to get up if you go to bed right now" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dq4-By-eQj">
-                                        <rect key="frame" x="0.0" y="181" width="351" height="49.5"/>
+                                        <rect key="frame" x="8.5" y="190" width="334.5" height="49.5"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-WY-5Av">
-                                        <rect key="frame" x="0.0" y="242.5" width="351" height="36"/>
+                                        <rect key="frame" x="87" y="251.5" width="177" height="45"/>
                                         <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="6Rb-KR-bq0"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <state key="normal" title="zzZ"/>
                                         <connections>
@@ -69,6 +78,10 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="0Ih-48-cQ3" firstAttribute="width" secondItem="a2x-Pk-4VQ" secondAttribute="width" id="icp-s2-R78"/>
+                                    <constraint firstItem="c0T-WY-5Av" firstAttribute="width" secondItem="a2x-Pk-4VQ" secondAttribute="width" id="nai-kj-uTN"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -90,12 +103,12 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Sleepy Time" id="tAe-B5-yHa">
-                        <barButtonItem key="leftBarButtonItem" systemItem="compose" id="cPT-We-ZIK">
+                        <barButtonItem key="leftBarButtonItem" image="ic_settings_36pt" id="cPT-We-ZIK">
                             <connections>
                                 <segue destination="fgw-uE-VYO" kind="presentation" id="4Ya-6V-c7d"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="organize" id="waw-kc-QHl"/>
+                        <barButtonItem key="rightBarButtonItem" image="ic_info_36pt" id="waw-kc-QHl"/>
                     </navigationItem>
                     <connections>
                         <outlet property="pickTimeTxt" destination="6B7-xJ-zCP" id="5QE-4n-No5"/>
@@ -105,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1798" y="-237"/>
+            <point key="canvasLocation" x="1797.5999999999999" y="-237.03148425787109"/>
         </scene>
         <!--Wake up-->
         <scene sceneID="Pw0-76-g9f">
@@ -121,43 +134,46 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="udD-np-iN4">
-                                <rect key="frame" x="0.0" y="110.5" width="375" height="556.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="144" width="375" height="523"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You should try to fall asleep at one of the following times:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CPU-5r-XtO">
-                                <rect key="frame" x="12" y="64" width="351" height="46.5"/>
+                                <rect key="frame" x="12" y="64" width="351" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="46.5" id="m9B-sX-rr8"/>
+                                    <constraint firstAttribute="height" constant="80" id="KNk-aR-sQJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="8FV-gx-qco" firstAttribute="trailing" secondItem="udD-np-iN4" secondAttribute="trailing" id="6QF-wD-vLu"/>
                             <constraint firstItem="CPU-5r-XtO" firstAttribute="leading" secondItem="8FV-gx-qco" secondAttribute="leading" constant="12" id="9yr-5J-13l"/>
                             <constraint firstItem="udD-np-iN4" firstAttribute="leading" secondItem="8FV-gx-qco" secondAttribute="leading" id="DrW-oR-6tX"/>
-                            <constraint firstItem="udD-np-iN4" firstAttribute="top" secondItem="CPU-5r-XtO" secondAttribute="bottom" id="GAL-lo-ggJ"/>
                             <constraint firstAttribute="trailing" secondItem="CPU-5r-XtO" secondAttribute="trailing" constant="12" id="NJo-J2-48k"/>
-                            <constraint firstItem="8FV-gx-qco" firstAttribute="bottom" secondItem="udD-np-iN4" secondAttribute="bottom" id="yaE-jS-kP5"/>
+                            <constraint firstItem="udD-np-iN4" firstAttribute="top" secondItem="CPU-5r-XtO" secondAttribute="bottom" id="icw-A2-a1N"/>
+                            <constraint firstAttribute="bottom" secondItem="udD-np-iN4" secondAttribute="bottom" id="yaE-jS-kP5"/>
                             <constraint firstItem="CPU-5r-XtO" firstAttribute="top" secondItem="8FV-gx-qco" secondAttribute="top" id="zEY-g9-rks"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8FV-gx-qco"/>
                     </view>
                     <navigationItem key="navigationItem" title="Wake up" id="5co-Vn-30Z">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="sFA-sB-kd1"/>
+                        <barButtonItem key="rightBarButtonItem" image="ic_add_alarm_36pt" id="sFA-sB-kd1"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="infoLbl" destination="CPU-5r-XtO" id="9wY-z9-P0l"/>
                         <outlet property="tableView" destination="udD-np-iN4" id="Uga-7g-jE9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUe-uZ-0Kg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2721" y="-537"/>
+            <point key="canvasLocation" x="2720.8000000000002" y="-537.48125937031489"/>
         </scene>
         <!--From NowVC-->
         <scene sceneID="c1V-Nu-eg5">
@@ -174,12 +190,14 @@
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nyW-an-B9N">
                                 <rect key="frame" x="0.0" y="144" width="375" height="523"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you head to bed right now, you should try to wake up at one of the following times:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgP-V5-2fi">
                                 <rect key="frame" x="12" y="64" width="351" height="80"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="711-7d-jkh"/>
                                 </constraints>
@@ -188,9 +206,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hdS-jL-9Q8" firstAttribute="bottom" secondItem="nyW-an-B9N" secondAttribute="bottom" id="Dq3-ed-xVI"/>
+                            <constraint firstAttribute="bottom" secondItem="nyW-an-B9N" secondAttribute="bottom" id="Dq3-ed-xVI"/>
                             <constraint firstItem="hdS-jL-9Q8" firstAttribute="trailing" secondItem="nyW-an-B9N" secondAttribute="trailing" id="Fil-eC-ikI"/>
                             <constraint firstAttribute="trailing" secondItem="ZgP-V5-2fi" secondAttribute="trailing" constant="12" id="I1u-aG-fJd"/>
                             <constraint firstItem="nyW-an-B9N" firstAttribute="leading" secondItem="hdS-jL-9Q8" secondAttribute="leading" id="cbu-oq-Puk"/>
@@ -255,10 +272,10 @@
                                                                 </switch>
                                                             </subviews>
                                                         </stackView>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Q5o-ZF-VZw">
+                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="1" maxValue="30" translatesAutoresizingMaskIntoConstraints="NO" id="Q5o-ZF-VZw">
                                                             <rect key="frame" x="-2" y="41" width="355" height="32.5"/>
                                                             <connections>
-                                                                <action selector="minToRepeatSliderChanged:" destination="qcD-Qh-sFr" eventType="valueChanged" id="JV8-VH-IYk"/>
+                                                                <action selector="repeatSliderChanged:" destination="qcD-Qh-sFr" eventType="valueChanged" id="JV8-VH-IYk"/>
                                                             </connections>
                                                         </slider>
                                                     </subviews>
@@ -299,10 +316,10 @@
                                                                 </label>
                                                             </subviews>
                                                         </stackView>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="blY-k0-idQ">
+                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="14" minValue="4" maxValue="45" translatesAutoresizingMaskIntoConstraints="NO" id="blY-k0-idQ">
                                                             <rect key="frame" x="-2" y="30.5" width="355" height="43"/>
                                                             <connections>
-                                                                <action selector="minToRepeatSliderChanged:" destination="qcD-Qh-sFr" eventType="valueChanged" id="uVK-wy-emb"/>
+                                                                <action selector="fallAsleepChanged:" destination="qcD-Qh-sFr" eventType="valueChanged" id="8IU-ca-UMM"/>
                                                             </connections>
                                                         </slider>
                                                     </subviews>
@@ -341,14 +358,16 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="minToRepeatLbl" destination="Rrb-lB-J2T" id="4uk-Xt-1vm"/>
-                        <outlet property="minToRepeatSlider" destination="Q5o-ZF-VZw" id="WHU-6f-WKS"/>
+                        <outlet property="fallAsleepLbl" destination="xhK-iK-I9s" id="6kf-fy-Qpw"/>
+                        <outlet property="fallAsleepSlider" destination="blY-k0-idQ" id="o1c-J5-Ytp"/>
+                        <outlet property="repeatLbl" destination="Rrb-lB-J2T" id="4uk-Xt-1vm"/>
+                        <outlet property="repeatSlider" destination="Q5o-ZF-VZw" id="WHU-6f-WKS"/>
                         <outlet property="repeatSwitch" destination="QXv-e3-xGp" id="yY8-nU-pDT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrd-zJ-WSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1798" y="1254"/>
+            <point key="canvasLocation" x="1798" y="1177"/>
         </scene>
         <!--SupportVC-->
         <scene sceneID="I61-f0-ZEb">
@@ -383,7 +402,7 @@
                             <constraint firstItem="43t-b4-CJI" firstAttribute="bottom" secondItem="eLr-4B-a0v" secondAttribute="bottom" id="3z2-5D-SLd"/>
                             <constraint firstItem="KU7-CM-HmX" firstAttribute="leading" secondItem="43t-b4-CJI" secondAttribute="leading" id="VK8-kI-ccR"/>
                             <constraint firstItem="KU7-CM-HmX" firstAttribute="trailing" secondItem="43t-b4-CJI" secondAttribute="trailing" id="p33-zz-xSW"/>
-                            <constraint firstItem="KU7-CM-HmX" firstAttribute="top" secondItem="Fwe-O5-wSI" secondAttribute="top" constant="20" id="sm6-eg-Brr"/>
+                            <constraint firstItem="KU7-CM-HmX" firstAttribute="top" secondItem="43t-b4-CJI" secondAttribute="top" id="sm6-eg-Brr"/>
                             <constraint firstItem="eLr-4B-a0v" firstAttribute="leading" secondItem="43t-b4-CJI" secondAttribute="leading" id="spV-Uf-cPt"/>
                             <constraint firstItem="43t-b4-CJI" firstAttribute="trailing" secondItem="eLr-4B-a0v" secondAttribute="trailing" id="y8V-pK-q0l"/>
                         </constraints>
@@ -393,7 +412,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zco-Gz-hPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="wau-9m-h4p" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1798" y="510"/>
+            <point key="canvasLocation" x="1798" y="479"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QEV-6t-jsP">
@@ -418,4 +437,9 @@
             <point key="canvasLocation" x="1036" y="-237"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_add_alarm_36pt" width="36" height="36"/>
+        <image name="ic_info_36pt" width="36" height="36"/>
+        <image name="ic_settings_36pt" width="36" height="36"/>
+    </resources>
 </document>

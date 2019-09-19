@@ -24,7 +24,8 @@ struct Xibs {
 }
 
 struct UserDefaultKeys {
-    static let minToRepeatLbl = "minToRepeatLbl"
-    static let minToRepeatSlider = "minToRepeatSlider"
+    static let repeatLbl = "repeatLbl"
+    static let repeatSlider = "repeatSlider"
     static let repeatSwitch = "repeatSwitch"
+    static let fallAsleepSlider = "fallAsleepSlider"
 }

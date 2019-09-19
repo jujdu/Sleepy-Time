@@ -42,11 +42,9 @@ class MainVC: UIViewController {
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.timeZone = .current
         
-        pickTimeTxt.text = dateFormatter.string(from: datePicker.date)
+        pickTimeTxt.text = convertedDateToString(date: datePicker.date)
+        
         choosenTime = AlarmTime(cycle: 0, date: datePicker.date, needTimeToFallAsleep: nil, type: .toTime)
         wakeUpToTimeBtn.isEnabled = true
     }
