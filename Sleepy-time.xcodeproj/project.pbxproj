@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6F025F87233011D80038E36D /* TimePickerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F025F86233011D80038E36D /* TimePickerTextField.swift */; };
+		6F4E88352337BD140068791B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E88342337BD140068791B /* Extensions.swift */; };
 		6F93248923340CF6006E97B1 /* SupportFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F93248823340CF6006E97B1 /* SupportFile.swift */; };
 		6FB5391D2326B38500B5DB92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5391C2326B38500B5DB92 /* AppDelegate.swift */; };
 		6FB5391F2326B38500B5DB92 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5391E2326B38500B5DB92 /* MainVC.swift */; };
@@ -18,10 +19,10 @@
 		6FB539342326C12C00B5DB92 /* ToTimeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB539332326C12C00B5DB92 /* ToTimeVC.swift */; };
 		6FB539362326C2C800B5DB92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB539352326C2C800B5DB92 /* Constants.swift */; };
 		6FB539392326C3C800B5DB92 /* AlarmTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB539382326C3C800B5DB92 /* AlarmTime.swift */; };
-		6FB5393E2326C98400B5DB92 /* ToTimeCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5393C2326C98400B5DB92 /* ToTimeCycleCell.swift */; };
-		6FB5393F2326C98400B5DB92 /* CycleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB5393D2326C98400B5DB92 /* CycleCell.xib */; };
-		6FB7D8AF2331AD5A00B40711 /* FromNowCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AD2331AD5A00B40711 /* FromNowCycleCell.swift */; };
-		6FB7D8B02331AD5A00B40711 /* FromNowCycleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AE2331AD5A00B40711 /* FromNowCycleCell.xib */; };
+		6FB5393E2326C98400B5DB92 /* FromNowCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5393C2326C98400B5DB92 /* FromNowCycleCell.swift */; };
+		6FB5393F2326C98400B5DB92 /* FromNowCycleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB5393D2326C98400B5DB92 /* FromNowCycleCell.xib */; };
+		6FB7D8AF2331AD5A00B40711 /* ToTimeCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AD2331AD5A00B40711 /* ToTimeCycleCell.swift */; };
+		6FB7D8B02331AD5A00B40711 /* ToTimeCycleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AE2331AD5A00B40711 /* ToTimeCycleCell.xib */; };
 		6FB7D8B22332BDCB00B40711 /* SupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8B12332BDCB00B40711 /* SupportVC.swift */; };
 		6FB7D8B42333F08F00B40711 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8B32333F08F00B40711 /* RoundedButton.swift */; };
 		6FEA7BA723302A0E00D580DD /* FromNowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEA7BA623302A0E00D580DD /* FromNowVC.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		6F025F86233011D80038E36D /* TimePickerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerTextField.swift; sourceTree = "<group>"; };
+		6F4E88342337BD140068791B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		6F93248823340CF6006E97B1 /* SupportFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportFile.swift; sourceTree = "<group>"; };
 		6FB539192326B38500B5DB92 /* Sleepy-time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleepy-time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FB5391C2326B38500B5DB92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,10 +43,10 @@
 		6FB539332326C12C00B5DB92 /* ToTimeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTimeVC.swift; sourceTree = "<group>"; };
 		6FB539352326C2C800B5DB92 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6FB539382326C3C800B5DB92 /* AlarmTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmTime.swift; sourceTree = "<group>"; };
-		6FB5393C2326C98400B5DB92 /* ToTimeCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTimeCycleCell.swift; sourceTree = "<group>"; };
-		6FB5393D2326C98400B5DB92 /* CycleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CycleCell.xib; sourceTree = "<group>"; };
-		6FB7D8AD2331AD5A00B40711 /* FromNowCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromNowCycleCell.swift; sourceTree = "<group>"; };
-		6FB7D8AE2331AD5A00B40711 /* FromNowCycleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FromNowCycleCell.xib; sourceTree = "<group>"; };
+		6FB5393C2326C98400B5DB92 /* FromNowCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromNowCycleCell.swift; sourceTree = "<group>"; };
+		6FB5393D2326C98400B5DB92 /* FromNowCycleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FromNowCycleCell.xib; sourceTree = "<group>"; };
+		6FB7D8AD2331AD5A00B40711 /* ToTimeCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTimeCycleCell.swift; sourceTree = "<group>"; };
+		6FB7D8AE2331AD5A00B40711 /* ToTimeCycleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToTimeCycleCell.xib; sourceTree = "<group>"; };
 		6FB7D8B12332BDCB00B40711 /* SupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportVC.swift; sourceTree = "<group>"; };
 		6FB7D8B32333F08F00B40711 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		6FEA7BA623302A0E00D580DD /* FromNowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromNowVC.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				6FB539352326C2C800B5DB92 /* Constants.swift */,
 				6F93248823340CF6006E97B1 /* SupportFile.swift */,
+				6F4E88342337BD140068791B /* Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -135,10 +138,10 @@
 		6FB5393A2326C93C00B5DB92 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				6FB5393C2326C98400B5DB92 /* ToTimeCycleCell.swift */,
-				6FB5393D2326C98400B5DB92 /* CycleCell.xib */,
-				6FB7D8AD2331AD5A00B40711 /* FromNowCycleCell.swift */,
-				6FB7D8AE2331AD5A00B40711 /* FromNowCycleCell.xib */,
+				6FB7D8AD2331AD5A00B40711 /* ToTimeCycleCell.swift */,
+				6FB7D8AE2331AD5A00B40711 /* ToTimeCycleCell.xib */,
+				6FB5393C2326C98400B5DB92 /* FromNowCycleCell.swift */,
+				6FB5393D2326C98400B5DB92 /* FromNowCycleCell.xib */,
 			);
 			name = Xibs;
 			path = Controller/Xibs;
@@ -204,8 +207,8 @@
 			files = (
 				6FB539272326B38B00B5DB92 /* LaunchScreen.storyboard in Resources */,
 				6FB539242326B38B00B5DB92 /* Assets.xcassets in Resources */,
-				6FB7D8B02331AD5A00B40711 /* FromNowCycleCell.xib in Resources */,
-				6FB5393F2326C98400B5DB92 /* CycleCell.xib in Resources */,
+				6FB7D8B02331AD5A00B40711 /* ToTimeCycleCell.xib in Resources */,
+				6FB5393F2326C98400B5DB92 /* FromNowCycleCell.xib in Resources */,
 				6FB539222326B38500B5DB92 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,18 +221,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FB539362326C2C800B5DB92 /* Constants.swift in Sources */,
-				6FB7D8AF2331AD5A00B40711 /* FromNowCycleCell.swift in Sources */,
+				6FB7D8AF2331AD5A00B40711 /* ToTimeCycleCell.swift in Sources */,
 				6FB5391F2326B38500B5DB92 /* MainVC.swift in Sources */,
 				6F025F87233011D80038E36D /* TimePickerTextField.swift in Sources */,
 				6FB539392326C3C800B5DB92 /* AlarmTime.swift in Sources */,
 				6F93248923340CF6006E97B1 /* SupportFile.swift in Sources */,
-				6FB5393E2326C98400B5DB92 /* ToTimeCycleCell.swift in Sources */,
+				6FB5393E2326C98400B5DB92 /* FromNowCycleCell.swift in Sources */,
 				6FB7D8B22332BDCB00B40711 /* SupportVC.swift in Sources */,
 				6FB7D8B42333F08F00B40711 /* RoundedButton.swift in Sources */,
 				6FB539342326C12C00B5DB92 /* ToTimeVC.swift in Sources */,
 				6FB5391D2326B38500B5DB92 /* AppDelegate.swift in Sources */,
 				6FEA7BA723302A0E00D580DD /* FromNowVC.swift in Sources */,
 				6FB539322326C11600B5DB92 /* SettingsVC.swift in Sources */,
+				6F4E88352337BD140068791B /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

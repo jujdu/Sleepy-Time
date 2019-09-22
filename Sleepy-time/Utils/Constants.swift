@@ -14,12 +14,12 @@ struct Segues {
 }
 
 struct Identifires {
-    static let cycleCell = "cycleCell"
-    static let fromNowCycleCell = "fromNowCycleCell"
+    static let toTimeCycleCell = "ToTimeCycleCell"
+    static let fromNowCycleCell = "FromNowCycleCell"
 }
 
 struct Xibs {
-    static let cycleCell = "CycleCell"
+    static let toTimeCycleCell = "ToTimeCycleCell"
     static let fromNowCycleCell = "FromNowCycleCell"
 }
 

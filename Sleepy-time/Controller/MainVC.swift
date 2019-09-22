@@ -14,27 +14,32 @@ class MainVC: UIViewController {
     @IBOutlet weak var wakeUpFromNowBtn: UIButton!
     @IBOutlet weak var pickTimeTxt: UITextField!
     
-    private var datePicker: UIDatePicker?
+    private var datePicker: UIDatePicker!
     
     var choosenTime: AlarmTime!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        pickTimeTxt.delegate = self
+        setupDatePicker()
+        setupTapGestureToView()
+    }
+    
+    func setupDatePicker() {
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .time
         datePicker?.minuteInterval = 5
         datePicker?.addTarget(self,
                               action: #selector(dateChanged(datePicker:)),
                               for: .valueChanged)
+        
         pickTimeTxt.tintColor = UIColor.clear
-
         pickTimeTxt.inputView = datePicker
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(gestureRecognazer:)))
+    }
+    
+    func setupTapGestureToView() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(viewTapped(gestureRecognazer:)))
         view.addGestureRecognizer(tapGesture)
-        
-        wakeUpToTimeBtn.isEnabled = false
     }
     
     @objc func viewTapped(gestureRecognazer: UITapGestureRecognizer) {
@@ -42,11 +47,11 @@ class MainVC: UIViewController {
     }
     
     @objc func dateChanged(datePicker: UIDatePicker) {
+        let date = datePicker.date
         
-        pickTimeTxt.text = convertedDateToString(date: datePicker.date)
+        pickTimeTxt.text = convertedDateToString(date: date)
         
-        choosenTime = AlarmTime(cycle: 0, date: datePicker.date, needTimeToFallAsleep: nil, type: .toTime)
-        wakeUpToTimeBtn.isEnabled = true
+        choosenTime = AlarmTime(cycle: 0, date: date, needTimeToFallAsleep: nil, type: .toTime)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -62,36 +67,12 @@ class MainVC: UIViewController {
     }
     
     @IBAction func wakeUptoTimeBtnPressed(_ sender: Any) {
-//        add animate to textfield
+        if pickTimeTxt.text?.isEmpty ?? false {
+            pickTimeTxt.shake()
+        } else {
+            performSegue(withIdentifier: Segues.wakeUpToTime, sender: self)
+        }
     }
     
     @IBAction func unwindSegueToMainVC(_ sender: UIStoryboardSegue) {}
 }
-
-//extension MainVC: UITextFieldDelegate {
-//
-//    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//        pickTimeTxt.isUserInteractionEnabled = false
-//        return true
-//    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-//        pickTimeTxt.isUserInteractionEnabled = true
-//
-//    }
-//
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        return false
-//    }
-//}
-
-
-//func calculateWakeUpTime(time: [AlarmTime]) -> [AlarmTime] {
-//    var wakeUpTime = alarmTime
-//    wakeUpTime.insert(AlarmTime(cycleIndex: 0, date: Date()), at: 0)
-//    for i in 1..<6 {
-//        let date = Date(timeInterval: 5400, since: wakeUpTime[i - 1].date)
-//        wakeUpTime.insert(AlarmTime(cycleIndex: i, date: date), at: 0)
-//    }
-//    return wakeUpTime
-//}

@@ -19,12 +19,21 @@ class ToTimeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTableView()
+        setupInfoLbl()
+        alarmTime = calculateWakeUpTime(choosenTime: choosenTime)
+    }
+    
+    func setupInfoLbl() {
+        let date = convertedDateToString(date: choosenTime.date)
+        infoLbl.text = "If you want to wake up at \(date), you should try to fall asleep at one of the following times:"
+    }
+    
+    func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: Xibs.fromNowCycleCell, bundle: nil),
-                           forCellReuseIdentifier: Identifires.fromNowCycleCell)
-        infoLbl.text = "If you want to wake up at \(convertedDateToString(date: choosenTime.date)), you should try to fall asleep at one of the following times:"
-        alarmTime = calculateWakeUpTime(choosenTime: choosenTime)
+        tableView.register(UINib(nibName: Xibs.toTimeCycleCell, bundle: nil),
+                           forCellReuseIdentifier: Identifires.toTimeCycleCell)
     }
     
     func calculateWakeUpTime(choosenTime: AlarmTime) -> [Date] {
@@ -44,7 +53,7 @@ extension ToTimeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: Identifires.fromNowCycleCell, for: indexPath) as? FromNowCycleCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: Identifires.toTimeCycleCell, for: indexPath) as? ToTimeCycleCell {
             cell.setupUI(time: alarmTime[indexPath.row], index: indexPath.row)
             return cell
         }
@@ -53,9 +62,5 @@ extension ToTimeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
     }
 }

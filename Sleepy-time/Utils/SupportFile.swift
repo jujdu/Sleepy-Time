@@ -15,3 +15,10 @@ public func convertedDateToString(date: Date) -> String {
     
     return dateFormatter.string(from: date)
 }
+
+
+public func getStringFromDate(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.timeStyle = .short
+    return formatter.string(from: date)
+}

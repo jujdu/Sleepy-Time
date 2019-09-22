@@ -24,13 +24,20 @@ class SettingsVC: UITableViewController {
     }
     
     func setupUI() {
+        setupSnoozeCell()
+        setupFallAsleepCell()
+    }
+    
+    func setupSnoozeCell() {
         repeatSlider.minimumValue = 1
         repeatSlider.maximumValue = 30
         let minToRepeat = userDefaults.float(forKey: UserDefaultKeys.repeatSlider)
         repeatLbl.text = "\(Int(minToRepeat)) min"
         repeatSlider.value = minToRepeat
         repeatSwitch.isOn = userDefaults.bool(forKey: UserDefaultKeys.repeatSwitch)
-        
+    }
+    
+    func setupFallAsleepCell() {
         fallAsleepSlider.minimumValue = 4
         fallAsleepSlider.maximumValue = 45
         let minToFallAsleep = userDefaults.float(forKey: UserDefaultKeys.fallAsleepSlider)

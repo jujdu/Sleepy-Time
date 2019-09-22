@@ -34,13 +34,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Pick time" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-xJ-zCP" customClass="TimePickerTextField" customModule="Sleepy_time" customModuleProvider="target">
-                                        <rect key="frame" x="105" y="37" width="141.5" height="47"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="pick time" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-xJ-zCP" customClass="TimePickerTextField" customModule="Sleepy_time" customModuleProvider="target">
+                                        <rect key="frame" x="104.5" y="37" width="142.5" height="47"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="34"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ih-48-cQ3">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ih-48-cQ3" customClass="RoundedButton" customModule="Sleepy_time" customModuleProvider="target">
                                         <rect key="frame" x="87" y="96" width="177" height="45"/>
                                         <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -50,7 +50,6 @@
                                         <state key="normal" title="Calculate"/>
                                         <connections>
                                             <action selector="wakeUptoTimeBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jFQ-Dv-ad2"/>
-                                            <segue destination="nBF-KJ-xDU" kind="show" identifier="wakeUpToTime" id="dDQ-OB-93b"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-vI-nWU">
@@ -65,7 +64,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-WY-5Av">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-WY-5Av" customClass="RoundedButton" customModule="Sleepy_time" customModuleProvider="target">
                                         <rect key="frame" x="87" y="251.5" width="177" height="45"/>
                                         <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
@@ -114,13 +113,14 @@
                         <outlet property="pickTimeTxt" destination="6B7-xJ-zCP" id="5QE-4n-No5"/>
                         <outlet property="wakeUpFromNowBtn" destination="c0T-WY-5Av" id="yqg-3N-zME"/>
                         <outlet property="wakeUpToTimeBtn" destination="0Ih-48-cQ3" id="vxk-Lc-tNR"/>
+                        <segue destination="nBF-KJ-xDU" kind="show" identifier="wakeUpToTime" id="GiN-x3-jDk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1797.5999999999999" y="-237.03148425787109"/>
         </scene>
-        <!--Wake up-->
+        <!--Wake up?-->
         <scene sceneID="Pw0-76-g9f">
             <objects>
                 <viewController id="nBF-KJ-xDU" customClass="ToTimeVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
@@ -163,7 +163,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="8FV-gx-qco"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Wake up" id="5co-Vn-30Z">
+                    <navigationItem key="navigationItem" title="Wake up?" id="5co-Vn-30Z">
                         <barButtonItem key="rightBarButtonItem" image="ic_add_alarm_36pt" id="sFA-sB-kd1"/>
                     </navigationItem>
                     <connections>
@@ -175,7 +175,7 @@
             </objects>
             <point key="canvasLocation" x="2720.8000000000002" y="-537.48125937031489"/>
         </scene>
-        <!--From NowVC-->
+        <!--Wake up?-->
         <scene sceneID="c1V-Nu-eg5">
             <objects>
                 <viewController id="uU7-eJ-wVm" customClass="FromNowVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
@@ -217,6 +217,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hdS-jL-9Q8"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Wake up?" id="q6h-6m-U3d"/>
                     <connections>
                         <outlet property="tableView" destination="nyW-an-B9N" id="XWS-M9-bI2"/>
                     </connections>
