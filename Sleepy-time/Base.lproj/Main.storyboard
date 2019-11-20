@@ -20,82 +20,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="qOe-Lu-W7k">
-                                <rect key="frame" x="12" y="185.5" width="351" height="296.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I have to wake up at..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2x-Pk-4VQ">
-                                        <rect key="frame" x="87" y="0.0" width="177" height="25"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="177" id="Hhh-eN-pcn"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="pick time" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6B7-xJ-zCP" customClass="TimePickerTextField" customModule="Sleepy_time" customModuleProvider="target">
-                                        <rect key="frame" x="106.5" y="37" width="138.5" height="47"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="34"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ih-48-cQ3" customClass="RoundedButton" customModule="Sleepy_time" customModuleProvider="target">
-                                        <rect key="frame" x="87" y="96" width="177" height="45"/>
-                                        <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="Pgi-DK-sKv"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                        <state key="normal" title="Calculate"/>
-                                        <connections>
-                                            <action selector="wakeUptoTimeBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jFQ-Dv-ad2"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXz-vI-nWU">
-                                        <rect key="frame" x="167" y="153" width="17" height="25"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find out when to get up if you go to bed right now" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dq4-By-eQj">
-                                        <rect key="frame" x="8.5" y="190" width="334.5" height="49.5"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0T-WY-5Av" customClass="RoundedButton" customModule="Sleepy_time" customModuleProvider="target">
-                                        <rect key="frame" x="87" y="251.5" width="177" height="45"/>
-                                        <color key="backgroundColor" red="0.2158032476" green="0.2041332629" blue="0.3083756345" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="6Rb-KR-bq0"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                        <state key="normal" title="zzZ"/>
-                                        <connections>
-                                            <segue destination="uU7-eJ-wVm" kind="show" identifier="wakeUpFromNow" id="tzJ-oy-fn2"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="0Ih-48-cQ3" firstAttribute="width" secondItem="a2x-Pk-4VQ" secondAttribute="width" id="icp-s2-R78"/>
-                                    <constraint firstItem="c0T-WY-5Av" firstAttribute="width" secondItem="a2x-Pk-4VQ" secondAttribute="width" id="nai-kj-uTN"/>
-                                </constraints>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ype-aO-W5V" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="10L-kt-n3Y"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ype-aO-W5V" secondAttribute="trailing" id="1iE-zL-YJG"/>
                             <constraint firstItem="ype-aO-W5V" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7r3-AG-kG7"/>
-                            <constraint firstItem="qOe-Lu-W7k" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ggf-c0-GJg"/>
-                            <constraint firstAttribute="trailing" secondItem="qOe-Lu-W7k" secondAttribute="trailing" constant="12" id="L7R-Cc-RKQ"/>
-                            <constraint firstItem="qOe-Lu-W7k" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="MHT-nY-3Ne"/>
                             <constraint firstAttribute="bottom" secondItem="ype-aO-W5V" secondAttribute="bottom" id="kWU-PK-S9m"/>
-                            <constraint firstItem="qOe-Lu-W7k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="12" id="xnX-aL-lHn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="ype-aO-W5V"/>
-                                <exclude reference="qOe-Lu-W7k"/>
                             </mask>
                         </variation>
                     </view>
@@ -108,9 +44,6 @@
                         <barButtonItem key="rightBarButtonItem" image="ic_info_36pt" id="waw-kc-QHl"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="pickTimeTxt" destination="6B7-xJ-zCP" id="5QE-4n-No5"/>
-                        <outlet property="wakeUpFromNowBtn" destination="c0T-WY-5Av" id="yqg-3N-zME"/>
-                        <outlet property="wakeUpToTimeBtn" destination="0Ih-48-cQ3" id="vxk-Lc-tNR"/>
                         <segue destination="nBF-KJ-xDU" kind="show" identifier="wakeUpToTime" id="GiN-x3-jDk"/>
                     </connections>
                 </viewController>
@@ -121,7 +54,7 @@
         <!--Wake up?-->
         <scene sceneID="Pw0-76-g9f">
             <objects>
-                <viewController id="nBF-KJ-xDU" customClass="ToTimeVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ToTimeVC" id="nBF-KJ-xDU" customClass="ToTimeVC" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="V5q-Zh-ahv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -166,7 +99,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="infoLbl" destination="CPU-5r-XtO" id="9wY-z9-P0l"/>
-                        <outlet property="tableView" destination="udD-np-iN4" id="Uga-7g-jE9"/>
+                        <outlet property="tableView" destination="udD-np-iN4" id="4uQ-Hi-dst"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UUe-uZ-0Kg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -187,14 +120,14 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nyW-an-B9N">
-                                <rect key="frame" x="0.0" y="124" width="375" height="543"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you head to bed right now, you should try to wake up at one of the following times:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZgP-V5-2fi">
-                                <rect key="frame" x="12" y="44" width="351" height="80"/>
+                                <rect key="frame" x="12" y="0.0" width="351" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="711-7d-jkh"/>

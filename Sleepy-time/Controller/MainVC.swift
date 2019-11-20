@@ -8,60 +8,54 @@
 
 import UIKit
 
-//class CustomUIView: UIView {
-//    override var canBecomeFirstResponder: Bool {
-//        return true
-//    }
-//}
-
 class MainVC: UIViewController {
-    
-    @IBOutlet weak var wakeUpToTimeBtn: UIButton!
-    @IBOutlet weak var wakeUpFromNowBtn: UIButton!
-    @IBOutlet weak var pickTimeTxt: UITextField!
+
+    //MARK: - Stack View
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        stackView.spacing = 12
+        return stackView
+    }()
     
     //MARK: - Have to wake up views
-    let haveToWakeUpLabel: UILabel = {
+    let descriptionToTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
+        label.text = "I have to wake up at..."
+        label.textAlignment = .center
+        label.font = UIFont(name: "Avenir-Book", size: 17)
         label.numberOfLines = 1
         return label
     }()
-    
-    //MARK: - DatePicker
-    //    var datePicker: UIDatePicker = {
-    //        let datePicker = UIDatePicker()
-    //        datePicker.translatesAutoresizingMaskIntoConstraints = false
-    //        datePicker.datePickerMode = .time
-    //        datePicker.minuteInterval = 5
-    //        datePicker.addTarget(self, action: #selector(dateChanged(datePicker:)), for: .valueChanged)
-    //       return datePicker
-    //    }()
-    
-    
-    let timeLabel: DatePickerLabel = {
+
+    let toTimeLabel: DatePickerLabel = {
         let dateDatePicker = UIDatePicker()
         dateDatePicker.translatesAutoresizingMaskIntoConstraints = false
         dateDatePicker.datePickerMode = .time
         dateDatePicker.minuteInterval = 5
-        dateDatePicker.addTarget(self, action: #selector(dateChanged(datePicker:)), for: .valueChanged)
         
         let label = DatePickerLabel(datePickerView: dateDatePicker, toolbar: UIToolbar())
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.backgroundColor = .yellow
-        label.numberOfLines = 1
-        label.font = UIFont(name: "Futura", size: 35)
-        label.placeholder = "-:-"
+        label.text = "Find out when to get up if you go to bed right now"
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.font = UIFont(name: "Avenir-Light", size: 35)
+        label.placeholder = "pick time"
         return label
     }()
     
-    let wakeUpToTimeButton: UIButton = {
-        let button = UIButton()
+    let toTimeButton: UIButton = {
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Calculate", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Book", size: 20)
         button.backgroundColor = .blue
         return button
     }()
@@ -71,202 +65,107 @@ class MainVC: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
+        label.text = "or"
+        label.textAlignment = .center
+        label.font = UIFont(name: "Avenir-Book", size: 17)
         label.numberOfLines = 1
         return label
     }()
     
     //MARK: - Find ut when to get up Views
-    let FindOutWhenLabel: UILabel = {
+    let fromNowTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.numberOfLines = 1
+        label.text = "Find out when to get up if you go to bed right now"
+        label.textAlignment = .center
+        label.font = UIFont(name: "Avenir-Book", size: 17)
+        label.numberOfLines = 2
         return label
     }()
     
-    let wakeUpToTimeLabel: UIButton = {
-        let button = UIButton()
+    let fromNowTimeButton: UIButton = {
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("zzZ", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Avenir-Book", size: 20)
         button.backgroundColor = .blue
         return button
     }()
     
-    private var datePicker: UIDatePicker!
+    //MARK: - Properties
+    var choosenTime = AlarmTime(cycle: 5, date: Date(), needTimeToFallAsleep: nil, type: .toTime)
     
-    var choosenTime: AlarmTime!
-    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDatePicker()
-        setupTapGestureToView()
-        
-        view.addSubview(timeLabel)
-        timeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        timeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        setupConstraints()
+        setupTapGestureForView()
+        setupTapGestureForToTimeButton()
     }
     
-    func setupDatePicker() {
-        datePicker = UIDatePicker()
-        datePicker?.datePickerMode = .time
-        datePicker?.minuteInterval = 5
-        datePicker?.addTarget(self,
-                              action: #selector(dateChanged(datePicker:)),
-                              for: .valueChanged)
+    //MARK: - Constraints
+    
+    private func setupConstraints() {
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(descriptionToTimeLabel)
+        stackView.addArrangedSubview(toTimeLabel)
+        stackView.addArrangedSubview(toTimeButton)
+        stackView.addArrangedSubview(orLabel)
+        stackView.addArrangedSubview(fromNowTimeLabel)
+        stackView.addArrangedSubview(fromNowTimeButton)
         
-        pickTimeTxt.tintColor = UIColor.clear
-        pickTimeTxt.inputView = datePicker
+        stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        
+        toTimeLabel.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
+        toTimeButton.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
+        fromNowTimeButton.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
     }
     
-    //MARK: - Gesture to listen datePicker changing
-    @objc func dateChanged(datePicker: UIDatePicker) {
-        let date = datePicker.date
-        pickTimeTxt.text = convertedDateToString(date: date)
-        choosenTime = AlarmTime(cycle: 0, date: date, needTimeToFallAsleep: nil, type: .toTime)
+    func setupTapGestureForToTimeButton() {
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(toTimeButtonTapped))
+        toTimeButton.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func toTimeButtonTapped() {
+        if toTimeLabel.placeholder != nil {
+            toTimeLabel.shake()
+        } else {
+//            let vc = ToTimeVC(choosenTime: choosenTime)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ToTimeVC") as! ToTimeVC
+            vc.choosenTime = choosenTime
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     //MARK: - Tap Gesture to View to exit Picker View
-    func setupTapGestureToView() {
-        let tapGesture = UITapGestureRecognizer(target: self,
-                                                action: #selector(viewTapped(gestureRecognazer:)))
+    func setupTapGestureForView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tapGesture)
     }
     
-    @objc func viewTapped(gestureRecognazer: UITapGestureRecognizer) {
+    @objc func viewTapped() {
         view.endEditing(true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Segues.wakeUpToTime {
-            if let destination = segue.destination as? ToTimeVC {
-                destination.choosenTime = choosenTime
-            }
-        } else if segue.identifier == Segues.wakeUpFromNow {
-            if let destination = segue.destination as? FromNowVC {
-                destination.choosenTime = AlarmTime(cycle: 0, date: Date(), needTimeToFallAsleep: nil, type: .fromNow)
-            }
-        }
-    }
-    
-    @IBAction func wakeUptoTimeBtnPressed(_ sender: Any) {
-        if pickTimeTxt.text?.isEmpty ?? false {
-            pickTimeTxt.shake()
-        } else {
-            performSegue(withIdentifier: Segues.wakeUpToTime, sender: self)
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == Segues.wakeUpToTime {
+//            if let destination = segue.destination as? ToTimeVC {
+//                destination.choosenTime = choosenTime
+//            }
+//        } else if segue.identifier == Segues.wakeUpFromNow {
+//            if let destination = segue.destination as? FromNowVC {
+//                destination.choosenTime = AlarmTime(cycle: 0, date: Date(), needTimeToFallAsleep: nil, type: .fromNow)
+//            }
+//        }
+//    }
     
     @IBAction func unwindSegueToMainVC(_ sender: UIStoryboardSegue) {}
-}
-
-//extension MainVC: UITextFieldDelegate {
-//    func textFieldDidBeginEditing(_ textField: UITextField) {
-//        print(#function)
-//        pickTimeTxt.isUserInteractionEnabled = false
-//    }
-//
-//    //    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-//    //        return true
-//    //    }
-//    //    func textFieldDidBeginEditing(_ textField: UITextField) {
-//    //        textField.isEnabled = false
-//    //    }
-//
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        textField.isUserInteractionEnabled = true
-//    }
-//}
-
-final class DatePickerLabel: UILabel {
-    private let datePickerView: UIDatePicker
-    private let toolbar: UIToolbar
-    private var userTextColor: UIColor!
-    private var userText: String!
-    
-    var placeholder: String? {
-        willSet {
-            self.userTextColor = self.textColor
-            super.text = newValue
-        }
-    }
-    
-    override var text: String? {
-        get {
-            return "sadasdasd"
-        }
-        
-        set {
-            super.text = newValue
-        }
-    }
-    
-//    override var text: String? {
-//        get {
-//            if placeholder != nil {
-//                self.textColor = .green
-//                return placeholder
-//            } else {
-//                self.textColor = .red
-//                return "self.text"
-//            }
-//        }
-//        set {
-//            placeholder = nil
-//        }
-//    }
-        
-//        didSet {
-//            if placeholder != nil {
-//                print("placeholder")
-//                print(placeholder)
-//
-//                self.text = placeholder
-//                textColor = .gray
-//            } else {
-//                print("userTextColor")
-//
-//                self.text = "abasdasdsaas"
-//                textColor = userTextColor
-//            }
-//        }
-//    }
-    
-    required init(datePickerView: UIDatePicker, toolbar: UIToolbar) {
-        self.datePickerView = datePickerView
-        self.toolbar = toolbar
-        super.init(frame: .zero)
-        
-        self.isUserInteractionEnabled = true
-        datePickerView.addTarget(self, action: #selector(valueChanged(datePicker:)), for: .valueChanged)
-        
-        let recogniser = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        addGestureRecognizer(recogniser)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError()
-    }
-    
-    override var inputView: UIView? {
-        return datePickerView
-    }
-    
-    override var inputAccessoryView: UIView? {
-        return toolbar
-    }
-    
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
-    @objc private func tapped() {
-        becomeFirstResponder()
-    }
-    
-    @objc private func valueChanged(datePicker: UIDatePicker) {
-        let date = datePicker.date
-        self.placeholder = nil
-        self.text = convertedDateToString(date: date)
-    }
 }

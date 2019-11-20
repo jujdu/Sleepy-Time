@@ -17,6 +17,15 @@ class ToTimeVC: UIViewController {
     var alarmTime: [Date]!
     let userDefaults = UserDefaults()
     
+//    init(choosenTime: AlarmTime) {
+//        self.choosenTime = choosenTime
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -53,10 +62,10 @@ extension ToTimeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: Identifires.toTimeCycleCell, for: indexPath) as? ToTimeCycleCell {
-            cell.setupUI(time: alarmTime[indexPath.row], index: indexPath.row)
-            return cell
-        }
+//        if let cell = tableView.dequeueReusableCell(withIdentifier: Identifires.toTimeCycleCell, for: indexPath) as? ToTimeCycleCell {
+//            cell.setupUI(time: alarmTime[indexPath.row], index: indexPath.row)
+//            return cell
+//        }
         return UITableViewCell()
     }
     
