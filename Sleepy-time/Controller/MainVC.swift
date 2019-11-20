@@ -187,25 +187,17 @@ final class DatePickerLabel: UILabel {
     var placeholder: String? {
         willSet {
             self.userTextColor = self.textColor
-            self.userText = newValue
+            super.text = newValue
         }
     }
     
     override var text: String? {
         get {
-            if placeholder != nil {
-                print(placeholder)
-                self.textColor = .green
-                return "placeholder"
-            } else {
-                print("text")
-                self.textColor = .red
-                return "userText"
-            }
+            return "sadasdasd"
         }
         
         set {
-            self.text = newValue
+            super.text = newValue
         }
     }
     
