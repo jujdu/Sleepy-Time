@@ -19,10 +19,10 @@ class ToTimeCycleCell: UITableViewCell {
         // Initialization code
     }
     
-    func setupUI(time: Date, index: Int) {
+    func setupUI(date: Date, index: Int) {
         cycleLbl.text = "Cycles: \(6 - index)"
         hoursLbl.text = foundSleepyHours(index: index)
-        timeLbl.text = getStringFromDate(time)
+        timeLbl.text = date.shortStyleString()
     }
     
     func foundSleepyHours(index: Int) -> String {

@@ -19,10 +19,10 @@ class FromNowCycleCell: UITableViewCell {
         // Initialization code
     }
     
-    func setupUI(time: Date, index: Int) {
+    func setupUI(date: Date, index: Int) {
         cycleLbl.text = "Cycles: \(index + 1)"
         hoursLbl.text = foundSleepyHoursFromNow(index: index)
-        timeLbl.text = getStringFromDate(time)
+        timeLbl.text = date.shortStyleString()
     }
     
     func foundSleepyHoursFromNow(index: Int) -> String {

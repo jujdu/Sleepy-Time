@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  UIView+Extension.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 22/09/2019.

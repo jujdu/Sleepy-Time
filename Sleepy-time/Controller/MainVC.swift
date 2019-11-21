@@ -21,7 +21,7 @@ class MainVC: UIViewController {
         return stackView
     }()
     
-    //MARK: - Have to wake up views
+    //MARK: - To Time Views
     let descriptionToTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class MainVC: UIViewController {
         dateDatePicker.datePickerMode = .time
         dateDatePicker.minuteInterval = 5
         
-        let label = DatePickerLabel(datePickerView: dateDatePicker, toolbar: UIToolbar())
+        let label = DatePickerLabel(datePickerView: dateDatePicker)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.text = "Find out when to get up if you go to bed right now"
@@ -50,13 +50,13 @@ class MainVC: UIViewController {
         return label
     }()
     
-    let toTimeButton: UIButton = {
-        let button = UIButton(type: .system)
+    let toTimeButton: RoundedButton = {
+        let button = RoundedButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Calculate", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: "Avenir-Book", size: 20)
-        button.backgroundColor = .blue
+        button.backgroundColor = .cyan
         return button
     }()
     
@@ -72,7 +72,7 @@ class MainVC: UIViewController {
         return label
     }()
     
-    //MARK: - Find ut when to get up Views
+    //MARK: - From Now Time Views
     let fromNowTimeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,18 +84,20 @@ class MainVC: UIViewController {
         return label
     }()
     
-    let fromNowTimeButton: UIButton = {
-        let button = UIButton(type: .system)
+    let fromNowTimeButton: RoundedButton = {
+        let button = RoundedButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("zzZ", for: .normal)
+        let myMutableString = NSMutableAttributedString(string: "zzz", attributes: [NSAttributedString.Key.font: UIFont(name: "Avenir-Book", size: 16)!])
+        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: "Avenir-Book", size: 20)!], range: NSRange(location: 1, length: 1))
+        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: "Avenir-Book", size: 24)!], range: NSRange(location: 2, length: 1))
+        button.setAttributedTitle(myMutableString, for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Avenir-Book", size: 20)
-        button.backgroundColor = .blue
+        button.backgroundColor = .cyan
         return button
     }()
     
     //MARK: - Properties
-    var choosenTime = AlarmTime(cycle: 5, date: Date(), needTimeToFallAsleep: nil, type: .toTime)
+    var choosenTime: AlarmTime!
     
     //MARK: - Life Cycle
     override func viewDidLoad() {
@@ -103,6 +105,7 @@ class MainVC: UIViewController {
         setupConstraints()
         setupTapGestureForView()
         setupTapGestureForToTimeButton()
+        setupTapGestureForFromNowTimeButton()
     }
     
     //MARK: - Constraints
@@ -118,34 +121,16 @@ class MainVC: UIViewController {
         
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
         toTimeLabel.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
         toTimeButton.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
+        toTimeButton.heightAnchor.constraint(equalTo: fromNowTimeButton.heightAnchor).isActive = true
         fromNowTimeButton.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
     }
     
-    func setupTapGestureForToTimeButton() {
-        let tapGesture = UITapGestureRecognizer(target: self,
-                                                action: #selector(toTimeButtonTapped))
-        toTimeButton.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func toTimeButtonTapped() {
-        if toTimeLabel.placeholder != nil {
-            toTimeLabel.shake()
-        } else {
-//            let vc = ToTimeVC(choosenTime: choosenTime)
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "ToTimeVC") as! ToTimeVC
-            vc.choosenTime = choosenTime
-            navigationController?.pushViewController(vc, animated: true)
-        }
-    }
-    
-    //MARK: - Tap Gesture to View to exit Picker View
+    //MARK: - Gesture View
     func setupTapGestureForView() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped))
         view.addGestureRecognizer(tapGesture)
@@ -155,17 +140,36 @@ class MainVC: UIViewController {
         view.endEditing(true)
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == Segues.wakeUpToTime {
-//            if let destination = segue.destination as? ToTimeVC {
-//                destination.choosenTime = choosenTime
-//            }
-//        } else if segue.identifier == Segues.wakeUpFromNow {
-//            if let destination = segue.destination as? FromNowVC {
-//                destination.choosenTime = AlarmTime(cycle: 0, date: Date(), needTimeToFallAsleep: nil, type: .fromNow)
-//            }
-//        }
-//    }
+    //MARK: - Gesture toTimeButton
+    func setupTapGestureForToTimeButton() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(toTimeButtonTapped))
+        toTimeButton.addGestureRecognizer(tapGesture)
+    }
     
-    @IBAction func unwindSegueToMainVC(_ sender: UIStoryboardSegue) {}
+    @objc func toTimeButtonTapped() {
+        guard toTimeLabel.placeholder == nil, let date = toTimeLabel.text?.customStyleDate() else {
+            toTimeLabel.shake()
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ToTimeVC") as! ToTimeVC
+        choosenTime = AlarmTime(cycle: 6, date: date, needTimeToFallAsleep: 0, type: .toTime)
+        vc.choosenTime = choosenTime
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //MARK: - Gesture fromNowTimeButton
+    func setupTapGestureForFromNowTimeButton() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(fromNowTimeButtonTapped))
+        fromNowTimeButton.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func fromNowTimeButtonTapped() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "FromNowTimeVC") as! FromNowVC
+        let currentTime = AlarmTime(cycle: 6, date: Date(), needTimeToFallAsleep: 0, type: .fromNow)
+        vc.choosenTime = currentTime
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }

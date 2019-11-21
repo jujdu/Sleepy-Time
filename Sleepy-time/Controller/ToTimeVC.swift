@@ -34,7 +34,7 @@ class ToTimeVC: UIViewController {
     }
     
     func setupInfoLbl() {
-        let date = convertedDateToString(date: choosenTime.date)
+        let date = choosenTime.date.customStyleString()
         infoLbl.text = "If you want to wake up at \(date), you should try to fall asleep at one of the following times:"
     }
     

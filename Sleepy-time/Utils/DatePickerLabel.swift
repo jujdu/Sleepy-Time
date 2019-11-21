@@ -44,20 +44,25 @@ final class DatePickerLabel: UILabel {
         }
     }
     
-    required init(datePickerView: UIDatePicker, toolbar: UIToolbar) {
+    required init(datePickerView: UIDatePicker, toolbar: UIToolbar = UIToolbar()) {
         self.datePickerView = datePickerView
         self.toolbar = toolbar
         super.init(frame: .zero)
         
         self.isUserInteractionEnabled = true
-        datePickerView.addTarget(self, action: #selector(valueChanged(datePicker:)), for: .valueChanged)
         
         let recogniser = UITapGestureRecognizer(target: self, action: #selector(tapped))
         addGestureRecognizer(recogniser)
+        
+        datePickerView.addTarget(self, action: #selector(valueChanged(datePicker:)), for: .valueChanged)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     override var inputView: UIView? {
@@ -68,10 +73,6 @@ final class DatePickerLabel: UILabel {
         return toolbar
     }
     
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
     @objc private func tapped() {
         becomeFirstResponder()
     }
@@ -79,6 +80,6 @@ final class DatePickerLabel: UILabel {
     @objc private func valueChanged(datePicker: UIDatePicker) {
         let date = datePicker.date
         self.placeholder = nil
-        self.text = convertedDateToString(date: date)
+        super.text = date.customStyleString()
     }
 }

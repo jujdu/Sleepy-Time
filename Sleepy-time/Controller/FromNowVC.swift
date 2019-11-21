@@ -50,7 +50,7 @@ extension FromNowVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: Identifires.fromNowCycleCell, for: indexPath) as? FromNowCycleCell {
-            cell.setupUI(time: alarmTime[indexPath.row], index: indexPath.row)
+            cell.setupUI(date: alarmTime[indexPath.row], index: indexPath.row)
             return cell
         }
         return UITableViewCell()
