@@ -1,15 +1,19 @@
 //
-//  MainVC.swift
+//  MainViewController.swift
 //  Sleepy-time
 //
-//  Created by Michael Sidoruk on 09/09/2019.
-//  Copyright © 2019 Michael Sidoruk. All rights reserved.
+//  Created by Michael Sidoruk on 22.11.2019.
+//  Copyright (c) 2019 Michael Sidoruk. All rights reserved.
 //
 
 import UIKit
 
-class MainVC: UIViewController {
+protocol MainDisplayLogic: class {
+    func displayData(viewModel: Main.Model.ViewModel.ViewModelData)
+}
 
+class MainViewController: UIViewController, MainDisplayLogic {
+    
     //MARK: - Stack View
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -28,11 +32,11 @@ class MainVC: UIViewController {
         label.textColor = .black
         label.text = "I have to wake up at..."
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir-Book", size: 17)
+        label.font = UIFont(name: AppFonts.avenirBook, size: 17)
         label.numberOfLines = 1
         return label
     }()
-
+    
     let toTimeLabel: DatePickerLabel = {
         let dateDatePicker = UIDatePicker()
         dateDatePicker.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +49,7 @@ class MainVC: UIViewController {
         label.text = "Find out when to get up if you go to bed right now"
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.font = UIFont(name: "Avenir-Light", size: 35)
+        label.font = UIFont(name: AppFonts.avenirLight, size: 35)
         label.placeholder = "_ : _"
         return label
     }()
@@ -55,7 +59,7 @@ class MainVC: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Calculate", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: "Avenir-Book", size: 20)
+        button.titleLabel?.font = UIFont(name: AppFonts.avenirBook, size: 20)
         button.backgroundColor = .cyan
         button.layer.cornerRadius = 5
         return button
@@ -68,7 +72,7 @@ class MainVC: UIViewController {
         label.textColor = .black
         label.text = "or"
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir-Book", size: 17)
+        label.font = UIFont(name: AppFonts.avenirBook, size: 17)
         label.numberOfLines = 1
         return label
     }()
@@ -80,7 +84,7 @@ class MainVC: UIViewController {
         label.textColor = .black
         label.text = "Find out when to get up if you go to bed right now"
         label.textAlignment = .center
-        label.font = UIFont(name: "Avenir-Book", size: 17)
+        label.font = UIFont(name: AppFonts.avenirBook, size: 17)
         label.numberOfLines = 2
         return label
     }()
@@ -88,22 +92,54 @@ class MainVC: UIViewController {
     let fromNowTimeButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        let myMutableString = NSMutableAttributedString(string: "zzz", attributes: [NSAttributedString.Key.font: UIFont(name: "Avenir-Book",
-                                                                                                                        size: 16)!,
-                                                                                    NSAttributedString.Key.foregroundColor: UIColor.black])
-        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: "Avenir-Book", size: 20)!], range: NSRange(location: 1, length: 1))
-        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: "Avenir-Book", size: 24)!], range: NSRange(location: 2, length: 1))
+        let myMutableString = NSMutableAttributedString(string: "zzz",
+                                                        attributes: [NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 16)!,
+                                                                     NSAttributedString.Key.foregroundColor: UIColor.black])
+        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 20)!],
+                                      range: NSRange(location: 1, length: 1))
+        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 24)!],
+                                      range: NSRange(location: 2, length: 1))
         button.setAttributedTitle(myMutableString, for: .normal)
-        button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .cyan
         button.layer.cornerRadius = 5
         return button
     }()
     
-    //MARK: - Properties
+    // MARK: - Properties
+    var interactor: MainBusinessLogic?
+    var router: (NSObjectProtocol & MainRoutingLogic & MainDataPassing)?
     var sleepyTime: SleepyTime!
     
-    //MARK: - Life Cycle
+    // MARK: - Object lifecycle
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: - Setup
+    private func setup() {
+        let viewController        = self
+        let interactor            = MainInteractor()
+        let presenter             = MainPresenter()
+        let router                = MainRouter()
+        viewController.interactor = interactor
+        viewController.router     = router
+        interactor.presenter      = presenter
+        presenter.viewController  = viewController
+        router.viewController     = viewController
+        router.dataStore          = interactor
+    }
+    
+    // MARK: - Routing
+    
+    
+    
+    // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -114,12 +150,15 @@ class MainVC: UIViewController {
         setupTapGestureForFromNowTimeButton()
     }
     
+    func displayData(viewModel: Main.Model.ViewModel.ViewModelData) {
+        
+    }
+    
     private func setupNavigationBar() {
         self.navigationItem.title = "Sleepy Time"
     }
     
     //MARK: - Constraints
-    
     private func setupConstraints() {
         view.addSubview(stackView)
         stackView.addArrangedSubview(descriptionToTimeLabel)
@@ -163,9 +202,8 @@ class MainVC: UIViewController {
         }
         sleepyTime = SleepyTime(alarmTime: calculateWakeUpTime(since: date), type: .toTime, choosenDate: date)
         
-        let vc = ToTimeVC()
-        vc.sleepyTime = sleepyTime
-        navigationController?.pushViewController(vc, animated: true)
+        interactor?.makeRequest(request: .some(viewModel: sleepyTime))
+        router?.routeToWakeUpTime(nil)
     }
     
     private func calculateWakeUpTime(since date: Date) -> [AlarmTime] {
@@ -174,8 +212,8 @@ class MainVC: UIViewController {
         var date = Date(timeInterval: -5400 - (minToFallAsleep * 60), since: date)
         
         var alarmsArray = [AlarmTime(cycles: 1,
-                                date: date,
-                                stringDate: date.shortStyleString())]
+                                     date: date,
+                                     stringDate: date.shortStyleString())]
         for i in 1..<6 {
             date = Date(timeInterval: -5400, since: alarmsArray[i - 1].date)
             let cycle = AlarmTime(cycles: i + 1, date: date, stringDate: date.shortStyleString())
@@ -191,10 +229,11 @@ class MainVC: UIViewController {
     }
     
     @objc func fromNowTimeButtonTapped() {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "FromNowTimeVC") as! FromNowVC
-//        let currentTime = AlarmTime(cycle: 6, date: Date(), needTimeToFallAsleep: 0, type: .fromNow)
-//        vc.choosenTime = currentTime
-//        navigationController?.pushViewController(vc, animated: true)
+        //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //        let vc = storyboard.instantiateViewController(withIdentifier: "FromNowTimeVC") as! FromNowVC
+        //        let currentTime = AlarmTime(cycle: 6, date: Date(), needTimeToFallAsleep: 0, type: .fromNow)
+        //        vc.choosenTime = currentTime
+        //        navigationController?.pushViewController(vc, animated: true)
     }
+    
 }

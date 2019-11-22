@@ -29,3 +29,9 @@ struct UserDefaultKeys {
     static let repeatSwitch = "repeatSwitch"
     static let fallAsleepSlider = "fallAsleepSlider"
 }
+
+struct AppFonts {
+    static let avenirLight = "Avenir-Light"
+    static let avenirBook = "Avenir-Book"
+    static let avenirHeavy = "Avenir-Heavy"
+}

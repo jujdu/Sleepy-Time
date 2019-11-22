@@ -16,7 +16,7 @@ class SettingsVC: UITableViewController {
     @IBOutlet weak var fallAsleepLbl: UILabel!
     @IBOutlet weak var fallAsleepSlider: UISlider!
     
-    let userDefaults = UserDefaults()
+    let userDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
