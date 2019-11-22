@@ -15,11 +15,15 @@ protocol WakeUpTimeBusinessLogic {
 protocol WakeUpTimeDataStore {
     //var name: String { get set }
     var sleepyTime: SleepyTime! { get set }
+    var choosenTime: Date! { get set }
+    var alarmTimeType: AlarmTimeType! { get set }
 }
 
 class WakeUpTimeInteractor: WakeUpTimeBusinessLogic, WakeUpTimeDataStore {
     
     var sleepyTime: SleepyTime!
+    var choosenTime: Date!
+    var alarmTimeType: AlarmTimeType!
     
     var presenter: WakeUpTimePresentationLogic?
     var worker: WakeUpTimeWorker?
@@ -31,9 +35,8 @@ class WakeUpTimeInteractor: WakeUpTimeBusinessLogic, WakeUpTimeDataStore {
         
         switch request {
         case .getWakeUpTime:
-            print("WakeUpTimeInteractor .getWakeUpTime")
-            print(sleepyTime)
-            presenter?.presentData(response: .presentWakeUpTime(viewModel: sleepyTime))
+            presenter?.presentData(response: .presentWakeUpTime(date: choosenTime, alarmTimeType: alarmTimeType))
+//            presenter?.presentData(response: .presentWakeUpTime(viewModel: sleepyTime))
         @unknown default:
             print("WakeUpTimeInteractor has another request")
         }

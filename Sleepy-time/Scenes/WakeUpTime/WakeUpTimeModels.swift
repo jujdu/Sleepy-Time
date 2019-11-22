@@ -18,7 +18,7 @@ enum WakeUpTime {
         }
         struct Response {
             enum ResponseType {
-                case presentWakeUpTime(viewModel: SleepyTime)
+                case presentWakeUpTime(date: Date, alarmTimeType: AlarmTimeType)
             }
         }
         struct ViewModel {

@@ -35,7 +35,6 @@
 		6FB5393F2326C98400B5DB92 /* FromNowCycleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB5393D2326C98400B5DB92 /* FromNowCycleCell.xib */; };
 		6FB7D8AF2331AD5A00B40711 /* ToTimeCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AD2331AD5A00B40711 /* ToTimeCycleCell.swift */; };
 		6FB7D8B22332BDCB00B40711 /* SupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8B12332BDCB00B40711 /* SupportVC.swift */; };
-		6FB7D8B42333F08F00B40711 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8B32333F08F00B40711 /* RoundedButton.swift */; };
 		6FBF14FF2386A440006AB01F /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBF14FE2386A440006AB01F /* NSMutableAttributedString+Extension.swift */; };
 		6FBF15012387CC4E006AB01F /* UIView+Constraints+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */; };
 		6FEA7BA723302A0E00D580DD /* FromNowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEA7BA623302A0E00D580DD /* FromNowVC.swift */; };
@@ -72,7 +71,6 @@
 		6FB5393D2326C98400B5DB92 /* FromNowCycleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FromNowCycleCell.xib; sourceTree = "<group>"; };
 		6FB7D8AD2331AD5A00B40711 /* ToTimeCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTimeCycleCell.swift; sourceTree = "<group>"; };
 		6FB7D8B12332BDCB00B40711 /* SupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportVC.swift; sourceTree = "<group>"; };
-		6FB7D8B32333F08F00B40711 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		6FBF14FE2386A440006AB01F /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints+Extension.swift"; sourceTree = "<group>"; };
 		6FEA7BA623302A0E00D580DD /* FromNowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromNowVC.swift; sourceTree = "<group>"; };
@@ -171,7 +169,6 @@
 			children = (
 				6F0970E42388037400BE161D /* Services */,
 				6F7D93112387FF90006A8640 /* Scenes */,
-				6FB5392F2326B7AD00B5DB92 /* View */,
 				6FB5392E2326B7A600B5DB92 /* Controller */,
 				6FB5393A2326C93C00B5DB92 /* Xibs */,
 				6FB539372326C2D000B5DB92 /* Utils */,
@@ -193,14 +190,6 @@
 				6FB539312326C11600B5DB92 /* SettingsVC.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		6FB5392F2326B7AD00B5DB92 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				6FB7D8B32333F08F00B40711 /* RoundedButton.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		6FB539372326C2D000B5DB92 /* Utils */ = {
@@ -313,7 +302,6 @@
 				6F93248923340CF6006E97B1 /* Date+Extension.swift in Sources */,
 				6FB5393E2326C98400B5DB92 /* FromNowCycleCell.swift in Sources */,
 				6FB7D8B22332BDCB00B40711 /* SupportVC.swift in Sources */,
-				6FB7D8B42333F08F00B40711 /* RoundedButton.swift in Sources */,
 				6F1FF79823880AF900FD7630 /* WakeUpTimeInteractor.swift in Sources */,
 				6F1FF79723880AF900FD7630 /* WakeUpTimeViewController.swift in Sources */,
 				6F7D931C2387FFA2006A8640 /* MainModels.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol MainRoutingLogic {
-    func routeToWakeUpTime(_ segue: UIStoryboardSegue?)
+    func routeToWakeUpTime()
 }
 
 protocol MainDataPassing {
@@ -22,9 +22,7 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing {
     var dataStore: MainDataStore?
     
     // MARK: - Routing
-    
-    func routeToWakeUpTime(_ segue: UIStoryboardSegue?) {
-        // routing progrommatically without storyboard
+    func routeToWakeUpTime() {
         let destinationVC = WakeUpTimeViewController()
         var destinationDS = destinationVC.router!.dataStore!
         navigateToWakeUpTime(source: viewController!, destination: destinationVC)
@@ -32,40 +30,14 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing {
     }
     
     // MARK: - Navigation
-    
     func navigateToWakeUpTime(source: MainViewController, destination: WakeUpTimeViewController) {
         source.show(destination, sender: nil)
     }
     
     // MARK: - Passing data
-    
     func passDataToWakeUpTime(source: MainDataStore, destination: inout WakeUpTimeDataStore) {
         destination.sleepyTime = source.sleepyTime
-        print(source.sleepyTime)
+        destination.choosenTime = source.choosenTime
+        destination.alarmTimeType = source.alarmTimeType
     }
-    
 }
-
-
-
-
-
-
-
-
-
-//
-//func routeToWakeUpTime(_ segue: UIStoryboardSegue?) {
-//    if let segue = segue {
-//        // routing by segues
-//        let destinationVC = segue.destination as! WakeUpTimeViewController
-//        var destinationDS = destinationVC.router!.dataStore!
-//        passDataToWakeUpTime(source: dataStore!, destination: &destinationDS)
-//    } else {
-//        // routing progrommatically without storyboard
-//        let destinationVC = WakeUpTimeViewController()
-//        var destinationDS = destinationVC.router!.dataStore!
-//        navigateToWakeUpTime(source: viewController!, destination: destinationVC)
-//        passDataToWakeUpTime(source: dataStore!, destination: &destinationDS)
-//    }
-//}

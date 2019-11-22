@@ -8,11 +8,17 @@
 
 import UIKit
 
+protocol DatePickerLabelDelegate {
+    func dateDidReceived(date: Date)
+}
+
 final class DatePickerLabel: UILabel {
     private let datePickerView: UIDatePicker
     private let toolbar: UIToolbar
     private var choosenTextColor: UIColor!
     private var userText: String!
+    
+    var delegate: DatePickerLabelDelegate!
     
     var placeholder: String? {
         willSet {
@@ -81,5 +87,6 @@ final class DatePickerLabel: UILabel {
         let date = datePicker.date
         self.placeholder = nil
         super.text = date.customStyleString()
+        delegate.dateDidReceived(date: date)
     }
 }

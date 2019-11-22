@@ -36,7 +36,7 @@ class MainViewController: UIViewController, MainDisplayLogic {
         label.numberOfLines = 1
         return label
     }()
-    
+
     let toTimeLabel: DatePickerLabel = {
         let dateDatePicker = UIDatePicker()
         dateDatePicker.translatesAutoresizingMaskIntoConstraints = false
@@ -109,6 +109,7 @@ class MainViewController: UIViewController, MainDisplayLogic {
     var interactor: MainBusinessLogic?
     var router: (NSObjectProtocol & MainRoutingLogic & MainDataPassing)?
     var sleepyTime: SleepyTime!
+    var choosenTime: Date!
     
     // MARK: - Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -143,6 +144,7 @@ class MainViewController: UIViewController, MainDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        toTimeLabel.delegate = self
         setupNavigationBar()
         setupConstraints()
         setupTapGestureForView()
@@ -196,30 +198,14 @@ class MainViewController: UIViewController, MainDisplayLogic {
     }
     
     @objc func toTimeButtonTapped() {
-        guard toTimeLabel.placeholder == nil, let date = toTimeLabel.text?.customStyleDate() else {
+        guard toTimeLabel.placeholder == nil else {
             toTimeLabel.shake()
             return
         }
-        sleepyTime = SleepyTime(alarmTime: calculateWakeUpTime(since: date), type: .toTime, choosenDate: date)
         
-        interactor?.makeRequest(request: .some(viewModel: sleepyTime))
-        router?.routeToWakeUpTime(nil)
-    }
-    
-    private func calculateWakeUpTime(since date: Date) -> [AlarmTime] {
-        //        let minToFallAsleep = userDefaults.double(forKey: UserDefaultKeys.fallAsleepSlider)
-        let minToFallAsleep = 0.0
-        var date = Date(timeInterval: -5400 - (minToFallAsleep * 60), since: date)
-        
-        var alarmsArray = [AlarmTime(cycles: 1,
-                                     date: date,
-                                     stringDate: date.shortStyleString())]
-        for i in 1..<6 {
-            date = Date(timeInterval: -5400, since: alarmsArray[i - 1].date)
-            let cycle = AlarmTime(cycles: i + 1, date: date, stringDate: date.shortStyleString())
-            alarmsArray.insert(cycle, at: i)
-        }
-        return alarmsArray.reversed()
+        interactor?.makeRequest(request: .setWakeUpTime(date: choosenTime,
+                                                        alarmTimeType: .toTime))
+        router?.routeToWakeUpTime()
     }
     
     //MARK: - Gesture fromNowTimeButton
@@ -236,4 +222,11 @@ class MainViewController: UIViewController, MainDisplayLogic {
         //        navigationController?.pushViewController(vc, animated: true)
     }
     
+}
+
+extension MainViewController: DatePickerLabelDelegate {
+    func dateDidReceived(date: Date) {
+        choosenTime = date
+        print(choosenTime)
+    }
 }

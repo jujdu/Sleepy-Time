@@ -127,7 +127,7 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension WakeUpTimeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sleepyTime?.alarmTime.count ?? 1
+        return sleepyTime?.alarmTime.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
