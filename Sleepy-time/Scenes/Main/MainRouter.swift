@@ -10,6 +10,7 @@ import UIKit
 
 protocol MainRoutingLogic {
     func routeToWakeUpTime()
+    func routeToSettings()
 }
 
 protocol MainDataPassing {
@@ -29,9 +30,19 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing {
         passDataToWakeUpTime(source: dataStore!, destination: &destinationDS)
     }
     
+    func routeToSettings() {
+        let destinationVC = SettingsViewController()
+        navigateToWakeUpTime(source: viewController!, destination: destinationVC)
+    }
+    
     // MARK: - Navigation
     func navigateToWakeUpTime(source: MainViewController, destination: WakeUpTimeViewController) {
         source.show(destination, sender: nil)
+    }
+    
+    func navigateToWakeUpTime(source: MainViewController, destination: SettingsViewController) {
+        destination.modalPresentationStyle = .fullScreen
+        source.present(destination, animated: true, completion: nil)
     }
     
     // MARK: - Passing data

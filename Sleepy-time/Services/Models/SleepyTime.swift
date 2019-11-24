@@ -9,15 +9,14 @@
 import Foundation
 
 struct SleepyTime {
-    var alarmTime: [AlarmTime]
+    var alarmTimes: [AlarmTime]
     var type: AlarmTimeType
     var choosenDate: Date
 }
 
 struct AlarmTime {
-    var cycles: Int
+    var cyclesCount: Int
     var date: Date
-    var stringDate: String
 }
 
 enum AlarmTimeType {

@@ -6,22 +6,7 @@
 //  Copyright © 2019 Michael Sidoruk. All rights reserved.
 //
 
-import Foundation
-
-struct Segues {
-    static let wakeUpToTime = "wakeUpToTime"
-    static let wakeUpFromNow = "wakeUpFromNow"
-}
-
-struct Identifires {
-    static let toTimeCycleCell = "ToTimeCycleCell"
-    static let fromNowCycleCell = "FromNowCycleCell"
-}
-
-struct Xibs {
-    static let toTimeCycleCell = "ToTimeCycleCell"
-    static let fromNowCycleCell = "FromNowCycleCell"
-}
+import UIKit
 
 struct UserDefaultKeys {
     static let repeatLbl = "repeatLbl"
@@ -34,4 +19,8 @@ struct AppFonts {
     static let avenirLight = "Avenir-Light"
     static let avenirBook = "Avenir-Book"
     static let avenirHeavy = "Avenir-Heavy"
+}
+
+struct Constraints {
+    static let cellPaddings = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
 }

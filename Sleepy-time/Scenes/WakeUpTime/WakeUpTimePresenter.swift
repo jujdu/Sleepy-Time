@@ -19,9 +19,15 @@ class WakeUpTimePresenter: WakeUpTimePresentationLogic {
     func presentData(response: WakeUpTime.Model.Response.ResponseType) {
         switch response {
         case .presentWakeUpTime(let date, let alarmTimeType):
-            let alarmTime = calculateToTime(date: date)
-            let viewModel = SleepyTime(alarmTime: alarmTime, type: .toTime, choosenDate: date)
-            viewController?.displayData(viewModel: .displayWakeUpTime(viewModel: viewModel))
+            if alarmTimeType == .fromNowTime {
+                let alarmTime = calculateFromNowTime(date: date)
+                let viewModel = SleepyTime(alarmTimes: alarmTime, type: .fromNowTime, choosenDate: date)
+                viewController?.displayData(viewModel: .displayWakeUpTime(viewModel: viewModel))
+            } else {
+                let alarmTime = calculateToTime(date: date)
+                let viewModel = SleepyTime(alarmTimes: alarmTime, type: .toTime, choosenDate: date)
+                viewController?.displayData(viewModel: .displayWakeUpTime(viewModel: viewModel))
+            }
         @unknown default:
             print("WakeUpTimePresenter has another response")
         }
@@ -32,12 +38,10 @@ class WakeUpTimePresenter: WakeUpTimePresentationLogic {
         let minToFallAsleep = 0.0
         var date = Date(timeInterval: -5400 - (minToFallAsleep * 60), since: date)
         
-        var alarmsArray = [AlarmTime(cycles: 1,
-                                     date: date,
-                                     stringDate: date.shortStyleString())]
+        var alarmsArray = [AlarmTime(cyclesCount: 1, date: date)]
         for i in 1..<6 {
             date = Date(timeInterval: -5400, since: alarmsArray[i - 1].date)
-            let cycle = AlarmTime(cycles: i + 1, date: date, stringDate: date.shortStyleString())
+            let cycle = AlarmTime(cyclesCount: i + 1, date: date)
             alarmsArray.insert(cycle, at: i)
         }
         return alarmsArray.reversed()
@@ -50,12 +54,10 @@ class WakeUpTimePresenter: WakeUpTimePresentationLogic {
         //к передаваемой дате добавить 1.5 часа(5400 сек) + время на засыпание ( сек)
         var date = Date(timeInterval: 5400 + (minToFallAsleep * 60), since: date)
         
-        var alarmsArray = [AlarmTime(cycles: 1,
-                                     date: date,
-                                     stringDate: date.shortStyleString())]
+        var alarmsArray = [AlarmTime(cyclesCount: 1, date: date)]
         for i in 1..<6 {
             date = Date(timeInterval: 5400, since: alarmsArray[i - 1].date)
-            let cycle = AlarmTime(cycles: i + 1, date: date, stringDate: date.shortStyleString())
+            let cycle = AlarmTime(cyclesCount: i + 1, date: date)
             alarmsArray.insert(cycle, at: i)
         }
         return alarmsArray

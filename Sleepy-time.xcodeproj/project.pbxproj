@@ -13,6 +13,10 @@
 		6F1FF79623880AF900FD7630 /* WakeUpTimeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78F23880AF900FD7630 /* WakeUpTimeModels.swift */; };
 		6F1FF79723880AF900FD7630 /* WakeUpTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF79023880AF900FD7630 /* WakeUpTimeViewController.swift */; };
 		6F1FF79823880AF900FD7630 /* WakeUpTimeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF79123880AF900FD7630 /* WakeUpTimeInteractor.swift */; };
+		6F4A9FC62389E6D9008A1139 /* SnoozeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A9FC42389E6D9008A1139 /* SnoozeCell.swift */; };
+		6F4A9FC92389E708008A1139 /* TimeToFallAsleepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A9FC82389E708008A1139 /* TimeToFallAsleepCell.swift */; };
+		6F4A9FCB2389E7B0008A1139 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A9FCA2389E7B0008A1139 /* SongCell.swift */; };
+		6F4A9FCD238ADB09008A1139 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A9FCC238ADB09008A1139 /* TableViewCell.swift */; };
 		6F4E88352337BD140068791B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E88342337BD140068791B /* UIView+Extension.swift */; };
 		6F5150B42385A47100F9B977 /* DatePickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5150B32385A47100F9B977 /* DatePickerLabel.swift */; };
 		6F7D93102387FC44006A8640 /* SleepyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7D930F2387FC44006A8640 /* SleepyTime.swift */; };
@@ -24,21 +28,27 @@
 		6F7D931E2387FFA2006A8640 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7D93172387FFA2006A8640 /* MainInteractor.swift */; };
 		6F93248923340CF6006E97B1 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F93248823340CF6006E97B1 /* Date+Extension.swift */; };
 		6FB5391D2326B38500B5DB92 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5391C2326B38500B5DB92 /* AppDelegate.swift */; };
-		6FB5391F2326B38500B5DB92 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5391E2326B38500B5DB92 /* MainVC.swift */; };
-		6FB539222326B38500B5DB92 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FB539202326B38500B5DB92 /* Main.storyboard */; };
 		6FB539242326B38B00B5DB92 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FB539232326B38B00B5DB92 /* Assets.xcassets */; };
 		6FB539272326B38B00B5DB92 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FB539252326B38B00B5DB92 /* LaunchScreen.storyboard */; };
-		6FB539322326C11600B5DB92 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB539312326C11600B5DB92 /* SettingsVC.swift */; };
-		6FB539342326C12C00B5DB92 /* ToTimeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB539332326C12C00B5DB92 /* ToTimeVC.swift */; };
+		6FB539322326C11600B5DB92 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB539312326C11600B5DB92 /* SettingsViewController.swift */; };
 		6FB539362326C2C800B5DB92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB539352326C2C800B5DB92 /* Constants.swift */; };
-		6FB5393E2326C98400B5DB92 /* FromNowCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB5393C2326C98400B5DB92 /* FromNowCycleCell.swift */; };
-		6FB5393F2326C98400B5DB92 /* FromNowCycleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB5393D2326C98400B5DB92 /* FromNowCycleCell.xib */; };
-		6FB7D8AF2331AD5A00B40711 /* ToTimeCycleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AD2331AD5A00B40711 /* ToTimeCycleCell.swift */; };
-		6FB7D8B22332BDCB00B40711 /* SupportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8B12332BDCB00B40711 /* SupportVC.swift */; };
+		6FB7D8AF2331AD5A00B40711 /* WakeUpTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AD2331AD5A00B40711 /* WakeUpTimeCell.swift */; };
 		6FBF14FF2386A440006AB01F /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBF14FE2386A440006AB01F /* NSMutableAttributedString+Extension.swift */; };
 		6FBF15012387CC4E006AB01F /* UIView+Constraints+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */; };
-		6FEA7BA723302A0E00D580DD /* FromNowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FEA7BA623302A0E00D580DD /* FromNowVC.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6F4A9FE2238AF04B008A1139 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		6F1FF78C23880AF900FD7630 /* WakeUpTimePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimePresenter.swift; sourceTree = "<group>"; };
@@ -47,6 +57,14 @@
 		6F1FF78F23880AF900FD7630 /* WakeUpTimeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeModels.swift; sourceTree = "<group>"; };
 		6F1FF79023880AF900FD7630 /* WakeUpTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeViewController.swift; sourceTree = "<group>"; };
 		6F1FF79123880AF900FD7630 /* WakeUpTimeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeInteractor.swift; sourceTree = "<group>"; };
+		6F4A9FC42389E6D9008A1139 /* SnoozeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoozeCell.swift; sourceTree = "<group>"; };
+		6F4A9FC82389E708008A1139 /* TimeToFallAsleepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeToFallAsleepCell.swift; sourceTree = "<group>"; };
+		6F4A9FCA2389E7B0008A1139 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
+		6F4A9FCC238ADB09008A1139 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		6F4A9FD4238AF04B008A1139 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		6F4A9FD6238AF04B008A1139 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
+		6F4A9FD9238AF04B008A1139 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		6F4A9FDB238AF04B008A1139 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F4E88342337BD140068791B /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6F5150B32385A47100F9B977 /* DatePickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerLabel.swift; sourceTree = "<group>"; };
 		6F7D930F2387FC44006A8640 /* SleepyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyTime.swift; sourceTree = "<group>"; };
@@ -59,21 +77,14 @@
 		6F93248823340CF6006E97B1 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		6FB539192326B38500B5DB92 /* Sleepy-time.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sleepy-time.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FB5391C2326B38500B5DB92 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6FB5391E2326B38500B5DB92 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
-		6FB539212326B38500B5DB92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6FB539232326B38B00B5DB92 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FB539262326B38B00B5DB92 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6FB539282326B38B00B5DB92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6FB539312326C11600B5DB92 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
-		6FB539332326C12C00B5DB92 /* ToTimeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTimeVC.swift; sourceTree = "<group>"; };
+		6FB539312326C11600B5DB92 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6FB539352326C2C800B5DB92 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		6FB5393C2326C98400B5DB92 /* FromNowCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromNowCycleCell.swift; sourceTree = "<group>"; };
-		6FB5393D2326C98400B5DB92 /* FromNowCycleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FromNowCycleCell.xib; sourceTree = "<group>"; };
-		6FB7D8AD2331AD5A00B40711 /* ToTimeCycleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToTimeCycleCell.swift; sourceTree = "<group>"; };
-		6FB7D8B12332BDCB00B40711 /* SupportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportVC.swift; sourceTree = "<group>"; };
+		6FB7D8AD2331AD5A00B40711 /* WakeUpTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeCell.swift; sourceTree = "<group>"; };
 		6FBF14FE2386A440006AB01F /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints+Extension.swift"; sourceTree = "<group>"; };
-		6FEA7BA623302A0E00D580DD /* FromNowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromNowVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +131,40 @@
 		6F1FF79A2388177000FD7630 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				6FB7D8AD2331AD5A00B40711 /* ToTimeCycleCell.swift */,
+				6FB7D8AD2331AD5A00B40711 /* WakeUpTimeCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		6F4A9FBF2389E5FC008A1139 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6F4A9FC42389E6D9008A1139 /* SnoozeCell.swift */,
+				6F4A9FC82389E708008A1139 /* TimeToFallAsleepCell.swift */,
+				6F4A9FCA2389E7B0008A1139 /* SongCell.swift */,
+				6F4A9FCC238ADB09008A1139 /* TableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		6F4A9FD3238AF04B008A1139 /* sadas */ = {
+			isa = PBXGroup;
+			children = (
+				6F4A9FD4238AF04B008A1139 /* Media.xcassets */,
+				6F4A9FD6238AF04B008A1139 /* ActionViewController.swift */,
+				6F4A9FD8238AF04B008A1139 /* MainInterface.storyboard */,
+				6F4A9FDB238AF04B008A1139 /* Info.plist */,
+			);
+			path = sadas;
+			sourceTree = "<group>";
+		};
+		6F4CDFAD2389BBDD005F18CD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				6FB539312326C11600B5DB92 /* SettingsViewController.swift */,
+				6F4A9FBF2389E5FC008A1139 /* Cells */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		6F7D93112387FF90006A8640 /* Scenes */ = {
@@ -130,6 +172,7 @@
 			children = (
 				6F7D93202387FFBA006A8640 /* Main */,
 				6F1FF78A23880A4100FD7630 /* WakeUpTime */,
+				6F4CDFAD2389BBDD005F18CD /* Settings */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -152,6 +195,7 @@
 			children = (
 				6FB5391C2326B38500B5DB92 /* AppDelegate.swift */,
 				6FB5391B2326B38500B5DB92 /* Sleepy-time */,
+				6F4A9FD3238AF04B008A1139 /* sadas */,
 				6FB5391A2326B38500B5DB92 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -169,27 +213,12 @@
 			children = (
 				6F0970E42388037400BE161D /* Services */,
 				6F7D93112387FF90006A8640 /* Scenes */,
-				6FB5392E2326B7A600B5DB92 /* Controller */,
-				6FB5393A2326C93C00B5DB92 /* Xibs */,
 				6FB539372326C2D000B5DB92 /* Utils */,
-				6FB539202326B38500B5DB92 /* Main.storyboard */,
 				6FB539232326B38B00B5DB92 /* Assets.xcassets */,
 				6FB539252326B38B00B5DB92 /* LaunchScreen.storyboard */,
 				6FB539282326B38B00B5DB92 /* Info.plist */,
 			);
 			path = "Sleepy-time";
-			sourceTree = "<group>";
-		};
-		6FB5392E2326B7A600B5DB92 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				6FB5391E2326B38500B5DB92 /* MainVC.swift */,
-				6FB539332326C12C00B5DB92 /* ToTimeVC.swift */,
-				6FEA7BA623302A0E00D580DD /* FromNowVC.swift */,
-				6FB7D8B12332BDCB00B40711 /* SupportVC.swift */,
-				6FB539312326C11600B5DB92 /* SettingsVC.swift */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		6FB539372326C2D000B5DB92 /* Utils */ = {
@@ -205,16 +234,6 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		6FB5393A2326C93C00B5DB92 /* Xibs */ = {
-			isa = PBXGroup;
-			children = (
-				6FB5393C2326C98400B5DB92 /* FromNowCycleCell.swift */,
-				6FB5393D2326C98400B5DB92 /* FromNowCycleCell.xib */,
-			);
-			name = Xibs;
-			path = Controller/Xibs;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -225,6 +244,7 @@
 				6FB539152326B38500B5DB92 /* Sources */,
 				6FB539162326B38500B5DB92 /* Frameworks */,
 				6FB539172326B38500B5DB92 /* Resources */,
+				6F4A9FE2238AF04B008A1139 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -241,7 +261,7 @@
 		6FB539112326B38500B5DB92 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1030;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Michael Sidoruk";
 				TargetAttributes = {
@@ -275,8 +295,6 @@
 			files = (
 				6FB539272326B38B00B5DB92 /* LaunchScreen.storyboard in Resources */,
 				6FB539242326B38B00B5DB92 /* Assets.xcassets in Resources */,
-				6FB5393F2326C98400B5DB92 /* FromNowCycleCell.xib in Resources */,
-				6FB539222326B38500B5DB92 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,30 +306,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F7D931D2387FFA2006A8640 /* MainViewController.swift in Sources */,
+				6F4A9FC62389E6D9008A1139 /* SnoozeCell.swift in Sources */,
 				6FB539362326C2C800B5DB92 /* Constants.swift in Sources */,
-				6FB7D8AF2331AD5A00B40711 /* ToTimeCycleCell.swift in Sources */,
+				6FB7D8AF2331AD5A00B40711 /* WakeUpTimeCell.swift in Sources */,
 				6F7D93192387FFA2006A8640 /* MainPresenter.swift in Sources */,
 				6F1FF79323880AF900FD7630 /* WakeUpTimePresenter.swift in Sources */,
 				6F1FF79623880AF900FD7630 /* WakeUpTimeModels.swift in Sources */,
 				6FBF14FF2386A440006AB01F /* NSMutableAttributedString+Extension.swift in Sources */,
+				6F4A9FCB2389E7B0008A1139 /* SongCell.swift in Sources */,
+				6F4A9FC92389E708008A1139 /* TimeToFallAsleepCell.swift in Sources */,
 				6F7D931A2387FFA2006A8640 /* MainWorker.swift in Sources */,
 				6F1FF79523880AF900FD7630 /* WakeUpTimeRouter.swift in Sources */,
-				6FB5391F2326B38500B5DB92 /* MainVC.swift in Sources */,
 				6FBF15012387CC4E006AB01F /* UIView+Constraints+Extension.swift in Sources */,
+				6F4A9FCD238ADB09008A1139 /* TableViewCell.swift in Sources */,
 				6F7D93102387FC44006A8640 /* SleepyTime.swift in Sources */,
 				6F93248923340CF6006E97B1 /* Date+Extension.swift in Sources */,
-				6FB5393E2326C98400B5DB92 /* FromNowCycleCell.swift in Sources */,
-				6FB7D8B22332BDCB00B40711 /* SupportVC.swift in Sources */,
 				6F1FF79823880AF900FD7630 /* WakeUpTimeInteractor.swift in Sources */,
 				6F1FF79723880AF900FD7630 /* WakeUpTimeViewController.swift in Sources */,
 				6F7D931C2387FFA2006A8640 /* MainModels.swift in Sources */,
 				6F1FF79423880AF900FD7630 /* WakeUpTimeWorker.swift in Sources */,
 				6F5150B42385A47100F9B977 /* DatePickerLabel.swift in Sources */,
-				6FB539342326C12C00B5DB92 /* ToTimeVC.swift in Sources */,
 				6FB5391D2326B38500B5DB92 /* AppDelegate.swift in Sources */,
 				6F7D931E2387FFA2006A8640 /* MainInteractor.swift in Sources */,
-				6FEA7BA723302A0E00D580DD /* FromNowVC.swift in Sources */,
-				6FB539322326C11600B5DB92 /* SettingsVC.swift in Sources */,
+				6FB539322326C11600B5DB92 /* SettingsViewController.swift in Sources */,
 				6F4E88352337BD140068791B /* UIView+Extension.swift in Sources */,
 				6F7D931B2387FFA2006A8640 /* MainRouter.swift in Sources */,
 			);
@@ -320,12 +337,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6FB539202326B38500B5DB92 /* Main.storyboard */ = {
+		6F4A9FD8238AF04B008A1139 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6FB539212326B38500B5DB92 /* Base */,
+				6F4A9FD9238AF04B008A1139 /* Base */,
 			);
-			name = Main.storyboard;
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		6FB539252326B38B00B5DB92 /* LaunchScreen.storyboard */ = {
@@ -458,6 +475,7 @@
 		6FB5392C2326B38B00B5DB92 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A9D7992LUJ;
@@ -476,6 +494,7 @@
 		6FB5392D2326B38B00B5DB92 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A9D7992LUJ;

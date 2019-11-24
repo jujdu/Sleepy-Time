@@ -76,16 +76,16 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     
     // MARK: - Routing
     
-
+    
     
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        self.navigationItem.rightBarButtonItem = alarmBarButton
         setupConstraints()
         setupTableView()
+        setupNavigationBar()
         interactor?.makeRequest(request: .getWakeUpTime)
     }
     
@@ -102,21 +102,33 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ToTimeCycleCell.self, forCellReuseIdentifier: ToTimeCycleCell.reuseId)
+        tableView.register(WakeUpTimeCell.self, forCellReuseIdentifier: WakeUpTimeCell.reuseId)
         tableView.tableFooterView = UIView()
     }
     
+    private func setupNavigationBar() {
+        self.navigationItem.title = "Alarm Time"
+        if sleepyTime?.type == .toTime {
+   
+            self.navigationItem.rightBarButtonItem = alarmBarButton
+        }
+    }
+    
     private func setupInfoLbl() {
-        let date = sleepyTime?.choosenDate.shortStyleString() ?? "sadasds"
-        infoLabel.text = "If you want to wake up at \(date), you should try to fall asleep at one of the following times:"
+        let date = sleepyTime?.choosenDate.shortStyleString() ?? ""
+        if sleepyTime?.type == .toTime {
+            infoLabel.text = "If you want to wake up at \(date), you should try to fall asleep at one of the following times:"
+        } else {
+            infoLabel.text = "If you head to bed right now at \(date), you should try to wake up at one of the following times:"
+        }
     }
     
     func displayData(viewModel: WakeUpTime.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayWakeUpTime(let viewModel):
-            print(viewModel)
             sleepyTime = viewModel
             setupInfoLbl()
+            setupNavigationBar()
             tableView.reloadData()
         @unknown default:
             print("WakeUpTimeViewController has another viewModel")
@@ -127,12 +139,15 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension WakeUpTimeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sleepyTime?.alarmTime.count ?? 0
+        return sleepyTime?.alarmTimes.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: ToTimeCycleCell.reuseId, for: indexPath) as? ToTimeCycleCell {
-            cell.setupUI(cycle: sleepyTime?.alarmTime[indexPath.row] ?? AlarmTime(cycles: 1, date: Date(), stringDate: ""))
+        if let cell = tableView.dequeueReusableCell(withIdentifier: WakeUpTimeCell.reuseId, for: indexPath) as? WakeUpTimeCell {
+            guard let alarmTime = sleepyTime?.alarmTimes[indexPath.row],
+                let type = sleepyTime?.type
+                else { return UITableViewCell() }
+            cell.setupUI(alarmTime: alarmTime, cellType: type)
             return cell
         }
         return UITableViewCell()

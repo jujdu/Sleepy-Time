@@ -14,6 +14,17 @@ protocol MainDisplayLogic: class {
 
 class MainViewController: UIViewController, MainDisplayLogic {
     
+    //MARK: - Bar buttons
+    lazy var settingsBarButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_settings_36pt"), style: .plain, target: self, action: #selector(self.settingsBarButtonTapped))
+        return barButtonItem
+    }()
+    
+    lazy var infoBarButton: UIBarButtonItem = {
+        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_36pt"), style: .plain, target: self, action: #selector(self.infoBarButtonTapped))
+        return barButtonItem
+    }()
+    
     //MARK: - Stack View
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -158,6 +169,9 @@ class MainViewController: UIViewController, MainDisplayLogic {
     
     private func setupNavigationBar() {
         self.navigationItem.title = "Sleepy Time"
+        self.navigationItem.leftBarButtonItem = settingsBarButton
+        self.navigationItem.rightBarButtonItem = infoBarButton
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     //MARK: - Constraints
@@ -198,14 +212,13 @@ class MainViewController: UIViewController, MainDisplayLogic {
     }
     
     @objc func toTimeButtonTapped() {
-        guard toTimeLabel.placeholder == nil else {
+        if toTimeLabel.placeholder == nil {
+            interactor?.makeRequest(request: .setWakeUpTime(date: choosenTime,
+                                                            alarmTimeType: .toTime))
+            router?.routeToWakeUpTime()
+        } else {
             toTimeLabel.shake()
-            return
         }
-        
-        interactor?.makeRequest(request: .setWakeUpTime(date: choosenTime,
-                                                        alarmTimeType: .toTime))
-        router?.routeToWakeUpTime()
     }
     
     //MARK: - Gesture fromNowTimeButton
@@ -215,11 +228,18 @@ class MainViewController: UIViewController, MainDisplayLogic {
     }
     
     @objc func fromNowTimeButtonTapped() {
-        //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        //        let vc = storyboard.instantiateViewController(withIdentifier: "FromNowTimeVC") as! FromNowVC
-        //        let currentTime = AlarmTime(cycle: 6, date: Date(), needTimeToFallAsleep: 0, type: .fromNow)
-        //        vc.choosenTime = currentTime
-        //        navigationController?.pushViewController(vc, animated: true)
+        interactor?.makeRequest(request: .setWakeUpTime(date: Date(),
+                                                        alarmTimeType: .fromNowTime))
+        router?.routeToWakeUpTime()
+    }
+    
+    //MARK: - Gesture settingsBarButton
+    @objc func settingsBarButtonTapped() {
+        router?.routeToSettings()
+    }
+    
+    @objc func infoBarButtonTapped() {
+        print(#function)
     }
     
 }
@@ -227,6 +247,5 @@ class MainViewController: UIViewController, MainDisplayLogic {
 extension MainViewController: DatePickerLabelDelegate {
     func dateDidReceived(date: Date) {
         choosenTime = date
-        print(choosenTime)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  FromNowCycleCell.swift
+//  WakeUpTimeCell.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 18/09/2019.
@@ -8,9 +8,10 @@
 
 import UIKit
 
-class ToTimeCycleCell: UITableViewCell {
+class WakeUpTimeCell: UITableViewCell {
     
-    static let reuseId = "ToTimeCycleCell"
+    static let reuseId = "WakeUpTimeCell"
+    private var cellType: AlarmTimeType!
     
     //MARK: - Cycle Views. Left side
     let cycleStackView: UIStackView = {
@@ -28,7 +29,7 @@ class ToTimeCycleCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.textAlignment = .left
-        label.font = UIFont(name: "Avenir-Book", size: 17)
+        label.font = UIFont(name: "Avenir-Book", size: 18)
         label.numberOfLines = 1
         return label
     }()
@@ -49,9 +50,19 @@ class ToTimeCycleCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.textAlignment = .right
-        label.font = UIFont(name: "Avenir-Book", size: 35)
+        label.font = UIFont(name: "Avenir-Book", size: 32)
         label.numberOfLines = 1
         return label
+    }()
+    
+    lazy var alarmButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "ic_add_alarm_36pt"), for: .normal)
+        button.tintColor = .black
+        button.layer.cornerRadius = 5
+        button.contentHorizontalAlignment = .right
+        return button
     }()
     
     //MARK: - Common Stack View
@@ -77,19 +88,23 @@ class ToTimeCycleCell: UITableViewCell {
     
     //MARK: - View Configuration
     private func setupConstraints() {
-        addSubview(commonStackView)
+        contentView.addSubview(commonStackView)
         commonStackView.addArrangedSubview(cycleStackView)
         commonStackView.addArrangedSubview(timeLabel)
         cycleStackView.addArrangedSubview(cycleLabel)
         cycleStackView.addArrangedSubview(hoursLabel)
         
-        commonStackView.fillSuperview(padding: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+        commonStackView.fillSuperview(padding: Constraints.cellPaddings)
+        alarmButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
     }
     
-    func setupUI(cycle: AlarmTime) {
-        cycleLabel.text = "Cycles: \(cycle.cycles)"
-        hoursLabel.text = foundSleepyHours(index: cycle.cycles)
-        timeLabel.text = cycle.stringDate
+    func setupUI(alarmTime: AlarmTime, cellType: AlarmTimeType) {
+        if cellType == .fromNowTime {
+            commonStackView.addArrangedSubview(alarmButton)
+        }
+        cycleLabel.text = "Cycles: \(alarmTime.cyclesCount)"
+        hoursLabel.text = foundSleepyHours(index: alarmTime.cyclesCount)
+        timeLabel.text = alarmTime.date.shortStyleString()
     }
     
     func foundSleepyHours(index: Int) -> String {
