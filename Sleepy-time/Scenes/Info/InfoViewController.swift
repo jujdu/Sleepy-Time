@@ -87,11 +87,11 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupConstraints()
-        setupTapGestureForToTimeButton()
+//        setupConstraints()
+//        setupTapGestureForToTimeButton()
         presentTextLabel.text = presentText
-        pageControl.numberOfPages = numberOfPages
-        pageControl.currentPage = currentPage
+//        pageControl.numberOfPages = numberOfPages
+//        pageControl.currentPage = currentPage
     }
 
     private func setupConstraints() {
