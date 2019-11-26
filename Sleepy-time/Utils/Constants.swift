@@ -23,4 +23,6 @@ struct AppFonts {
 
 struct Constraints {
     static let cellPaddings = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+    static let buttonPaddings = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    static let buttonHeight: CGFloat = 40.0
 }

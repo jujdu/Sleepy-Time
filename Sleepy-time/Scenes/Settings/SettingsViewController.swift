@@ -2,15 +2,19 @@
 //  SettingsViewController.swift
 //  Sleepy-time
 //
-//  Created by Michael Sidoruk on 09/09/2019.
-//  Copyright © 2019 Michael Sidoruk. All rights reserved.
+//  Created by Michael Sidoruk on 26.11.2019.
+//  Copyright (c) 2019 Michael Sidoruk. All rights reserved.
 //
 
 import UIKit
 import MediaPlayer
 import AVFoundation
 
-class SettingsViewController: UIViewController, MPMediaPickerControllerDelegate {
+protocol SettingsDisplayLogic: class {
+    func displayData(viewModel: Settings.Model.ViewModel.ViewModelData)
+}
+
+class SettingsViewController: UIViewController, SettingsDisplayLogic {
     
     //MARK: - Views
     let tableView: UITableView = {
@@ -32,7 +36,7 @@ class SettingsViewController: UIViewController, MPMediaPickerControllerDelegate 
         return barButtonItem
     }()
     
-    
+    //FIXME: - Need to decide what to do with dismiss, save anytime when settings is changed or save only after the save button is tapped
     @objc func abc() {
         dismiss(animated: true, completion: nil)
     }
@@ -57,11 +61,44 @@ class SettingsViewController: UIViewController, MPMediaPickerControllerDelegate 
         return navigationBar
     }()
     
-    //MARK: - Properties
+    // MARK: - Properties
+    var interactor: SettingsBusinessLogic?
+    var router: (NSObjectProtocol & SettingsRoutingLogic & SettingsDataPassing)?
     let userDefaults = UserDefaults.standard
     let mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
     let mediaPlayer = MPMusicPlayerController.applicationMusicPlayer
     let engine = AVAudioEngine()
+    let player = AVPlayer()
+    let avplayer = AVAudioPlayer()
+    
+    // MARK: - Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: - Setup
+    
+    private func setup() {
+        let viewController        = self
+        let interactor            = SettingsInteractor()
+        let presenter             = SettingsPresenter()
+        let router                = SettingsRouter()
+        viewController.interactor = interactor
+        viewController.router     = router
+        interactor.presenter      = presenter
+        presenter.viewController  = viewController
+        router.viewController     = viewController
+        router.dataStore          = interactor
+    }
+    
+    // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,10 +114,13 @@ class SettingsViewController: UIViewController, MPMediaPickerControllerDelegate 
         mediaPicker.showsCloudItems = false
         mediaPicker.showsItemsWithProtectedAssets = false
         mediaPicker.delegate = self
-        mediaPicker.prompt = "Pick a track"
     }
     
-    func setupConstraints() {
+    func displayData(viewModel: Settings.Model.ViewModel.ViewModelData) {
+        
+    }
+    
+    private func setupConstraints() {
         view.addSubview(tableView)
         view.addSubview(navigationBar)
         navigationBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -92,14 +132,14 @@ class SettingsViewController: UIViewController, MPMediaPickerControllerDelegate 
                          trailing: view.trailingAnchor)
     }
     
-    func startEngine(playFileAt: URL) {
+    private func startEngine(playFileAt: URL) {
         engine.stop()
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback)
 
             let avAudioFile = try AVAudioFile(forReading: playFileAt)
             let player = AVAudioPlayerNode()
-            
+
             engine.attach(player)
             engine.connect(player, to: engine.mainMixerNode, format: avAudioFile.processingFormat)
 
@@ -110,8 +150,10 @@ class SettingsViewController: UIViewController, MPMediaPickerControllerDelegate 
             assertionFailure(String(describing: error))
         }
     }
+    
 }
 
+//MARK: - UITableViewDelegate, UITableViewDataSource
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -146,7 +188,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 2 {
-            print("Go")
             self.present(mediaPicker, animated: true) {
                 let alert = UIAlertController(title: "Attention", message: "Unfortunately, the application cannot support iCloud Media Library and Apple Music because of copyright issues 😢. However, you still have possibility to upload your own music to iTunes throught Music App.\nThank's for your understanding.\n🙏", preferredStyle: .alert)
                 let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -157,12 +198,13 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    
+
+}
+
+extension SettingsViewController: MPMediaPickerControllerDelegate {
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         self.dismiss(animated: true, completion: nil)
         print("you picked: \(mediaItemCollection)")
-//        mediaPlayer.setQueue(with: mediaItemCollection)
-//        mediaPlayer.play()
         guard let item = mediaItemCollection.items.first else {
             print("no item")
             return
@@ -181,4 +223,3 @@ extension SettingsViewController: UINavigationBarDelegate {
         return .topAttached
     }
 }
-

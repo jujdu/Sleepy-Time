@@ -70,7 +70,7 @@ class MainViewController: UIViewController, MainDisplayLogic {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Calculate", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont(name: AppFonts.avenirBook, size: 20)
+        button.titleLabel?.font = UIFont(name: AppFonts.avenirBook, size: 18)
         button.backgroundColor = .cyan
         button.layer.cornerRadius = 5
         return button
@@ -103,12 +103,12 @@ class MainViewController: UIViewController, MainDisplayLogic {
     let fromNowTimeButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        let myMutableString = NSMutableAttributedString(string: "zzz",
-                                                        attributes: [NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 16)!,
+        let myMutableString = NSMutableAttributedString(string: "ZZZ",
+                                                        attributes: [NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 12)!,
                                                                      NSAttributedString.Key.foregroundColor: UIColor.black])
-        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 20)!],
+        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 15)!],
                                       range: NSRange(location: 1, length: 1))
-        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 24)!],
+        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 18)!],
                                       range: NSRange(location: 2, length: 1))
         button.setAttributedTitle(myMutableString, for: .normal)
         button.backgroundColor = .cyan
@@ -191,8 +191,9 @@ class MainViewController: UIViewController, MainDisplayLogic {
         
         toTimeLabel.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
         toTimeButton.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
-        toTimeButton.heightAnchor.constraint(equalTo: fromNowTimeButton.heightAnchor).isActive = true
+        toTimeButton.heightAnchor.constraint(equalToConstant: Constraints.buttonHeight).isActive = true
         fromNowTimeButton.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
+        fromNowTimeButton.heightAnchor.constraint(equalToConstant: Constraints.buttonHeight).isActive = true
     }
     
     //MARK: - Gesture View
@@ -240,6 +241,9 @@ class MainViewController: UIViewController, MainDisplayLogic {
     
     @objc func infoBarButtonTapped() {
         print(#function)
+        let pageVC = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        pageVC.modalPresentationStyle = .overFullScreen
+        present(pageVC, animated: true, completion: nil)
     }
     
 }
