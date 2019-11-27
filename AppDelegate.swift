@@ -34,7 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           } catch {
               print(error)
           }
-        
+//        let pageControl = UIPageControl.appearance()
+//        pageControl.pageIndicatorTintColor = UIColor.systemGray
+//        pageControl.currentPageIndicatorTintColor = UIColor.systemPurple
+
+        return true
         return true
     }
 

@@ -240,13 +240,12 @@ class MainViewController: UIViewController, MainDisplayLogic {
     }
     
     @objc func infoBarButtonTapped() {
-        print(#function)
-        let pageVC = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let swipingVC = SwipingViewController(collectionViewLayout: layout)
-        swipingVC.modalPresentationStyle = .overFullScreen
-        present(swipingVC, animated: true, completion: nil)
+//        let swipingVC = SwipingViewController(collectionViewLayout: layout)
+        let pageVC = PageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+        pageVC.modalPresentationStyle = .fullScreen
+        present(pageVC, animated: true, completion: nil)
     }
     
 }
