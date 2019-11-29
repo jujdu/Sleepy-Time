@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        pageControl.currentPageIndicatorTintColor = UIColor.systemPurple
 
         return true
-        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

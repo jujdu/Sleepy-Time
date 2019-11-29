@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6F019DF0238E8FD300252B63 /* MyScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019DEF238E8FD300252B63 /* MyScrollView.swift */; };
 		6F019DF4238EA12500252B63 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019DF2238EA12500252B63 /* PageViewController.swift */; };
 		6F019DF5238EA12500252B63 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019DF3238EA12500252B63 /* InfoViewController.swift */; };
 		6F1FF79323880AF900FD7630 /* WakeUpTimePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78C23880AF900FD7630 /* WakeUpTimePresenter.swift */; };
@@ -62,7 +61,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6F019DEF238E8FD300252B63 /* MyScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScrollView.swift; sourceTree = "<group>"; };
 		6F019DF2238EA12500252B63 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		6F019DF3238EA12500252B63 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		6F1FF78C23880AF900FD7630 /* WakeUpTimePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimePresenter.swift; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 				6F019DF1238EA11B00252B63 /* PageVC */,
 				6F2DD2A7238D624A002B16BE /* SwipingViewController.swift */,
 				6F47FB56238D9FF20005EEE5 /* CollectionViewCell.swift */,
-				6F019DEF238E8FD300252B63 /* MyScrollView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -359,7 +356,6 @@
 				6F7D93102387FC44006A8640 /* SleepyTime.swift in Sources */,
 				6F47FB59238DB34B0005EEE5 /* Testmodel.swift in Sources */,
 				6F2DD2A3238D13FC002B16BE /* SettingsModels.swift in Sources */,
-				6F019DF0238E8FD300252B63 /* MyScrollView.swift in Sources */,
 				6F019DF5238EA12500252B63 /* InfoViewController.swift in Sources */,
 				6F2DD2A1238D13FC002B16BE /* SettingsWorker.swift in Sources */,
 				6F93248923340CF6006E97B1 /* Date+Extension.swift in Sources */,

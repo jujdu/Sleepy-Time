@@ -11,7 +11,7 @@ import UIKit
 class PageViewController: UIPageViewController {
     
     //MARK: - Stack View
-    private let stackView1: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -40,7 +40,7 @@ class PageViewController: UIPageViewController {
         return pageControl
     }()
     
-    private var nextButto2312312n: UIButton = {
+    private var nextButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("NEXT", for: .normal)
@@ -51,17 +51,13 @@ class PageViewController: UIPageViewController {
         return button
     }()
     
-    let pages = [Page(imageName: "bear", text: "first"),
-                 Page(imageName: "bear", text: "second"),
-                 Page(imageName: "bear", text: "third"),
-                 Page(imageName: "bear", text: "fourth")
-    ]
+    var pages: [Page] = [Page(imageName: "bear", text: "first", isButtonActive: false, color: .yellow), Page(imageName: "bear", text: "second", isButtonActive: false, color: .orange), Page(imageName: "bear", text: "third", isButtonActive: false, color: .red), Page(imageName: "bear", text: "fourth", isButtonActive: true, color: .green)]
     var currentIndex: Int!
         
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        dataSource = self
+        dataSource = self
 
         let infoViewController = showInfoViewController(currentIndex ?? 0)
         setViewControllers([infoViewController], direction: .forward, animated: true, completion: nil)
@@ -76,14 +72,14 @@ class PageViewController: UIPageViewController {
     }
     
     private func setupConstraints() {
-        view.addSubview(stackView1)
-        stackView1.addArrangedSubview(previousButton)
-        stackView1.addArrangedSubview(pageControl)
-        stackView1.addArrangedSubview(nextButto2312312n)
-        
-        stackView1.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
-        stackView1.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        stackView1.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(previousButton)
+        stackView.addArrangedSubview(pageControl)
+        stackView.addArrangedSubview(nextButton)
+
+        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
+        stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
 }
 

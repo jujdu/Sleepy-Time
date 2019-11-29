@@ -6,9 +6,11 @@
 //  Copyright © 2019 Michael Sidoruk. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Page {
     let imageName: String
     let text: String
+    let isButtonActive: Bool
+    let color: UIColor
 }
