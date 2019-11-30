@@ -14,21 +14,51 @@ protocol CollectionViewCellDelegate {
 
 class CollectionViewCell: UICollectionViewCell {
     
+    //MARK: - Views
+    lazy private var image: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        //        image.image = #imageLiteral(resourceName: "bear")
+        return image
+    }()
+    
+    lazy private var presentTextLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .systemPink
+        label.textAlignment = .center
+        label.font = UIFont(name: AppFonts.avenirHeavy, size: 17)
+        label.numberOfLines = 1
+        return label
+    }()
+    
+    lazy private var myButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("OK, I understood. Let me sleep!", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 5
+        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        return button
+    }()
+    
+    //MARK: - Properties
     var page: Page? {
         didSet {
             guard let page = page else { return }
             image.backgroundColor = page.color
-//            image.image = UIImage(named: page.imageName)
             presentTextLabel.text = page.text
-//            if page.isButtonActive {
-//                contentView.addSubview(myButton)
-//                myButton.topAnchor.constraint(equalTo: presentTextLabel.bottomAnchor, constant: 20).isActive = true
-//                myButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-//            }
+            //            if page.isButtonActive {
+            //                contentView.addSubview(myButton)
+            //                myButton.topAnchor.constraint(equalTo: presentTextLabel.bottomAnchor, constant: 20).isActive = true
+            //                myButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            //            }
         }
     }
     var delegate: CollectionViewCellDelegate?
     
+    //MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupConstraints()
@@ -40,39 +70,11 @@ class CollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    lazy private var image: UIImageView = {
-        let image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
-//        image.image = #imageLiteral(resourceName: "bear")
-        return image
-    }()
-    
-    lazy private var presentTextLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.textAlignment = .center
-        label.font = UIFont(name: AppFonts.avenirBook, size: 17)
-        label.textColor = .black
-        label.numberOfLines = 1
-        return label
-    }()
-
-    lazy private var myButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("OK, I understood. Let me sleep!", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
-        button.layer.cornerRadius = 5
-        button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        return button
-    }()
-
+    //MARK: - User functions
     private func setupConstraints() {
         contentView.addSubview(image)
         contentView.addSubview(presentTextLabel)
-
+        
         image.widthAnchor.constraint(equalToConstant: 200).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor).isActive = true
         image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -81,14 +83,14 @@ class CollectionViewCell: UICollectionViewCell {
         presentTextLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
     }
     
-        func setupTapGestureForMyButton() {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(myButtonTapped))
-            myButton.addGestureRecognizer(tapGesture)
-        }
+    func setupTapGestureForMyButton() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(myButtonTapped))
+        myButton.addGestureRecognizer(tapGesture)
+    }
     
-        @objc func myButtonTapped() {
-            delegate?.dismissButtonPressed()
-        }
+    @objc func myButtonTapped() {
+        delegate?.dismissButtonPressed()
+    }
     
     
 }

@@ -72,18 +72,19 @@ class SwipingViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("PREV", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemPink, for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2784313725, alpha: 1), for: .disabled)
         button.backgroundColor = .clear
         button.layer.cornerRadius = 5
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         button.addTarget(self, action: #selector(handlePrevious), for: .touchUpInside)
+        button.isEnabled = false
         return button
     }()
     
     @objc private func handlePrevious() {
-        currentPage = max(pageControl.currentPage - 1, 0)
+        let currentPage = max(pageControl.currentPage - 1, 0)
         let indexPath = IndexPath(item: currentPage, section: 0)
-        pageControl.currentPage = currentPage
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
@@ -91,7 +92,8 @@ class SwipingViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("NEXT", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemPink, for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2784313725, alpha: 1), for: .disabled)
         button.backgroundColor = .clear
         button.layer.cornerRadius = 5
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
@@ -100,9 +102,8 @@ class SwipingViewController: UIViewController {
     }()
     
     @objc private func handleNext() {
-        currentPage = min(pageControl.currentPage + 1, pages.count - 1)
+        let currentPage = min(pageControl.currentPage + 1, pages.count - 1)
         let indexPath = IndexPath(item: currentPage, section: 0)
-        pageControl.currentPage = currentPage
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
     
@@ -110,7 +111,7 @@ class SwipingViewController: UIViewController {
         let pageControl = UIPageControl()
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.pageIndicatorTintColor = .gray
-        pageControl.currentPageIndicatorTintColor = .black
+        pageControl.currentPageIndicatorTintColor = .systemPink
         pageControl.numberOfPages = pages.count
         return pageControl
     }()
@@ -123,7 +124,15 @@ class SwipingViewController: UIViewController {
             if currentPage != newValue {
                 let generator = UIImpactFeedbackGenerator(style: .medium)
                 generator.impactOccurred()
-           
+                pageControl.currentPage = newValue
+                if newValue == 0 {
+                    previousButton.isEnabled = false
+                } else if newValue == pages.count - 1 {
+                    nextButton.isEnabled = false
+                } else {
+                    previousButton.isEnabled = true
+                    nextButton.isEnabled = true
+                }
             }
         }
     }
@@ -217,22 +226,33 @@ extension SwipingViewController: UICollectionViewDelegate, UICollectionViewDataS
 
 //MARK: - ScrollViewDelegate
 extension SwipingViewController: UIScrollViewDelegate {
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        currentPage = Int(targetContentOffset.pointee.x / view.frame.width)
-        pageControl.currentPage = currentPage
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        generateHorizontalScrollAnimation(to: pictureBG, in: scrollView, velocity: 0.1)
-        generateHorizontalScrollAnimation(to: cloudBG1, in: scrollView, velocity: 0.2)
-        generateHorizontalScrollAnimation(to: cloudBG2, in: scrollView, velocity: 0.3)
+        handleCurrentPage(for: scrollView)
+        
+        generateHorizontalScrollAnimation(to: pictureBG, dependencyOn: scrollView, value: 0.1)
+        generateHorizontalScrollAnimation(to: cloudBG1, dependencyOn: scrollView, value: 0.2)
+        generateHorizontalScrollAnimation(to: cloudBG2, dependencyOn: scrollView, value: 0.3)
     }
     
-    private func generateHorizontalScrollAnimation(to view: UIView, in scrollView: UIScrollView, velocity: CGFloat) {
-        let xOffset = scrollView.contentOffset.x * velocity
+    private func handleCurrentPage(for scrollView: UIScrollView) {
+        let xOffset = scrollView.contentOffset.x
+        let width = view.frame.width
+        let halfWidth = width / 2
+        let cPage = CGFloat(currentPage)
+        
+        if xOffset <= (width * cPage) - halfWidth && currentPage != 0 {
+            currentPage -= 1
+        } else if xOffset >= (width * cPage) + halfWidth && currentPage != pages.count - 1 {
+            currentPage += 1
+        }
+    }
+    
+    private func generateHorizontalScrollAnimation(to view: UIView, dependencyOn scrollView: UIScrollView, value: CGFloat) {
+        let xOffset = scrollView.contentOffset.x * value
         let contentRectXOffset = xOffset / view.frame.size.width
         view.layer.contentsRect = CGRect(x: contentRectXOffset, y: 0, width: 1, height: 1)
     }
+    
 }
 
 //MARK: - CollectionViewCellDelegate
@@ -241,3 +261,27 @@ extension SwipingViewController: CollectionViewCellDelegate {
         dismiss(animated: true, completion: nil)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+//        if xOffset < viewWidth / 2 {
+//            currentPage = 0
+//        } else if xOffset >= viewWidth / 2
+//&& xOffset < viewWidth + (viewWidth / 2) {
+//            currentPage = 1
+//        } else if xOffset >= (viewWidth * 1) + (viewWidth / 2)
+//&& xOffset < (viewWidth * 2) + (viewWidth / 2) {
+//            currentPage = 2
+//        } else if xOffset >= (viewWidth * 2) + (viewWidth / 2) {
+//            currentPage = 3
+//        }
+//           } else if xOffset >= (width * cPage) + halfWidth{ // 400 * 1 + 200 -> 1 page
+//        //               && xOffset < (width * (cPage + 1)) + halfWidth { //(400 * 2) + 200
