@@ -50,5 +50,16 @@ extension UIView {
         }
     }
     
+    func bgAnchor(to view: UIView) {
+        anchor(top: view.topAnchor,
+               leading: view.leadingAnchor,
+               bottom: view.bottomAnchor,
+               trailing: view.trailingAnchor,
+               padding: UIEdgeInsets(top: 0,
+                                     left: 0,
+                                     bottom: 0,
+                                     right: -view.frame.size.width / 2),
+               size: .zero)
+    }
 }
 

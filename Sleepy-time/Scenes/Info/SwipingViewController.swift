@@ -51,7 +51,7 @@ class SwipingViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
         imageView.image = UIImage(named: "cloudBG1")
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .clear
         imageView.alpha = 0.8
         return imageView
@@ -121,23 +121,14 @@ class SwipingViewController: UIViewController {
     
     var currentPage: Int = 0 {
         willSet {
-            if currentPage != newValue {
-                let generator = UIImpactFeedbackGenerator(style: .medium)
-                generator.impactOccurred()
-                pageControl.currentPage = newValue
-                if newValue == 0 {
-                    previousButton.isEnabled = false
-                } else if newValue == pages.count - 1 {
-                    nextButton.isEnabled = false
-                } else {
-                    previousButton.isEnabled = true
-                    nextButton.isEnabled = true
-                }
-            }
+            guard currentPage != newValue else { return }
+            pageControl.currentPage = newValue
+            setButtonsStatusDependsOnControl(newValue: newValue)
+            makeVibration()
         }
     }
     
-    //MARK: - Lify cycle
+    //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -164,25 +155,11 @@ class SwipingViewController: UIViewController {
         view.addSubview(cloudBG2)
         view.addSubview(cloudBG1)
         
-        pictureBG.anchor(top: view.topAnchor,
-                         leading: view.leadingAnchor,
-                         bottom: view.bottomAnchor,
-                         trailing: view.trailingAnchor,
-                         padding: UIEdgeInsets(top: 0, left: -200, bottom: 0, right: -200),
-                         size: .zero)
-        cloudBG2.anchor(top: view.topAnchor,
-                        leading: view.leadingAnchor,
-                        bottom: view.bottomAnchor,
-                        trailing: view.trailingAnchor,
-                        padding: UIEdgeInsets(top: 0, left: -200, bottom: 0, right: -200),
-                        size: .zero)
-        cloudBG1.anchor(top: view.topAnchor,
-                        leading: view.leadingAnchor,
-                        bottom: view.bottomAnchor,
-                        trailing: view.trailingAnchor,
-                        padding: UIEdgeInsets(top: 0, left: -200, bottom: 0, right: -600),
-                        size: .zero)
+        pictureBG.bgAnchor(to: view)
+        cloudBG2.bgAnchor(to: view)
+        cloudBG1.bgAnchor(to: view)
         
+        //MARK: - Setup Top Views
         view.addSubview(collectionView)
         view.addSubview(stackView)
         stackView.addArrangedSubview(previousButton)
@@ -190,14 +167,26 @@ class SwipingViewController: UIViewController {
         stackView.addArrangedSubview(nextButton)
         
         collectionView.fillSuperview()
-        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -5).isActive = true
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: 45).isActive = true
     }
     
-    func makeVibro() {
+    func makeVibration() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
+    }
+    
+    func setButtonsStatusDependsOnControl(newValue: Int) {
+        if newValue == 0 {
+            previousButton.isEnabled = false
+        } else if newValue == pages.count - 1 {
+            nextButton.isEnabled = false
+        } else {
+            previousButton.isEnabled = true
+            nextButton.isEnabled = true
+        }
     }
 }
 
@@ -229,9 +218,9 @@ extension SwipingViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         handleCurrentPage(for: scrollView)
         
-        generateHorizontalScrollAnimation(to: pictureBG, dependencyOn: scrollView, value: 0.1)
-        generateHorizontalScrollAnimation(to: cloudBG1, dependencyOn: scrollView, value: 0.2)
-        generateHorizontalScrollAnimation(to: cloudBG2, dependencyOn: scrollView, value: 0.3)
+        generateHorizontalScrollAnimation(to: pictureBG, dependencyOn: scrollView, value: 0.07)
+        generateHorizontalScrollAnimation(to: cloudBG1, dependencyOn: scrollView, value: 0.08)
+        generateHorizontalScrollAnimation(to: cloudBG2, dependencyOn: scrollView, value: 0.06)
     }
     
     private func handleCurrentPage(for scrollView: UIScrollView) {
