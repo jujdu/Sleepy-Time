@@ -37,37 +37,49 @@ class CollectionViewCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("OK, I understood. Let me sleep!", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
+        button.backgroundColor = .systemPink
         button.layer.cornerRadius = 5
+        button.addTarget(self, action: #selector(myButtonTapped), for: .touchUpInside)
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         return button
     }()
+    
+    @objc func myButtonTapped() {
+        delegate?.dismissButtonPressed()
+    }
     
     //MARK: - Properties
     var page: Page? {
         didSet {
             guard let page = page else { return }
+            setupConstraints()
             image.backgroundColor = page.color
             presentTextLabel.text = page.text
-            //            if page.isButtonActive {
-            //                contentView.addSubview(myButton)
-            //                myButton.topAnchor.constraint(equalTo: presentTextLabel.bottomAnchor, constant: 20).isActive = true
-            //                myButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-            //            }
+            if page.isButtonActive {
+               setupButtonConstraints()
+            }
         }
     }
+    
     var delegate: CollectionViewCellDelegate?
     
     //MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupConstraints()
+//        setupConstraints()
         contentView.backgroundColor = .clear
-        setupTapGestureForMyButton()
     }
-    
+        
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Life cycle
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        presentTextLabel.text = nil
+        image.backgroundColor = nil
+        myButton.removeFromSuperview()
     }
     
     //MARK: - User functions
@@ -75,6 +87,7 @@ class CollectionViewCell: UICollectionViewCell {
         contentView.addSubview(image)
         contentView.addSubview(presentTextLabel)
         
+//        image.widthAnchor.constraint(lessThanOrEqualTo: contentView.widthAnchor, multiplier: 0.5).isActive = true
         image.widthAnchor.constraint(equalToConstant: 200).isActive = true
         image.heightAnchor.constraint(equalTo: image.widthAnchor).isActive = true
         image.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
@@ -83,14 +96,10 @@ class CollectionViewCell: UICollectionViewCell {
         presentTextLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
     }
     
-    func setupTapGestureForMyButton() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(myButtonTapped))
-        myButton.addGestureRecognizer(tapGesture)
+    private func setupButtonConstraints() {
+        contentView.addSubview(myButton)
+        myButton.topAnchor.constraint(equalTo: presentTextLabel.bottomAnchor, constant: 20).isActive = true
+        myButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        myButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
-    
-    @objc func myButtonTapped() {
-        delegate?.dismissButtonPressed()
-    }
-    
-    
 }

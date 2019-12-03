@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import AVKit
 
 protocol MainDisplayLogic: class {
     func displayData(viewModel: Main.Model.ViewModel.ViewModelData)
@@ -71,7 +73,7 @@ class MainViewController: UIViewController, MainDisplayLogic {
         button.setTitle("Calculate", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont(name: AppFonts.avenirBook, size: 18)
-        button.backgroundColor = .cyan
+        button.backgroundColor = .systemPink
         button.layer.cornerRadius = 5
         return button
     }()
@@ -111,9 +113,16 @@ class MainViewController: UIViewController, MainDisplayLogic {
         myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 18)!],
                                       range: NSRange(location: 2, length: 1))
         button.setAttributedTitle(myMutableString, for: .normal)
-        button.backgroundColor = .cyan
+        button.backgroundColor = .systemPink
         button.layer.cornerRadius = 5
         return button
+    }()
+    
+    let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemPink
+        return view
     }()
     
     // MARK: - Properties
@@ -121,6 +130,8 @@ class MainViewController: UIViewController, MainDisplayLogic {
     var router: (NSObjectProtocol & MainRoutingLogic & MainDataPassing)?
     var sleepyTime: SleepyTime!
     var choosenTime: Date!
+    var player: AVPlayer?
+    var videoLayer = AVPlayerLayer(player: nil)
     
     // MARK: - Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -154,18 +165,59 @@ class MainViewController: UIViewController, MainDisplayLogic {
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         toTimeLabel.delegate = self
         setupNavigationBar()
+        setupVideoView()
         setupConstraints()
         setupTapGestureForView()
         setupTapGestureForToTimeButton()
         setupTapGestureForFromNowTimeButton()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        videoLayer.frame = containerView.bounds
+    }
+    
     func displayData(viewModel: Main.Model.ViewModel.ViewModelData) {
         
     }
+    
+    private func setupVideoView() {
+        view.addSubview(containerView)
+        containerView.fillSuperview()
+        if let filePath = Bundle.main.path(forResource: "video", ofType:"mp4") {
+            let filePathUrl = NSURL.fileURL(withPath: filePath)
+            player = AVPlayer(url: filePathUrl)
+            videoLayer = AVPlayerLayer(player: player)
+            videoLayer.frame = self.containerView.bounds
+            videoLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: self.player?.currentItem, queue: nil) { (_) in
+                self.player?.seek(to: CMTime.zero)
+                self.player?.play()
+            }
+            self.containerView.layer.addSublayer(videoLayer)
+            player?.play()
+        }
+    }
+    
+//    private func setupVideoView() {
+//        view.addSubview(containerView)
+//        containerView.fillSuperview()
+//        guard let path = Bundle.main.path(forResource: "video", ofType: ".mp4") else {
+//            print("video not found")
+//            return }
+//        let url = URL(fileURLWithPath: path)
+//        let player = AVPlayer(url: url)
+//
+//        let newLayer = AVPlayerLayer(player: player)
+//        newLayer.frame = self.containerView.bounds
+//        self.containerView.layer.addSublayer(newLayer)
+//        newLayer.videoGravity = .resizeAspectFill
+//        player.play()
+//        print("play")
+//    }
     
     private func setupNavigationBar() {
         self.navigationItem.title = "Sleepy Time"

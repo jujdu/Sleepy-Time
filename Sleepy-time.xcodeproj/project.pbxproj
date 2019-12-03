@@ -13,6 +13,7 @@
 		6F1FF79623880AF900FD7630 /* WakeUpTimeModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78F23880AF900FD7630 /* WakeUpTimeModels.swift */; };
 		6F1FF79723880AF900FD7630 /* WakeUpTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF79023880AF900FD7630 /* WakeUpTimeViewController.swift */; };
 		6F1FF79823880AF900FD7630 /* WakeUpTimeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF79123880AF900FD7630 /* WakeUpTimeInteractor.swift */; };
+		6F24A6AA23931FB000E40B62 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6F24A6A923931FAF00E40B62 /* video.mp4 */; };
 		6F2DD2A0238D13FC002B16BE /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DD299238D13FC002B16BE /* SettingsPresenter.swift */; };
 		6F2DD2A1238D13FC002B16BE /* SettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DD29A238D13FC002B16BE /* SettingsWorker.swift */; };
 		6F2DD2A2238D13FC002B16BE /* SettingsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DD29B238D13FC002B16BE /* SettingsRouter.swift */; };
@@ -65,6 +66,7 @@
 		6F1FF78F23880AF900FD7630 /* WakeUpTimeModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeModels.swift; sourceTree = "<group>"; };
 		6F1FF79023880AF900FD7630 /* WakeUpTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeViewController.swift; sourceTree = "<group>"; };
 		6F1FF79123880AF900FD7630 /* WakeUpTimeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeInteractor.swift; sourceTree = "<group>"; };
+		6F24A6A923931FAF00E40B62 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		6F2DD299238D13FC002B16BE /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		6F2DD29A238D13FC002B16BE /* SettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWorker.swift; sourceTree = "<group>"; };
 		6F2DD29B238D13FC002B16BE /* SettingsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRouter.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				6F7D93152387FFA2006A8640 /* MainModels.swift */,
 				6F7D93142387FFA2006A8640 /* MainRouter.swift */,
 				6F7D93132387FFA2006A8640 /* MainWorker.swift */,
+				6F24A6A923931FAF00E40B62 /* video.mp4 */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FB539272326B38B00B5DB92 /* LaunchScreen.storyboard in Resources */,
+				6F24A6AA23931FB000E40B62 /* video.mp4 in Resources */,
 				6FB539242326B38B00B5DB92 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

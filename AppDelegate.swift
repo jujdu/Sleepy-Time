@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
         ]
+        navigationController.navigationBar.barStyle = .blackTranslucent
+        navigationController.navigationBar.tintColor = .white
         
         do {
               try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers, .allowAirPlay])
@@ -34,9 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           } catch {
               print(error)
           }
-//        let pageControl = UIPageControl.appearance()
-//        pageControl.pageIndicatorTintColor = UIColor.systemGray
-//        pageControl.currentPageIndicatorTintColor = UIColor.systemPurple
 
         return true
     }

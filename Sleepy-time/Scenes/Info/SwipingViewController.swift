@@ -9,7 +9,7 @@
 import UIKit
 
 class SwipingViewController: UIViewController {
-    
+    //MARK: - Collection View
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -84,6 +84,7 @@ class SwipingViewController: UIViewController {
     
     @objc private func handlePrevious() {
         let currentPage = max(pageControl.currentPage - 1, 0)
+        self.currentPage = currentPage
         let indexPath = IndexPath(item: currentPage, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
@@ -103,6 +104,7 @@ class SwipingViewController: UIViewController {
     
     @objc private func handleNext() {
         let currentPage = min(pageControl.currentPage + 1, pages.count - 1)
+        self.currentPage = currentPage
         let indexPath = IndexPath(item: currentPage, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
@@ -119,7 +121,7 @@ class SwipingViewController: UIViewController {
     //MARK: - Properties
     var pages: [Page] = [Page(imageName: "bear", text: "first", isButtonActive: false, color: .yellow), Page(imageName: "bear", text: "second", isButtonActive: false, color: .orange), Page(imageName: "bear", text: "third", isButtonActive: false, color: .red), Page(imageName: "bear", text: "fourth", isButtonActive: true, color: .green)]
     
-    var currentPage: Int = 0 {
+    private var currentPage: Int = 0 {
         willSet {
             guard currentPage != newValue else { return }
             pageControl.currentPage = newValue
@@ -139,14 +141,9 @@ class SwipingViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: { (_) in
             self.collectionView.collectionViewLayout.invalidateLayout()
-            if self.pageControl.currentPage == 0 {
-                self.collectionView.contentOffset = .zero
-            } else {
-                let indexPath = IndexPath(item: self.pageControl.currentPage, section: 0)
-                self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-            }
+            let indexPath = IndexPath(item: self.currentPage, section: 0)
+            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }, completion: nil)
-        
     }
     
     private func setupConstraints() {
@@ -159,7 +156,7 @@ class SwipingViewController: UIViewController {
         cloudBG2.bgAnchor(to: view)
         cloudBG1.bgAnchor(to: view)
         
-        //MARK: - Setup Top Views
+        //MARK: - Setup Front Views
         view.addSubview(collectionView)
         view.addSubview(stackView)
         stackView.addArrangedSubview(previousButton)
@@ -210,7 +207,6 @@ extension SwipingViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
-    
 }
 
 //MARK: - ScrollViewDelegate
@@ -229,10 +225,12 @@ extension SwipingViewController: UIScrollViewDelegate {
         let halfWidth = width / 2
         let cPage = CGFloat(currentPage)
         
-        if xOffset <= (width * cPage) - halfWidth && currentPage != 0 {
-            currentPage -= 1
-        } else if xOffset >= (width * cPage) + halfWidth && currentPage != pages.count - 1 {
-            currentPage += 1
+        if scrollView.isTracking || scrollView.isDragging {
+            if xOffset <= (width * cPage) - halfWidth && currentPage != 0 {
+                currentPage -= 1
+            } else if xOffset >= (width * cPage) + halfWidth && currentPage != pages.count - 1 {
+                currentPage += 1
+            }
         }
     }
     
@@ -274,3 +272,17 @@ extension SwipingViewController: CollectionViewCellDelegate {
 //        }
 //           } else if xOffset >= (width * cPage) + halfWidth{ // 400 * 1 + 200 -> 1 page
 //        //               && xOffset < (width * (cPage + 1)) + halfWidth { //(400 * 2) + 200
+//
+//    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+//        coordinator.animate(alongsideTransition: { (_) in
+//            self.collectionView.collectionViewLayout.invalidateLayout()
+//            let indexPath = IndexPath(item: self.pageControl.currentPage, section: 0)
+//            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+////            if self.pageControl.currentPage == 0 {
+////                self.collectionView.contentOffset = .zero
+////            } else {
+////
+////            }
+//        }, completion: nil)
+//
+//    }
