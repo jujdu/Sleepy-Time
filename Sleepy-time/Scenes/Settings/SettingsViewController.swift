@@ -41,38 +41,17 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
         dismiss(animated: true, completion: nil)
     }
     
-    lazy var navigationBar: UINavigationBar = {
-        let screenSize: CGRect = UIScreen.main.bounds
-        let navigationBar = UINavigationBar(frame: .zero)
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar.setBackgroundImage(nil, for:.default)
-        navigationBar.shadowImage = nil
-        navigationBar.isTranslucent = true
-        navigationBar.delegate = self
-        navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
-        ]
-        let standaloneItem = UINavigationItem()
-        standaloneItem.leftBarButtonItem = cancelBarButton
-        standaloneItem.rightBarButtonItem = doneBarButton
-        standaloneItem.title = "Settings"
-        navigationBar.items = [standaloneItem]
-        return navigationBar
-    }()
-    
     // MARK: - Properties
     var interactor: SettingsBusinessLogic?
     var router: (NSObjectProtocol & SettingsRoutingLogic & SettingsDataPassing)?
-    let userDefaults = UserDefaults.standard
-    let mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
-    let mediaPlayer = MPMusicPlayerController.applicationMusicPlayer
-    let engine = AVAudioEngine()
-    let player = AVPlayer()
-    let avplayer = AVAudioPlayer()
+    
+    private var viewModel = SettingsViewModel(items: [])
+    private let mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
+    private let engine = AVAudioEngine()
+    private let player = AVPlayer()
+    private let avplayer = AVAudioPlayer()
     
     // MARK: - Object lifecycle
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
@@ -99,39 +78,56 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     }
     
     // MARK: - View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        setupConstraints()
+        setupTableView()
+        setupNavBar()
+        setupMediaPicker()
+        interactor?.makeRequest(request: .getSettings)
+    }
+    
+    func displayData(viewModel: Settings.Model.ViewModel.ViewModelData) {
+        switch viewModel {
+        case .displaySettings(let viewModel):
+            self.viewModel = viewModel
+            tableView.reloadData()
+        @unknown default:
+            print("SettingsViewController has another response")
+        }
+    }
+    
+    //MARK: - Constraints
+    private func setupConstraints() {
+        view.addSubview(tableView)
+        tableView.fillSuperview()
+    }
+    
+    private func setupNavBar() {
+        navigationItem.leftBarButtonItem = cancelBarButton
+        navigationItem.rightBarButtonItem = doneBarButton
+        navigationItem.title = "Settings"
+    }
+    
+    //MARK: - UI Configure
+    private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TimeToFallAsleepCell.self, forCellReuseIdentifier: TimeToFallAsleepCell.reuseId)
         tableView.register(SnoozeCell.self, forCellReuseIdentifier: SnoozeCell.reuseId)
+        tableView.register(TimeToFallAsleepCell.self, forCellReuseIdentifier: TimeToFallAsleepCell.reuseId)
         tableView.register(SongCell.self, forCellReuseIdentifier: SongCell.reuseId)
-        //        setupUI()
-        setupConstraints()
+        tableView.register(SoundValue.self, forCellReuseIdentifier: SoundValue.reuseId)
+    }
+    
+    private func setupMediaPicker() {
         mediaPicker.allowsPickingMultipleItems = false
         mediaPicker.showsCloudItems = false
         mediaPicker.showsItemsWithProtectedAssets = false
         mediaPicker.delegate = self
     }
     
-    func displayData(viewModel: Settings.Model.ViewModel.ViewModelData) {
-        
-    }
-    
-    private func setupConstraints() {
-        view.addSubview(tableView)
-        view.addSubview(navigationBar)
-        navigationBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        navigationBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        tableView.anchor(top: navigationBar.bottomAnchor,
-                         leading: view.leadingAnchor,
-                         bottom: view.bottomAnchor,
-                         trailing: view.trailingAnchor)
-    }
-    
+    //MARK: - AVEngine
     private func startEngine(playFileAt: URL) {
         engine.stop()
         do {
@@ -153,54 +149,51 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     
 }
 
-//MARK: - UITableViewDelegate, UITableViewDataSource
+//MARK: - UITableView Protocols
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return viewModel.items.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return viewModel.items[section].rowsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        switch indexPath.section {
-        case 0:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: SnoozeCell.reuseId, for: indexPath) as? SnoozeCell {
-                return cell
-            }
-            return UITableViewCell()
-        case 1:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: TimeToFallAsleepCell.reuseId, for: indexPath) as? TimeToFallAsleepCell {
-                return cell
-            }
-            return UITableViewCell()
-        case 2:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: SongCell.reuseId, for: indexPath) as? SongCell {
-                return cell
-            }
-            return UITableViewCell()
-        default:
-            return UITableViewCell()
-        }
+        let itemType = viewModel.items[indexPath.section].type
+        let cell = itemType.cellForSettingsItemType(tableView: tableView, indexPath: indexPath)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UITableViewHeaderFooterView(width: tableView.frame.width,
+                                           height: 30,
+                                           text: viewModel.items[section].sectionTitle)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return viewModel.items[section].sectionHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 2 {
+        let itemType = viewModel.items[indexPath.section].type
+        
+        switch itemType {
+        case .song:
             self.present(mediaPicker, animated: true) {
-                let alert = UIAlertController(title: "Attention", message: "Unfortunately, the application cannot support iCloud Media Library and Apple Music because of copyright issues 😢. However, you still have possibility to upload your own music to iTunes throught Music App.\nThank's for your understanding.\n🙏", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
-                let neverShow = UIAlertAction(title: "Never show", style: .cancel, handler: nil)
-                alert.addAction(ok)
-                alert.addAction(neverShow)
+                let alert = self.createAttentionAlert()
                 self.mediaPicker.present(alert, animated: true, completion: nil)
             }
+        case .snooze:
+            let snoozeVC = SnoozeViewController()
+            self.show(snoozeVC, sender: self)
+        default:
+            print("Others types")
         }
     }
-
 }
 
+//MARK: - MPMediaPickerControllerDelegate
 extension SettingsViewController: MPMediaPickerControllerDelegate {
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         self.dismiss(animated: true, completion: nil)
@@ -218,6 +211,7 @@ extension SettingsViewController: MPMediaPickerControllerDelegate {
     }
 }
 
+//MARK: - UINavigationBarDelegate
 extension SettingsViewController: UINavigationBarDelegate {
     public func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached

@@ -32,7 +32,8 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing {
     
     func routeToSettings() {
         let destinationVC = SettingsViewController()
-        navigateToSettings(source: viewController!, destination: destinationVC)
+        let navVC = UINavigationController(rootViewController: destinationVC)
+        navigateToSettings(source: viewController!, destination: navVC)
     }
     
     // MARK: - Navigation
@@ -40,7 +41,7 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing {
         source.show(destination, sender: nil)
     }
     
-    func navigateToSettings(source: MainViewController, destination: SettingsViewController) {
+    func navigateToSettings(source: MainViewController, destination: UINavigationController) {
         destination.modalPresentationStyle = .fullScreen
         source.present(destination, animated: true, completion: nil)
     }

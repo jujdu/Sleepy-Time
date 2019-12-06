@@ -30,6 +30,16 @@ class TimeToFallAsleepCell: UITableViewCell {
         slider.minimumValue = 1
         slider.maximumValue = 45
         slider.value = 15
+        if #available(iOS 13.0, *) {
+            slider.minimumValueImage = UIImage(systemName: "zzz")
+        } else {
+            // Fallback on earlier versions
+        }
+        if #available(iOS 13.0, *) {
+            slider.maximumValueImage = UIImage(systemName: "moon.zzz.fill")
+        } else {
+            // Fallback on earlier versions
+        }
         slider.addTarget(self, action: #selector(self.sliderChangedValue), for: .valueChanged)
         return slider
     }()

@@ -25,6 +25,12 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore {
         if worker == nil {
             worker = SettingsWorker()
         }
+        
+        switch request {
+        case .getSettings:
+            presenter?.presentData(response: .presentSettings)
+        @unknown default:
+            print("SettingsInteractor has another response")
+        }
     }
-    
 }
