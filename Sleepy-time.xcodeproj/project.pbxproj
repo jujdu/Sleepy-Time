@@ -10,7 +10,8 @@
 		6F019E5B239A486B00252B63 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E5A239A486B00252B63 /* UIViewController+Extension.swift */; };
 		6F019E5D239A60D400252B63 /* SnoozeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E5C239A60D400252B63 /* SnoozeViewController.swift */; };
 		6F019E60239A7BEF00252B63 /* UITableViewHeaderFooterView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E5F239A7BEF00252B63 /* UITableViewHeaderFooterView+Extensions.swift */; };
-		6F019E62239A819600252B63 /* SoundValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E61239A819600252B63 /* SoundValue.swift */; };
+		6F019E62239A819600252B63 /* SoundValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E61239A819600252B63 /* SoundValueCell.swift */; };
+		6F019E64239E472700252B63 /* SoundVibrationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E63239E472700252B63 /* SoundVibrationCell.swift */; };
 		6F1FF79323880AF900FD7630 /* WakeUpTimePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78C23880AF900FD7630 /* WakeUpTimePresenter.swift */; };
 		6F1FF79423880AF900FD7630 /* WakeUpTimeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78D23880AF900FD7630 /* WakeUpTimeWorker.swift */; };
 		6F1FF79523880AF900FD7630 /* WakeUpTimeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78E23880AF900FD7630 /* WakeUpTimeRouter.swift */; };
@@ -66,7 +67,8 @@
 		6F019E5A239A486B00252B63 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		6F019E5C239A60D400252B63 /* SnoozeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoozeViewController.swift; sourceTree = "<group>"; };
 		6F019E5F239A7BEF00252B63 /* UITableViewHeaderFooterView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+Extensions.swift"; sourceTree = "<group>"; };
-		6F019E61239A819600252B63 /* SoundValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundValue.swift; sourceTree = "<group>"; };
+		6F019E61239A819600252B63 /* SoundValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundValueCell.swift; sourceTree = "<group>"; };
+		6F019E63239E472700252B63 /* SoundVibrationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundVibrationCell.swift; sourceTree = "<group>"; };
 		6F1FF78C23880AF900FD7630 /* WakeUpTimePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimePresenter.swift; sourceTree = "<group>"; };
 		6F1FF78D23880AF900FD7630 /* WakeUpTimeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeWorker.swift; sourceTree = "<group>"; };
 		6F1FF78E23880AF900FD7630 /* WakeUpTimeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeRouter.swift; sourceTree = "<group>"; };
@@ -170,7 +172,8 @@
 				6F4A9FC42389E6D9008A1139 /* SnoozeCell.swift */,
 				6F4A9FC82389E708008A1139 /* TimeToFallAsleepCell.swift */,
 				6F4A9FCA2389E7B0008A1139 /* SongCell.swift */,
-				6F019E61239A819600252B63 /* SoundValue.swift */,
+				6F019E61239A819600252B63 /* SoundValueCell.swift */,
+				6F019E63239E472700252B63 /* SoundVibrationCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				6F1FF79323880AF900FD7630 /* WakeUpTimePresenter.swift in Sources */,
 				6F2DD2A4238D13FC002B16BE /* SettingsViewController.swift in Sources */,
 				6F1FF79623880AF900FD7630 /* WakeUpTimeModels.swift in Sources */,
+				6F019E64239E472700252B63 /* SoundVibrationCell.swift in Sources */,
 				6F47FB57238D9FF20005EEE5 /* CollectionViewCell.swift in Sources */,
 				6FBF14FF2386A440006AB01F /* NSMutableAttributedString+Extension.swift in Sources */,
 				6F2DD2A2238D13FC002B16BE /* SettingsRouter.swift in Sources */,
@@ -376,7 +380,7 @@
 				6FB5391D2326B38500B5DB92 /* AppDelegate.swift in Sources */,
 				6F7D931E2387FFA2006A8640 /* MainInteractor.swift in Sources */,
 				6F4E88352337BD140068791B /* UIView+Extension.swift in Sources */,
-				6F019E62239A819600252B63 /* SoundValue.swift in Sources */,
+				6F019E62239A819600252B63 /* SoundValueCell.swift in Sources */,
 				6F7D931B2387FFA2006A8640 /* MainRouter.swift in Sources */,
 				6F2DD2A0238D13FC002B16BE /* SettingsPresenter.swift in Sources */,
 			);
@@ -522,6 +526,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A9D7992LUJ;
 				INFOPLIST_FILE = "Sleepy-time/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -541,6 +546,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A9D7992LUJ;
 				INFOPLIST_FILE = "Sleepy-time/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

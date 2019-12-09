@@ -18,14 +18,15 @@ class WakeUpTimePresenter: WakeUpTimePresentationLogic {
     
     func presentData(response: WakeUpTime.Model.Response.ResponseType) {
         switch response {
-        case .presentWakeUpTime(let date, let alarmTimeType):
-            if alarmTimeType == .fromNowTime {
-                let alarmTime = calculateFromNowTime(date: date)
-                let viewModel = SleepyTime(alarmTimes: alarmTime, type: .fromNowTime, choosenDate: date)
+        case .presentWakeUpTime(let sleepyTime):
+            let date = sleepyTime.choosenDate
+            if sleepyTime.type == .fromNowTime {
+                let alarmTimes = calculateFromNowTime(date: date)
+                let viewModel = WakeUpTimeViewModel(alarmTimes: alarmTimes)
                 viewController?.displayData(viewModel: .displayWakeUpTime(viewModel: viewModel))
             } else {
                 let alarmTime = calculateToTime(date: date)
-                let viewModel = SleepyTime(alarmTimes: alarmTime, type: .toTime, choosenDate: date)
+                let viewModel = SleepyTime(choosenDate: date, type: .toTime, alarmTimes: alarmTime)
                 viewController?.displayData(viewModel: .displayWakeUpTime(viewModel: viewModel))
             }
         @unknown default:

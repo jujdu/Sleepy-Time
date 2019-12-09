@@ -62,8 +62,16 @@ class WakeUpTimeCell: UITableViewCell {
         button.tintColor = .black
         button.layer.cornerRadius = 5
         button.contentHorizontalAlignment = .right
+        button.isUserInteractionEnabled = false
+//        button.addTarget(self, action: #selector(handleButtonTapped), for: .touchUpInside)
         return button
     }()
+    
+//    var closure: ((Date) -> ())?
+    
+//    @objc func handleButtonTapped() {
+//        closure?(Date())
+//    }
     
     //MARK: - Common Stack View
     let commonStackView: UIStackView = {

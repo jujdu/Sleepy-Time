@@ -16,10 +16,14 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     
     //MARK: - Bar buttons
     lazy var alarmBarButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem()
-        barButtonItem.image = #imageLiteral(resourceName: "ic_add_alarm_36pt")
+        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_alarm_36pt"), style: .plain, target: self, action: #selector(handleBarButtonItemTapped))
         return barButtonItem
     }()
+    
+    @objc func handleBarButtonItemTapped() {
+        let alert = self.createAlarmTimeAlert(date: sleepyTime!.choosenDate)
+        self.present(alert, animated: true, completion: nil)
+    }
     
     //MARK: - Info Label. Up side
     let infoLabel: UILabel = {
@@ -38,7 +42,6 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.isScrollEnabled = false
-        tableView.allowsSelection = false
         return tableView
     }()
     
@@ -155,5 +158,20 @@ extension WakeUpTimeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let date = sleepyTime?.alarmTimes[indexPath.row].date else { return }
+        if sleepyTime?.type == .fromNowTime {
+            let alert = self.createAlarmTimeAlert(date: date)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if sleepyTime?.type == .toTime {
+            tableView.isUserInteractionEnabled = false
+        }
     }
 }

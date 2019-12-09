@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
         ]
-        navigationController.navigationBar.barStyle = .blackTranslucent
+        navigationController.navigationBar.barStyle = .black
+        navigationController.navigationBar.isTranslucent = true
         navigationController.navigationBar.tintColor = .white
         
         do {

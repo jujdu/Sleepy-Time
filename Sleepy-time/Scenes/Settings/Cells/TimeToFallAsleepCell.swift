@@ -30,16 +30,13 @@ class TimeToFallAsleepCell: UITableViewCell {
         slider.minimumValue = 1
         slider.maximumValue = 45
         slider.value = 15
+        // it's not necessarily, but just keep it here for an example
         if #available(iOS 13.0, *) {
             slider.minimumValueImage = UIImage(systemName: "zzz")
         } else {
             // Fallback on earlier versions
         }
-        if #available(iOS 13.0, *) {
-            slider.maximumValueImage = UIImage(systemName: "moon.zzz.fill")
-        } else {
-            // Fallback on earlier versions
-        }
+        slider.maximumValueImage = UIImage(systemName: "moon.zzz.fill")
         slider.addTarget(self, action: #selector(self.sliderChangedValue), for: .valueChanged)
         return slider
     }()
@@ -74,7 +71,6 @@ class TimeToFallAsleepCell: UITableViewCell {
     }
     
     @objc func sliderChangedValue(sender: UISlider) {
-        print(sender.value)
         fallAsleepLabel.text = generatedTextForLabel(sender.value)    }
     
     func generatedTextForLabel(_ value: Float) -> String {

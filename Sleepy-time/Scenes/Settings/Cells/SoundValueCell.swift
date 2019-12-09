@@ -1,5 +1,5 @@
 //
-//  SoundValue.swift
+//  SoundValueCell.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 06.12.2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SoundValue: UITableViewCell {
+class SoundValueCell: UITableViewCell {
     static let reuseId = "SoundValue"
     
     //MARK: - FallAsleep Views

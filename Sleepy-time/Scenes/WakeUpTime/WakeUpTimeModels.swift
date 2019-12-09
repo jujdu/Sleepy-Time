@@ -18,14 +18,23 @@ enum WakeUpTime {
         }
         struct Response {
             enum ResponseType {
-                case presentWakeUpTime(date: Date, alarmTimeType: AlarmTimeType)
+                case presentWakeUpTime(sleepyTime: SleepyTime)
             }
         }
         struct ViewModel {
             enum ViewModelData {
-                case displayWakeUpTime(viewModel: SleepyTime)
+                case displayWakeUpTime(viewModel: WakeUpTimeViewModel)
             }
         }
     }
     
+}
+
+struct WakeUpTimeViewModel {
+    struct AlarmTime {
+        var cyclesCount: Int
+        var date: Date
+    }
+    
+    var alarmTimes: [AlarmTime]
 }

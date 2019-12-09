@@ -82,10 +82,10 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupConstraints()
+        interactor?.makeRequest(request: .getSettings)
         setupTableView()
         setupNavBar()
         setupMediaPicker()
-        interactor?.makeRequest(request: .getSettings)
     }
     
     func displayData(viewModel: Settings.Model.ViewModel.ViewModelData) {
@@ -114,10 +114,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(SnoozeCell.self, forCellReuseIdentifier: SnoozeCell.reuseId)
-        tableView.register(TimeToFallAsleepCell.self, forCellReuseIdentifier: TimeToFallAsleepCell.reuseId)
-        tableView.register(SongCell.self, forCellReuseIdentifier: SongCell.reuseId)
-        tableView.register(SoundValue.self, forCellReuseIdentifier: SoundValue.reuseId)
+        viewModel.items.forEach { $0.type.registerCell(tableView: tableView) }
     }
     
     private func setupMediaPicker() {
@@ -189,6 +186,17 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             self.show(snoozeVC, sender: self)
         default:
             print("Others types")
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let itemType = viewModel.items[indexPath.section].type
+        
+        switch itemType {
+        case .snooze, .song:
+            cell.selectionStyle = .default
+        default:
+            cell.selectionStyle = .none
         }
     }
 }

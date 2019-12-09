@@ -40,6 +40,22 @@ enum SettingsItemType {
     case fallAlseep
     case song
     case soundValue
+    case soundVibration
+    
+    func registerCell(tableView: UITableView) {
+        switch self {
+        case .snooze:
+            tableView.register(SnoozeCell.self, forCellReuseIdentifier: SnoozeCell.reuseId)
+        case .fallAlseep:
+            tableView.register(TimeToFallAsleepCell.self, forCellReuseIdentifier: TimeToFallAsleepCell.reuseId)
+        case .song:
+            tableView.register(SongCell.self, forCellReuseIdentifier: SongCell.reuseId)
+        case .soundValue:
+            tableView.register(SoundValueCell.self, forCellReuseIdentifier: SoundValueCell.reuseId)
+        case .soundVibration:
+            tableView.register(SoundVibrationCell.self, forCellReuseIdentifier: SoundVibrationCell.reuseId)
+        }
+    }
     
     func cellForSettingsItemType(tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         switch self {
@@ -50,7 +66,9 @@ enum SettingsItemType {
         case .song:
             return tableView.dequeueReusableCell(withIdentifier: SongCell.reuseId, for: indexPath) as! SongCell
         case .soundValue:
-            return tableView.dequeueReusableCell(withIdentifier: SoundValue.reuseId, for: indexPath) as! SoundValue
+            return tableView.dequeueReusableCell(withIdentifier: SoundValueCell.reuseId, for: indexPath) as! SoundValueCell
+        case .soundVibration:
+            return tableView.dequeueReusableCell(withIdentifier: SoundVibrationCell.reuseId, for: indexPath) as! SoundVibrationCell
         }
     }
 }
@@ -89,4 +107,8 @@ class SettingsSongItem: SettingsItemProtocol {
 // MARK: - Implementation SettingsSoundLabel
 class SettingsSoundValueItem: SettingsItemProtocol {
     var type: SettingsItemType = .soundValue
+}
+
+class SettingsSoundVibrationItem: SettingsItemProtocol {
+    var type: SettingsItemType = .soundVibration
 }

@@ -13,7 +13,7 @@ enum Main {
     enum Model {
         struct Request {
             enum RequestType {
-                case setWakeUpTime(date: Date, alarmTimeType: AlarmTimeType)
+                case setWakeUpTime(sleepyTime: SleepyTime)
             }
         }
         struct Response {

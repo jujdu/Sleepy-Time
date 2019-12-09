@@ -105,14 +105,8 @@ class MainViewController: UIViewController, MainDisplayLogic {
     let fromNowTimeButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        let myMutableString = NSMutableAttributedString(string: "ZZZ",
-                                                        attributes: [NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 12)!,
-                                                                     NSAttributedString.Key.foregroundColor: UIColor.black])
-        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 15)!],
-                                      range: NSRange(location: 1, length: 1))
-        myMutableString.addAttributes([NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 18)!],
-                                      range: NSRange(location: 2, length: 1))
-        button.setAttributedTitle(myMutableString, for: .normal)
+        button.setImage(UIImage(systemName: "zzz"), for: .normal)
+        button.tintColor = .black
         button.backgroundColor = .systemPink
         button.layer.cornerRadius = 5
         return button
@@ -202,23 +196,6 @@ class MainViewController: UIViewController, MainDisplayLogic {
         }
     }
     
-//    private func setupVideoView() {
-//        view.addSubview(containerView)
-//        containerView.fillSuperview()
-//        guard let path = Bundle.main.path(forResource: "video", ofType: ".mp4") else {
-//            print("video not found")
-//            return }
-//        let url = URL(fileURLWithPath: path)
-//        let player = AVPlayer(url: url)
-//
-//        let newLayer = AVPlayerLayer(player: player)
-//        newLayer.frame = self.containerView.bounds
-//        self.containerView.layer.addSublayer(newLayer)
-//        newLayer.videoGravity = .resizeAspectFill
-//        player.play()
-//        print("play")
-//    }
-    
     private func setupNavigationBar() {
         self.navigationItem.title = "Sleepy Time"
         self.navigationItem.leftBarButtonItem = settingsBarButton
@@ -241,10 +218,10 @@ class MainViewController: UIViewController, MainDisplayLogic {
         stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         
-        toTimeLabel.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
-        toTimeButton.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
+        toTimeLabel.widthAnchor.constraint(equalTo: descriptionToTimeLabel.widthAnchor).isActive = true
+        toTimeButton.widthAnchor.constraint(equalTo: descriptionToTimeLabel.widthAnchor).isActive = true
         toTimeButton.heightAnchor.constraint(equalToConstant: Constraints.buttonHeight).isActive = true
-        fromNowTimeButton.widthAnchor.constraint(greaterThanOrEqualTo: descriptionToTimeLabel.widthAnchor).isActive = true
+        fromNowTimeButton.widthAnchor.constraint(equalTo: descriptionToTimeLabel.widthAnchor).isActive = true
         fromNowTimeButton.heightAnchor.constraint(equalToConstant: Constraints.buttonHeight).isActive = true
     }
     
@@ -266,8 +243,8 @@ class MainViewController: UIViewController, MainDisplayLogic {
     
     @objc func toTimeButtonTapped() {
         if toTimeLabel.placeholder == nil {
-            interactor?.makeRequest(request: .setWakeUpTime(date: choosenTime,
-                                                            alarmTimeType: .toTime))
+            let sleepyTime = SleepyTime(choosenDate: choosenTime, type: .toTime)
+            interactor?.makeRequest(request: .setWakeUpTime(sleepyTime: sleepyTime))
             router?.routeToWakeUpTime()
         } else {
             toTimeLabel.shake()
@@ -281,8 +258,8 @@ class MainViewController: UIViewController, MainDisplayLogic {
     }
     
     @objc func fromNowTimeButtonTapped() {
-        interactor?.makeRequest(request: .setWakeUpTime(date: Date(),
-                                                        alarmTimeType: .fromNowTime))
+        let sleepyTime = SleepyTime(choosenDate: Date(), type: .fromNowTime)
+        interactor?.makeRequest(request: .setWakeUpTime(sleepyTime: sleepyTime))
         router?.routeToWakeUpTime()
     }
     

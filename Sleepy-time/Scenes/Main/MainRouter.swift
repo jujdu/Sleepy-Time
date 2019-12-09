@@ -49,7 +49,5 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing {
     // MARK: - Passing data
     func passDataToWakeUpTime(source: MainDataStore, destination: inout WakeUpTimeDataStore) {
         destination.sleepyTime = source.sleepyTime
-        destination.choosenTime = source.choosenTime
-        destination.alarmTimeType = source.alarmTimeType
     }
 }

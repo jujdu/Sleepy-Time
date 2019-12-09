@@ -18,7 +18,6 @@ extension UITableViewHeaderFooterView {
             label.font = UIFont(name: AppFonts.avenirLight, size: 14)
             label.textColor = .lightGray
             label.text = text
-            backgroundColor = .darkGray
             self.addSubview(headerView)
             headerView.addSubview(label)
         }

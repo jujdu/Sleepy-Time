@@ -17,4 +17,13 @@ extension UIViewController {
         alert.addAction(neverShow)
         return alert
     }
+    
+    func createAlarmTimeAlert(date: Date) -> UIAlertController {
+        let alert = UIAlertController(title: "Alarm", message: "Do you really want to set the alarm at \(date)", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        return alert
+    }
 }

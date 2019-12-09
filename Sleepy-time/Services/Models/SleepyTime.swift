@@ -9,17 +9,12 @@
 import Foundation
 
 struct SleepyTime {
-    var alarmTimes: [AlarmTime]
-    var type: AlarmTimeType
     var choosenDate: Date
-}
-
-struct AlarmTime {
-    var cyclesCount: Int
-    var date: Date
+    var type: AlarmTimeType
 }
 
 enum AlarmTimeType {
     case toTime
     case fromNowTime
 }
+
