@@ -5,9 +5,9 @@
 //  Created by Michael Sidoruk on 21.11.2019.
 //  Copyright © 2019 Michael Sidoruk. All rights reserved.
 //
-
-import Foundation
-
+//
+//import Foundation
+//
 //        let myMutableString = NSMutableAttributedString(string: "ZZZ",
 //                                                        attributes: [NSAttributedString.Key.font: UIFont(name: AppFonts.avenirBook, size: 12)!,
 //                                                                     NSAttributedString.Key.foregroundColor: UIColor.black])

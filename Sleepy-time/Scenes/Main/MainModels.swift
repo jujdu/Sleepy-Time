@@ -18,12 +18,12 @@ enum Main {
         }
         struct Response {
             enum ResponseType {
-                case some
+                
             }
         }
         struct ViewModel {
             enum ViewModelData {
-                case some
+                
             }
         }
     }

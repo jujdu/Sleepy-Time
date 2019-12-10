@@ -46,11 +46,11 @@ class SnoozeViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        if minutesArray[indexPath.row] == nil {
-            cell.textLabel!.text = "Never"
-            cell.accessoryType = .checkmark
+        if let min = minutesArray[indexPath.row] {
+            cell.textLabel?.text = "\(min) min"
         } else {
-            cell.textLabel?.text = "\(minutesArray[indexPath.row]!) min"
+            cell.textLabel?.text = "Never"
+            cell.accessoryType = .checkmark
         }
         return cell
     }
