@@ -21,7 +21,8 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     }()
     
     @objc func handleBarButtonItemTapped() {
-        let alert = self.createAlarmTimeAlert(date: sleepyTime!.choosenDate)
+        guard let date = viewModel?.sleepyTime.choosenDate else { return }
+        let alert = self.createAlarmTimeAlert(date: date)
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -48,7 +49,7 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     // MARK: - Properties
     var interactor: WakeUpTimeBusinessLogic?
     var router: (NSObjectProtocol & WakeUpTimeRoutingLogic & WakeUpTimeDataPassing)?
-    var sleepyTime: SleepyTime?
+    var viewModel: WakeUpTimeViewModel?
     
     // MARK: - Object lifecycle
     
@@ -111,15 +112,14 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     
     private func setupNavigationBar() {
         self.navigationItem.title = "Alarm Time"
-        if sleepyTime?.type == .toTime {
-   
+        if viewModel?.sleepyTime.type == .toTime {
             self.navigationItem.rightBarButtonItem = alarmBarButton
         }
     }
     
     private func setupInfoLbl() {
-        let date = sleepyTime?.choosenDate.shortStyleString() ?? ""
-        if sleepyTime?.type == .toTime {
+        let date = viewModel?.sleepyTime.choosenDate.shortStyleString() ?? ""
+        if viewModel?.sleepyTime.type == .toTime {
             infoLabel.text = "If you want to wake up at \(date), you should try to fall asleep at one of the following times:"
         } else {
             infoLabel.text = "If you head to bed right now at \(date), you should try to wake up at one of the following times:"
@@ -129,7 +129,7 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     func displayData(viewModel: WakeUpTime.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayWakeUpTime(let viewModel):
-            sleepyTime = viewModel
+            self.viewModel = viewModel
             setupInfoLbl()
             setupNavigationBar()
             tableView.reloadData()
@@ -142,16 +142,15 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
 //MARK: - UITableViewDelegate, UITableViewDataSource
 extension WakeUpTimeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sleepyTime?.alarmTimes.count ?? 0
+        return viewModel?.cells.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: WakeUpTimeCell.reuseId, for: indexPath) as? WakeUpTimeCell {
-            guard let alarmTime = sleepyTime?.alarmTimes[indexPath.row],
-                let type = sleepyTime?.type
-                else { return UITableViewCell() }
-            cell.setupUI(alarmTime: alarmTime, cellType: type)
-            return cell
+            if let alarmTime = viewModel?.cells[indexPath.row], let cellType = viewModel?.sleepyTime.type {
+                cell.set(alarmTime: alarmTime, cellType: cellType)
+                return cell
+            }
         }
         return UITableViewCell()
     }
@@ -162,15 +161,15 @@ extension WakeUpTimeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let date = sleepyTime?.alarmTimes[indexPath.row].date else { return }
-        if sleepyTime?.type == .fromNowTime {
+        guard let date = viewModel?.cells[indexPath.row].date else { return }
+        if viewModel?.sleepyTime.type == .fromNowTime {
             let alert = self.createAlarmTimeAlert(date: date)
             self.present(alert, animated: true, completion: nil)
         }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if sleepyTime?.type == .toTime {
+        if viewModel?.sleepyTime.type == .toTime {
             tableView.isUserInteractionEnabled = false
         }
     }

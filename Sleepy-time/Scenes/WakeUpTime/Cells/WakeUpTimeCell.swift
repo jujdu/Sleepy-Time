@@ -11,7 +11,6 @@ import UIKit
 class WakeUpTimeCell: UITableViewCell {
     
     static let reuseId = "WakeUpTimeCell"
-    private var cellType: AlarmTimeType!
     
     //MARK: - Cycle Views. Left side
     let cycleStackView: UIStackView = {
@@ -106,7 +105,7 @@ class WakeUpTimeCell: UITableViewCell {
         alarmButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
     }
     
-    func setupUI(alarmTime: AlarmTime, cellType: AlarmTimeType) {
+    func set(alarmTime: WakeUpTimeViewModel.Cell, cellType: AlarmTimeType) {
         if cellType == .fromNowTime {
             commonStackView.addArrangedSubview(alarmButton)
         }

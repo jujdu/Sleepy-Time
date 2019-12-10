@@ -17,4 +17,3 @@ enum AlarmTimeType {
     case toTime
     case fromNowTime
 }
-

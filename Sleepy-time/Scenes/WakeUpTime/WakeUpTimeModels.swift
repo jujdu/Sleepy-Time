@@ -31,10 +31,11 @@ enum WakeUpTime {
 }
 
 struct WakeUpTimeViewModel {
-    struct AlarmTime {
+    struct Cell {
         var cyclesCount: Int
         var date: Date
     }
     
-    var alarmTimes: [AlarmTime]
+    let sleepyTime: SleepyTime
+    var cells: [Cell]
 }
