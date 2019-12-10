@@ -178,6 +178,14 @@ class MainViewController: UIViewController, MainDisplayLogic {
         
     }
     
+    private func setupNavigationBar() {
+        self.navigationItem.title = "Sleepy Time"
+        self.navigationItem.leftBarButtonItem = settingsBarButton
+        self.navigationItem.rightBarButtonItem = infoBarButton
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    //MARK: - VideoView
     private func setupVideoView() {
         view.addSubview(containerView)
         containerView.fillSuperview()
@@ -194,13 +202,6 @@ class MainViewController: UIViewController, MainDisplayLogic {
             self.containerView.layer.addSublayer(videoLayer)
             player?.play()
         }
-    }
-    
-    private func setupNavigationBar() {
-        self.navigationItem.title = "Sleepy Time"
-        self.navigationItem.leftBarButtonItem = settingsBarButton
-        self.navigationItem.rightBarButtonItem = infoBarButton
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     //MARK: - Constraints
@@ -220,8 +221,8 @@ class MainViewController: UIViewController, MainDisplayLogic {
         
         toTimeLabel.widthAnchor.constraint(equalTo: descriptionToTimeLabel.widthAnchor).isActive = true
         toTimeButton.widthAnchor.constraint(equalTo: descriptionToTimeLabel.widthAnchor).isActive = true
-        toTimeButton.heightAnchor.constraint(equalToConstant: Constraints.buttonHeight).isActive = true
         fromNowTimeButton.widthAnchor.constraint(equalTo: descriptionToTimeLabel.widthAnchor).isActive = true
+        toTimeButton.heightAnchor.constraint(equalToConstant: Constraints.buttonHeight).isActive = true
         fromNowTimeButton.heightAnchor.constraint(equalToConstant: Constraints.buttonHeight).isActive = true
     }
     

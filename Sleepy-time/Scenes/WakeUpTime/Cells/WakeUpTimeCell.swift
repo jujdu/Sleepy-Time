@@ -105,7 +105,7 @@ class WakeUpTimeCell: UITableViewCell {
         alarmButton.widthAnchor.constraint(equalToConstant: 45).isActive = true
     }
     
-    func set(alarmTime: WakeUpTimeViewModel.Cell, cellType: AlarmTimeType) {
+    func set(alarmTime: WakeUpTimeViewModel.Cell, cellType: SleepyTimeType) {
         if cellType == .fromNowTime {
             commonStackView.addArrangedSubview(alarmButton)
         }

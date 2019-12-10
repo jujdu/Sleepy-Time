@@ -10,10 +10,10 @@ import Foundation
 
 struct SleepyTime {
     var choosenDate: Date
-    var type: AlarmTimeType
+    var type: SleepyTimeType
 }
 
-enum AlarmTimeType {
+enum SleepyTimeType {
     case toTime
     case fromNowTime
 }

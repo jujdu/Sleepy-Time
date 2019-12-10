@@ -101,7 +101,7 @@ class SettingsFallAlseepItem: SettingsItemProtocol {
 class SettingsSongItem: SettingsItemProtocol {
     var type: SettingsItemType = .song
     var sectionTitle: String? = "SOUND"
-    var sectionHeight: CGFloat = 30
+    var sectionHeight: CGFloat = 36
 }
 
 // MARK: - Implementation SettingsSoundLabel

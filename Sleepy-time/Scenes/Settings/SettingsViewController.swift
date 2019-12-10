@@ -18,10 +18,10 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     
     //MARK: - Views
     let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.isScrollEnabled = false
+        tableView.contentInset = UIEdgeInsets(top: -10, left: 0, bottom: 0, right: 0)
         tableView.allowsSelection = true
         return tableView
     }()
@@ -161,16 +161,29 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UITableViewHeaderFooterView(width: tableView.frame.width,
-                                           height: 30,
-                                           text: viewModel.items[section].sectionTitle)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let itemType = viewModel.items[indexPath.section].type
+        
+        switch itemType {
+        case .snooze, .song:
+            cell.selectionStyle = .default
+        default:
+            cell.selectionStyle = .none
+        }
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UITableViewHeaderFooterView(frame: CGRect(x: .zero,
+                                                         y: .zero,
+                                                         width: tableView.frame.width,
+                                                         height: viewModel.items[section].sectionHeight),
+                                           text: viewModel.items[section].sectionTitle)
+    }
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return viewModel.items[section].sectionHeight
     }
-    
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let itemType = viewModel.items[indexPath.section].type
@@ -189,15 +202,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let itemType = viewModel.items[indexPath.section].type
-        
-        switch itemType {
-        case .snooze, .song:
-            cell.selectionStyle = .default
-        default:
-            cell.selectionStyle = .none
-        }
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
     }
 }
 

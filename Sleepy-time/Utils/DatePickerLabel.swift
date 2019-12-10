@@ -37,7 +37,7 @@ final class DatePickerLabel: UILabel {
     override var text: String? {
         get {
             if let placeholder = placeholder {
-                self.textColor = .gray
+                self.textColor = .placeholderText
                 return placeholder
             } else {
                 self.textColor = choosenTextColor
