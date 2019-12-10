@@ -9,6 +9,7 @@
 import UIKit
 import MediaPlayer
 import AVFoundation
+import CoreData
 
 protocol SettingsDisplayLogic: class {
     func displayData(viewModel: Settings.Model.ViewModel.ViewModelData)
@@ -51,6 +52,9 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     private let player = AVPlayer()
     private let avplayer = AVAudioPlayer()
     
+    var context: NSManagedObjectContext!
+    var settings: SettingsDataBase!
+    
     // MARK: - Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -82,10 +86,29 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupConstraints()
-        interactor?.makeRequest(request: .getSettings)
+//        interactor?.makeRequest(request: .getSettings)
         setupTableView()
         setupNavBar()
         setupMediaPicker()
+        
+        context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
+        
+        
+        let fetchRequest: NSFetchRequest<SettingsDataBase> = SettingsDataBase.fetchRequest()
+        
+        do {
+            let result = try context.fetch(fetchRequest)
+                settings = SettingsDataBase(context: context)
+                settings.fallAsleepTime = 5
+                settings.ringtone = Data()
+                settings.alarmVolume = 1
+                settings.isVibrated = false
+                settings.snoozeTime = 5
+                try context.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+        interactor?.makeRequest(request: .getSettings(settings: settings))
     }
     
     func displayData(viewModel: Settings.Model.ViewModel.ViewModelData) {
@@ -158,6 +181,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let itemType = viewModel.items[indexPath.section].type
         let cell = itemType.cellForSettingsItemType(tableView: tableView, indexPath: indexPath)
+        itemType.configureCellForModelItemType(cell: cell, data: viewModel.items[indexPath.section])
         return cell
     }
     

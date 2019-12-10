@@ -33,6 +33,7 @@
 		6F4A9FCB2389E7B0008A1139 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A9FCA2389E7B0008A1139 /* SongCell.swift */; };
 		6F4E88352337BD140068791B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4E88342337BD140068791B /* UIView+Extension.swift */; };
 		6F5150B42385A47100F9B977 /* DatePickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5150B32385A47100F9B977 /* DatePickerLabel.swift */; };
+		6F531330239FBD7100AF5B56 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */; };
 		6F7D93102387FC44006A8640 /* SleepyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7D930F2387FC44006A8640 /* SleepyTime.swift */; };
 		6F7D93192387FFA2006A8640 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7D93122387FFA2006A8640 /* MainPresenter.swift */; };
 		6F7D931A2387FFA2006A8640 /* MainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7D93132387FFA2006A8640 /* MainWorker.swift */; };
@@ -46,6 +47,9 @@
 		6FB539272326B38B00B5DB92 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FB539252326B38B00B5DB92 /* LaunchScreen.storyboard */; };
 		6FB539362326C2C800B5DB92 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB539352326C2C800B5DB92 /* Constants.swift */; };
 		6FB7D8AF2331AD5A00B40711 /* WakeUpTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AD2331AD5A00B40711 /* WakeUpTimeCell.swift */; };
+		6FBAE4D4239FBF6400251E70 /* Sleepy-time.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6FBAE4D2239FBF6400251E70 /* Sleepy-time.xcdatamodeld */; };
+		6FBAE4DB239FCB8C00251E70 /* SettingsDataBase+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBAE4D9239FCB8C00251E70 /* SettingsDataBase+CoreDataClass.swift */; };
+		6FBAE4DC239FCB8C00251E70 /* SettingsDataBase+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBAE4DA239FCB8C00251E70 /* SettingsDataBase+CoreDataProperties.swift */; };
 		6FBF14FF2386A440006AB01F /* NSMutableAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBF14FE2386A440006AB01F /* NSMutableAttributedString+Extension.swift */; };
 		6FBF15012387CC4E006AB01F /* UIView+Constraints+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -90,6 +94,7 @@
 		6F4A9FCA2389E7B0008A1139 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		6F4E88342337BD140068791B /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		6F5150B32385A47100F9B977 /* DatePickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerLabel.swift; sourceTree = "<group>"; };
+		6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		6F7D930F2387FC44006A8640 /* SleepyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyTime.swift; sourceTree = "<group>"; };
 		6F7D93122387FFA2006A8640 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		6F7D93132387FFA2006A8640 /* MainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWorker.swift; sourceTree = "<group>"; };
@@ -105,6 +110,9 @@
 		6FB539282326B38B00B5DB92 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6FB539352326C2C800B5DB92 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6FB7D8AD2331AD5A00B40711 /* WakeUpTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeCell.swift; sourceTree = "<group>"; };
+		6FBAE4D3239FBF6400251E70 /* Settings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Settings.xcdatamodel; sourceTree = "<group>"; };
+		6FBAE4D9239FCB8C00251E70 /* SettingsDataBase+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsDataBase+CoreDataClass.swift"; sourceTree = "<group>"; };
+		6FBAE4DA239FCB8C00251E70 /* SettingsDataBase+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsDataBase+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6FBF14FE2386A440006AB01F /* NSMutableAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+Extension.swift"; sourceTree = "<group>"; };
 		6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -193,6 +201,16 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		6F53132E239FBCF100AF5B56 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */,
+				6FBAE4DD239FCBC900251E70 /* SettingsDataBase */,
+				6FBAE4D2239FBF6400251E70 /* Sleepy-time.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		6F7CBB1A238BEDAF00F024EB /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,9 +266,9 @@
 		6FB5391B2326B38500B5DB92 /* Sleepy-time */ = {
 			isa = PBXGroup;
 			children = (
+				6FB539372326C2D000B5DB92 /* Utils */,
 				6F0970E42388037400BE161D /* Services */,
 				6F7D93112387FF90006A8640 /* Scenes */,
-				6FB539372326C2D000B5DB92 /* Utils */,
 				6FB539232326B38B00B5DB92 /* Assets.xcassets */,
 				6FB539252326B38B00B5DB92 /* LaunchScreen.storyboard */,
 				6FB539282326B38B00B5DB92 /* Info.plist */,
@@ -261,6 +279,7 @@
 		6FB539372326C2D000B5DB92 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				6F53132E239FBCF100AF5B56 /* CoreData */,
 				6FB539352326C2C800B5DB92 /* Constants.swift */,
 				6F019E5A239A486B00252B63 /* UIViewController+Extension.swift */,
 				6F4E88342337BD140068791B /* UIView+Extension.swift */,
@@ -271,6 +290,15 @@
 				6FBF14FE2386A440006AB01F /* NSMutableAttributedString+Extension.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		6FBAE4DD239FCBC900251E70 /* SettingsDataBase */ = {
+			isa = PBXGroup;
+			children = (
+				6FBAE4D9239FCB8C00251E70 /* SettingsDataBase+CoreDataClass.swift */,
+				6FBAE4DA239FCB8C00251E70 /* SettingsDataBase+CoreDataProperties.swift */,
+			);
+			path = SettingsDataBase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,6 +379,7 @@
 				6FB539362326C2C800B5DB92 /* Constants.swift in Sources */,
 				6FB7D8AF2331AD5A00B40711 /* WakeUpTimeCell.swift in Sources */,
 				6F7D93192387FFA2006A8640 /* MainPresenter.swift in Sources */,
+				6F531330239FBD7100AF5B56 /* CoreDataStack.swift in Sources */,
 				6F2DD2A5238D13FC002B16BE /* SettingsInteractor.swift in Sources */,
 				6F1FF79323880AF900FD7630 /* WakeUpTimePresenter.swift in Sources */,
 				6F2DD2A4238D13FC002B16BE /* SettingsViewController.swift in Sources */,
@@ -358,8 +387,10 @@
 				6F019E64239E472700252B63 /* SoundVibrationCell.swift in Sources */,
 				6F47FB57238D9FF20005EEE5 /* CollectionViewCell.swift in Sources */,
 				6FBF14FF2386A440006AB01F /* NSMutableAttributedString+Extension.swift in Sources */,
+				6FBAE4D4239FBF6400251E70 /* Sleepy-time.xcdatamodeld in Sources */,
 				6F2DD2A2238D13FC002B16BE /* SettingsRouter.swift in Sources */,
 				6F4A9FCB2389E7B0008A1139 /* SongCell.swift in Sources */,
+				6FBAE4DC239FCB8C00251E70 /* SettingsDataBase+CoreDataProperties.swift in Sources */,
 				6F4A9FC92389E708008A1139 /* TimeToFallAsleepCell.swift in Sources */,
 				6F7D931A2387FFA2006A8640 /* MainWorker.swift in Sources */,
 				6F1FF79523880AF900FD7630 /* WakeUpTimeRouter.swift in Sources */,
@@ -382,6 +413,7 @@
 				6F4E88352337BD140068791B /* UIView+Extension.swift in Sources */,
 				6F019E62239A819600252B63 /* SoundValueCell.swift in Sources */,
 				6F7D931B2387FFA2006A8640 /* MainRouter.swift in Sources */,
+				6FBAE4DB239FCB8C00251E70 /* SettingsDataBase+CoreDataClass.swift in Sources */,
 				6F2DD2A0238D13FC002B16BE /* SettingsPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -580,6 +612,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6FBAE4D2239FBF6400251E70 /* Sleepy-time.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6FBAE4D3239FBF6400251E70 /* Settings.xcdatamodel */,
+			);
+			currentVersion = 6FBAE4D3239FBF6400251E70 /* Settings.xcdatamodel */;
+			path = "Sleepy-time.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6FB539112326B38500B5DB92 /* Project object */;
 }

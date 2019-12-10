@@ -27,8 +27,8 @@ class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore {
         }
         
         switch request {
-        case .getSettings:
-            presenter?.presentData(response: .presentSettings)
+        case .getSettings(let settings):
+            presenter?.presentData(response: .presentSettings(settings: settings))
         @unknown default:
             print("SettingsInteractor has another response")
         }

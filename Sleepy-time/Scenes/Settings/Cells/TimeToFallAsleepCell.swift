@@ -8,7 +8,15 @@
 
 import UIKit
 
-class TimeToFallAsleepCell: UITableViewCell {
+protocol SettingsFallAlseepCellProtocol {
+    
+}
+
+class TimeToFallAsleepCell: UITableViewCell, SettingsCellProtocol {
+    func set(with viewModel: SettingsItemProtocol) {
+        
+    }
+    
 
     static let reuseId = "TimeToFallAsleepCell"
     
@@ -16,7 +24,6 @@ class TimeToFallAsleepCell: UITableViewCell {
     lazy var fallAsleepLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.text = generatedTextForLabel(self.fallAsleepSlider.value)
         label.textAlignment = .left
         label.font = UIFont(name: AppFonts.avenirBook, size: 17)

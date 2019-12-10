@@ -8,7 +8,15 @@
 
 import UIKit
 
-class SongCell: UITableViewCell {
+protocol SettingsSongCellProtocol {
+    
+}
+
+class SongCell: UITableViewCell, SettingsCellProtocol {
+    func set(with viewModel: SettingsItemProtocol) {
+        
+    }
+    
     
     static let reuseId = "SongCell"
     
@@ -16,7 +24,6 @@ class SongCell: UITableViewCell {
     let songLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.text = "Ringtone"
         label.textAlignment = .left
         label.font = UIFont(name: AppFonts.avenirBook, size: 17)
@@ -27,7 +34,6 @@ class SongCell: UITableViewCell {
     lazy var currentSongLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.text = "The Weeknd - Starboy"
         label.textAlignment = .right
         label.font = UIFont(name: AppFonts.avenirLight, size: 17)

@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import AVKit
+import CoreData
 
 protocol MainDisplayLogic: class {
     func displayData(viewModel: Main.Model.ViewModel.ViewModelData)
@@ -126,6 +127,8 @@ class MainViewController: UIViewController, MainDisplayLogic {
     var choosenTime: Date!
     var player: AVPlayer?
     var videoLayer = AVPlayerLayer(player: nil)
+    
+    var context: NSManagedObjectContext!
     
     // MARK: - Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

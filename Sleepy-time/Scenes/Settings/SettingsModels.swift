@@ -13,12 +13,12 @@ enum Settings {
     enum Model {
         struct Request {
             enum RequestType {
-                case getSettings
+                case getSettings(settings: SettingsDataBase)
             }
         }
         struct Response {
             enum ResponseType {
-                case presentSettings
+                case presentSettings(settings: SettingsDataBase)
             }
         }
         struct ViewModel {
@@ -71,6 +71,26 @@ enum SettingsItemType {
             return tableView.dequeueReusableCell(withIdentifier: SoundVibrationCell.reuseId, for: indexPath) as! SoundVibrationCell
         }
     }
+    
+    func configureCellForModelItemType(cell: UITableViewCell, data: SettingsItemProtocol) {
+        switch self {
+            case .snooze:
+                 let cell = cell as! SnoozeCell
+                 cell.set(with: data)
+             case .fallAlseep:
+                 let cell = cell as! TimeToFallAsleepCell
+                 cell.set(with: data)
+             case .song:
+                 let cell = cell as! SongCell
+                 cell.set(with: data)
+             case .soundValue:
+                 let cell = cell as! SoundValueCell
+                 cell.set(with: data)
+             case .soundVibration:
+                 let cell = cell as! SoundVibrationCell
+                 cell.set(with: data)
+        }
+    }
 }
 
 //MARK: - SettingsItemProtocol
@@ -88,27 +108,39 @@ extension SettingsItemProtocol {
 }
 
 // MARK: - Implementation SettingsSnoozeItem
-class SettingsSnoozeItem: SettingsItemProtocol {
+class SettingsSnoozeItem: SettingsItemProtocol, SettingsSnoozeCellProtocol {
     var type: SettingsItemType = .snooze
 }
 
 // MARK: - Implementation SettingsFallAlseepItem
-class SettingsFallAlseepItem: SettingsItemProtocol {
+class SettingsFallAlseepItem: SettingsItemProtocol, SettingsFallAlseepCellProtocol {
     var type: SettingsItemType = .fallAlseep
 }
 
 // MARK: - Implementation SettingsSongItem
-class SettingsSongItem: SettingsItemProtocol {
+class SettingsSongItem: SettingsItemProtocol, SettingsSongCellProtocol {
     var type: SettingsItemType = .song
     var sectionTitle: String? = "SOUND"
     var sectionHeight: CGFloat = 36
 }
 
 // MARK: - Implementation SettingsSoundLabel
-class SettingsSoundValueItem: SettingsItemProtocol {
+class SettingsSoundValueItem: SettingsItemProtocol, SettingsSoundValueCellProtocol {
+    var volume: Double
+    
     var type: SettingsItemType = .soundValue
+    
+    init(volume: Double) {
+        self.volume = volume
+    }
 }
 
-class SettingsSoundVibrationItem: SettingsItemProtocol {
+class SettingsSoundVibrationItem: SettingsItemProtocol, SettingsSoundVibrationCellProtocol {
+    var value: Bool
+    
     var type: SettingsItemType = .soundVibration
+    
+    init(value: Bool) {
+        self.value = value
+    }
 }

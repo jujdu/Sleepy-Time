@@ -8,7 +8,16 @@
 
 import UIKit
 
-class SoundValueCell: UITableViewCell {
+protocol SettingsSoundValueCellProtocol {
+    var volume: Double { get set }
+}
+
+class SoundValueCell: UITableViewCell, SettingsCellProtocol {
+    func set(with viewModel: SettingsItemProtocol) {
+        guard let viewModel = viewModel as? SettingsSoundValueCellProtocol else { return }
+        fallAsleepSlider.value = Float(viewModel.volume)
+    }
+    
     static let reuseId = "SoundValue"
     
     //MARK: - FallAsleep Views

@@ -8,7 +8,16 @@
 
 import UIKit
 
-class SoundVibrationCell: UITableViewCell {
+protocol SettingsSoundVibrationCellProtocol {
+    var value: Bool { get set }
+}
+
+class SoundVibrationCell: UITableViewCell, SettingsCellProtocol {
+    func set(with viewModel: SettingsItemProtocol) {
+        guard let viewModel = viewModel as? SettingsSoundVibrationCellProtocol else { return }
+        switchController.isOn = viewModel.value
+    }
+    
     
     static let reuseId = "SoundVibrationCell"
     
@@ -16,7 +25,6 @@ class SoundVibrationCell: UITableViewCell {
     let vibrationLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.text = "Vibration"
         label.textAlignment = .left
         label.font = UIFont(name: AppFonts.avenirBook, size: 17)

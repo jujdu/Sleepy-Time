@@ -8,7 +8,18 @@
 
 import UIKit
 
-class SnoozeCell: UITableViewCell {
+protocol SettingsCellProtocol {
+    func set(with viewModel: SettingsItemProtocol)
+}
+
+protocol SettingsSnoozeCellProtocol {
+}
+
+class SnoozeCell: UITableViewCell, SettingsCellProtocol {
+    func set(with viewModel: SettingsItemProtocol) {
+        
+    }
+    
     
     static let reuseId = "SnoozeCell"
     
@@ -16,7 +27,6 @@ class SnoozeCell: UITableViewCell {
     let snoozeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.text = "Snooze"
         label.textAlignment = .left
         label.font = UIFont(name: AppFonts.avenirBook, size: 17)
@@ -27,7 +37,6 @@ class SnoozeCell: UITableViewCell {
     lazy var currentSnoozeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.text = "Never"
         label.textAlignment = .right
         label.font = UIFont(name: AppFonts.avenirLight, size: 17)
