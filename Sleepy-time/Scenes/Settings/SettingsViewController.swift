@@ -40,6 +40,21 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     //FIXME: - Need to decide what to do with dismiss, save anytime when settings is changed or save only after the save button is tapped
     @objc func abc() {
         dismiss(animated: true, completion: nil)
+        //MARK: - Добавление данных в CoreDate длинным путем
+        
+        settings.snoozeTime = 1
+        settings.fallAsleepTime = 7
+        settings.ringtone = Data()
+        settings.isVibrated = false
+        settings.alarmVolume = 0.3
+        do {
+            try context.save()
+            print("\n Update entity")
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        interactor?.makeRequest(request: .getSettings(settings: settings))
     }
     
     // MARK: - Properties
@@ -52,7 +67,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     private let player = AVPlayer()
     private let avplayer = AVAudioPlayer()
     
-    var context: NSManagedObjectContext!
+    var context: NSManagedObjectContext! = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
     var settings: SettingsDataBase!
     
     // MARK: - Object lifecycle
@@ -85,30 +100,41 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        
+        //MARK: - получение данных из CoreDate
+        let fetchRequest: NSFetchRequest<SettingsDataBase> = SettingsDataBase.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let count = try context.count(for: fetchRequest)
+            if count == 0 {
+                let entity = NSEntityDescription.entity(forEntityName: "SettingsDataBase", in: context)
+                let taskObject = NSManagedObject(entity: entity!, insertInto: context) as! SettingsDataBase
+                taskObject.snoozeTime = 15
+                taskObject.fallAsleepTime = 24
+                taskObject.ringtone = Data()
+                taskObject.isVibrated = false
+                taskObject.alarmVolume = 1
+                try context.save()
+                settings = taskObject
+                print("\n Create entity")
+                print(settings)
+            } else {
+                settings = try context.fetch(fetchRequest).first
+                print("\n Read entity")
+                print(settings)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        interactor?.makeRequest(request: .getSettings(settings: settings))
+        
         setupConstraints()
 //        interactor?.makeRequest(request: .getSettings)
         setupTableView()
         setupNavBar()
         setupMediaPicker()
         
-        context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
-        
-        
-        let fetchRequest: NSFetchRequest<SettingsDataBase> = SettingsDataBase.fetchRequest()
-        
-        do {
-            let result = try context.fetch(fetchRequest)
-                settings = SettingsDataBase(context: context)
-                settings.fallAsleepTime = 5
-                settings.ringtone = Data()
-                settings.alarmVolume = 1
-                settings.isVibrated = false
-                settings.snoozeTime = 5
-                try context.save()
-        } catch {
-            print(error.localizedDescription)
-        }
-        interactor?.makeRequest(request: .getSettings(settings: settings))
     }
     
     func displayData(viewModel: Settings.Model.ViewModel.ViewModelData) {
