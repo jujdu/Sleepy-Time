@@ -22,7 +22,7 @@ class SettingsPresenter: SettingsPresentationLogic {
             
             var items = [SettingsItemProtocol]()
             items.append(SettingsSnoozeItem())
-            items.append(SettingsFallAlseepItem())
+            items.append(SettingsFallAlseepItem(value: Double(settings.fallAsleepTime)))
             items.append(SettingsSongItem())
             items.append(SettingsSoundVibrationItem(value: settings.isVibrated))
             items.append(SettingsSoundValueItem(volume: Double(settings.alarmVolume)))

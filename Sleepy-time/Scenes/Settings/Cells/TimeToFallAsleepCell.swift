@@ -9,12 +9,16 @@
 import UIKit
 
 protocol SettingsFallAlseepCellProtocol {
-    
+    var value: Double { get set }
 }
 
 class TimeToFallAsleepCell: UITableViewCell, SettingsCellProtocol {
+    weak var settings: SettingsDataBase!
+    
     func set(with viewModel: SettingsItemProtocol) {
-        
+        guard let viewModel = viewModel as? SettingsFallAlseepItem else { return }
+        fallAsleepSlider.value = Float(viewModel.value)
+        fallAsleepLabel.text = generatedTextForLabel(Float(viewModel.value))
     }
     
 
@@ -78,9 +82,11 @@ class TimeToFallAsleepCell: UITableViewCell, SettingsCellProtocol {
     }
     
     @objc func sliderChangedValue(sender: UISlider) {
-        fallAsleepLabel.text = generatedTextForLabel(sender.value)    }
+        fallAsleepLabel.text = generatedTextForLabel(sender.value)
+        settings.fallAsleepTime = Int16(sender.value)
+    }
     
     func generatedTextForLabel(_ value: Float) -> String {
-        return "I usually fall asleep in around: \(Int(value)) min"
+        return "I usually fall asleep in around: \(Int16(value)) min"
     }
 }

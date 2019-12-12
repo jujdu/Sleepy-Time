@@ -28,25 +28,18 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     }()
     
     lazy var cancelBarButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(abc))
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSettings))
         return barButtonItem
     }()
     
     lazy var doneBarButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(abc))
+        let barButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(saveSettings))
         return barButtonItem
     }()
     
     //FIXME: - Need to decide what to do with dismiss, save anytime when settings is changed or save only after the save button is tapped
-    @objc func abc() {
-        dismiss(animated: true, completion: nil)
+    @objc func saveSettings() {
         //MARK: - Добавление данных в CoreDate длинным путем
-        
-        settings.snoozeTime = 1
-        settings.fallAsleepTime = 7
-        settings.ringtone = Data()
-        settings.isVibrated = false
-        settings.alarmVolume = 0.3
         do {
             try context.save()
             print("\n Update entity")
@@ -54,7 +47,13 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
             print(error.localizedDescription)
         }
         
-        interactor?.makeRequest(request: .getSettings(settings: settings))
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func cancelSettings() {
+        //MARK: - откат к настройкам до их изменения
+        context.rollback()
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Properties
@@ -207,7 +206,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let itemType = viewModel.items[indexPath.section].type
         let cell = itemType.cellForSettingsItemType(tableView: tableView, indexPath: indexPath)
-        itemType.configureCellForModelItemType(cell: cell, data: viewModel.items[indexPath.section])
+        itemType.configureCellForModelItemType(cell: cell, data: viewModel.items[indexPath.section], settings: settings)
         return cell
     }
     

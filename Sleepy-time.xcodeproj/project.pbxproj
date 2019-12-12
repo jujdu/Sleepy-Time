@@ -141,7 +141,7 @@
 		6F0970E42388037400BE161D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				6F0970E52388037A00BE161D /* Models */,
+				6F53132E239FBCF100AF5B56 /* CoreData */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -150,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				6F7D930F2387FC44006A8640 /* SleepyTime.swift */,
+				6FBAE4DD239FCBC900251E70 /* SettingsDataBase */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -182,8 +183,8 @@
 				6F4A9FC42389E6D9008A1139 /* SnoozeCell.swift */,
 				6F4A9FC82389E708008A1139 /* TimeToFallAsleepCell.swift */,
 				6F4A9FCA2389E7B0008A1139 /* SongCell.swift */,
-				6F019E61239A819600252B63 /* SoundValueCell.swift */,
 				6F019E63239E472700252B63 /* SoundVibrationCell.swift */,
+				6F019E61239A819600252B63 /* SoundValueCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -207,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */,
-				6FBAE4DD239FCBC900251E70 /* SettingsDataBase */,
 				6FBAE4D2239FBF6400251E70 /* Sleepy-time.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -268,6 +268,7 @@
 		6FB5391B2326B38500B5DB92 /* Sleepy-time */ = {
 			isa = PBXGroup;
 			children = (
+				6F0970E52388037A00BE161D /* Models */,
 				6FB539372326C2D000B5DB92 /* Utils */,
 				6F0970E42388037400BE161D /* Services */,
 				6F7D93112387FF90006A8640 /* Scenes */,
@@ -281,7 +282,6 @@
 		6FB539372326C2D000B5DB92 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				6F53132E239FBCF100AF5B56 /* CoreData */,
 				6FB539352326C2C800B5DB92 /* Constants.swift */,
 				6F019E5A239A486B00252B63 /* UIViewController+Extension.swift */,
 				6F4E88342337BD140068791B /* UIView+Extension.swift */,

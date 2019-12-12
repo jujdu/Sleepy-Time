@@ -13,6 +13,8 @@ protocol SettingsSoundVibrationCellProtocol {
 }
 
 class SoundVibrationCell: UITableViewCell, SettingsCellProtocol {
+    weak var settings: SettingsDataBase!
+    
     func set(with viewModel: SettingsItemProtocol) {
         guard let viewModel = viewModel as? SettingsSoundVibrationCellProtocol else { return }
         switchController.isOn = viewModel.value
@@ -38,6 +40,8 @@ class SoundVibrationCell: UITableViewCell, SettingsCellProtocol {
         switchController.isOn = true
         return switchController
     }()
+
+
     
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -52,6 +56,7 @@ class SoundVibrationCell: UITableViewCell, SettingsCellProtocol {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
+        switchController.addTarget(self, action: #selector(switchChangedValue(sender:)), for: .valueChanged)
     }
     
     required init?(coder: NSCoder) {
@@ -63,8 +68,12 @@ class SoundVibrationCell: UITableViewCell, SettingsCellProtocol {
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(vibrationLabel)
         stackView.addArrangedSubview(switchController)
-        
+
         stackView.fillSuperview(padding: Constraints.cellPaddings)
         vibrationLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+    }
+    
+    @objc func switchChangedValue(sender: UISwitch) {
+        settings.isVibrated = sender.isOn
     }
 }

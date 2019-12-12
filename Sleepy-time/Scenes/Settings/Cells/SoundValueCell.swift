@@ -13,6 +13,8 @@ protocol SettingsSoundValueCellProtocol {
 }
 
 class SoundValueCell: UITableViewCell, SettingsCellProtocol {
+    weak var settings: SettingsDataBase!
+    
     func set(with viewModel: SettingsItemProtocol) {
         guard let viewModel = viewModel as? SettingsSoundValueCellProtocol else { return }
         fallAsleepSlider.value = Float(viewModel.volume)
@@ -60,6 +62,6 @@ class SoundValueCell: UITableViewCell, SettingsCellProtocol {
     }
     
     @objc func sliderChangedValue(sender: UISlider) {
-        print(sender.value)
+        settings.alarmVolume = sender.value
     }
 }

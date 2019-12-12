@@ -72,22 +72,27 @@ enum SettingsItemType {
         }
     }
     
-    func configureCellForModelItemType(cell: UITableViewCell, data: SettingsItemProtocol) {
+    func configureCellForModelItemType(cell: UITableViewCell, data: SettingsItemProtocol, settings: SettingsDataBase) {
         switch self {
             case .snooze:
                  let cell = cell as! SnoozeCell
+                 cell.settings = settings
                  cell.set(with: data)
              case .fallAlseep:
                  let cell = cell as! TimeToFallAsleepCell
+                 cell.settings = settings
                  cell.set(with: data)
              case .song:
                  let cell = cell as! SongCell
+                 cell.settings = settings
                  cell.set(with: data)
              case .soundValue:
                  let cell = cell as! SoundValueCell
+                 cell.settings = settings
                  cell.set(with: data)
              case .soundVibration:
                  let cell = cell as! SoundVibrationCell
+                 cell.settings = settings
                  cell.set(with: data)
         }
     }
@@ -114,7 +119,12 @@ class SettingsSnoozeItem: SettingsItemProtocol, SettingsSnoozeCellProtocol {
 
 // MARK: - Implementation SettingsFallAlseepItem
 class SettingsFallAlseepItem: SettingsItemProtocol, SettingsFallAlseepCellProtocol {
+    var value: Double
     var type: SettingsItemType = .fallAlseep
+    
+    init(value: Double) {
+        self.value = value
+    }
 }
 
 // MARK: - Implementation SettingsSongItem
@@ -127,7 +137,6 @@ class SettingsSongItem: SettingsItemProtocol, SettingsSongCellProtocol {
 // MARK: - Implementation SettingsSoundLabel
 class SettingsSoundValueItem: SettingsItemProtocol, SettingsSoundValueCellProtocol {
     var volume: Double
-    
     var type: SettingsItemType = .soundValue
     
     init(volume: Double) {
@@ -137,7 +146,6 @@ class SettingsSoundValueItem: SettingsItemProtocol, SettingsSoundValueCellProtoc
 
 class SettingsSoundVibrationItem: SettingsItemProtocol, SettingsSoundVibrationCellProtocol {
     var value: Bool
-    
     var type: SettingsItemType = .soundVibration
     
     init(value: Bool) {
