@@ -18,12 +18,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let viewController = MainViewController()
+        let sb = UIStoryboard(name: "Settings", bundle: nil)
+        let viewController = sb.instantiateViewController(identifier: "MyTableViewController") as! MyTableViewController
         let navigationController = UINavigationController(rootViewController: viewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
         
-        viewController.context = coreDataStack.persistentContainer.viewContext
+//        viewController.context = coreDataStack.persistentContainer.viewContext
         
         navigationController.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black,

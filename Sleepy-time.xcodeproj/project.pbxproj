@@ -29,6 +29,7 @@
 		6F2DD2A8238D624A002B16BE /* SwipingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DD2A7238D624A002B16BE /* SwipingViewController.swift */; };
 		6F47FB57238D9FF20005EEE5 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F47FB56238D9FF20005EEE5 /* CollectionViewCell.swift */; };
 		6F47FB59238DB34B0005EEE5 /* Testmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F47FB58238DB34B0005EEE5 /* Testmodel.swift */; };
+		6F49496523A2C47A00746662 /* MyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F49496423A2C47A00746662 /* MyTableViewController.swift */; };
 		6F4A9FC62389E6D9008A1139 /* SnoozeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A9FC42389E6D9008A1139 /* SnoozeCell.swift */; };
 		6F4A9FC92389E708008A1139 /* TimeToFallAsleepCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A9FC82389E708008A1139 /* TimeToFallAsleepCell.swift */; };
 		6F4A9FCB2389E7B0008A1139 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4A9FCA2389E7B0008A1139 /* SongCell.swift */; };
@@ -92,6 +93,7 @@
 		6F2DD2A7238D624A002B16BE /* SwipingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingViewController.swift; sourceTree = "<group>"; };
 		6F47FB56238D9FF20005EEE5 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		6F47FB58238DB34B0005EEE5 /* Testmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testmodel.swift; sourceTree = "<group>"; };
+		6F49496423A2C47A00746662 /* MyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTableViewController.swift; sourceTree = "<group>"; };
 		6F4A9FC42389E6D9008A1139 /* SnoozeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnoozeCell.swift; sourceTree = "<group>"; };
 		6F4A9FC82389E708008A1139 /* TimeToFallAsleepCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeToFallAsleepCell.swift; sourceTree = "<group>"; };
 		6F4A9FCA2389E7B0008A1139 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
@@ -194,7 +196,6 @@
 		6F4CDFAD2389BBDD005F18CD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				6F01BE9423A25BC900F9DCCE /* Settings.storyboard */,
 				6F2DD29D238D13FC002B16BE /* SettingsViewController.swift */,
 				6F2DD29E238D13FC002B16BE /* SettingsInteractor.swift */,
 				6F2DD299238D13FC002B16BE /* SettingsPresenter.swift */,
@@ -203,6 +204,8 @@
 				6F2DD29A238D13FC002B16BE /* SettingsWorker.swift */,
 				6F4A9FBF2389E5FC008A1139 /* Cells */,
 				6F019E5E239A60DE00252B63 /* Snooze */,
+				6F49496423A2C47A00746662 /* MyTableViewController.swift */,
+				6F01BE9423A25BC900F9DCCE /* Settings.storyboard */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				6FB5391D2326B38500B5DB92 /* AppDelegate.swift in Sources */,
 				6F7D931E2387FFA2006A8640 /* MainInteractor.swift in Sources */,
 				6F4E88352337BD140068791B /* UIView+Extension.swift in Sources */,
+				6F49496523A2C47A00746662 /* MyTableViewController.swift in Sources */,
 				6F019E62239A819600252B63 /* SoundValueCell.swift in Sources */,
 				6F7D931B2387FFA2006A8640 /* MainRouter.swift in Sources */,
 				6FBAE4DB239FCB8C00251E70 /* SettingsDataBase+CoreDataClass.swift in Sources */,
