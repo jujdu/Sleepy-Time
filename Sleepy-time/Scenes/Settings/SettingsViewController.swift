@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     }
     
     @objc func cancelSettings() {
-        //MARK: - откат к настройкам до их изменения
+        //MARK: - Откат к настройкам до их изменения
         context.rollback()
         dismiss(animated: true, completion: nil)
     }

@@ -12,6 +12,7 @@
 		6F019E60239A7BEF00252B63 /* UITableViewHeaderFooterView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E5F239A7BEF00252B63 /* UITableViewHeaderFooterView+Extensions.swift */; };
 		6F019E62239A819600252B63 /* SoundValueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E61239A819600252B63 /* SoundValueCell.swift */; };
 		6F019E64239E472700252B63 /* SoundVibrationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F019E63239E472700252B63 /* SoundVibrationCell.swift */; };
+		6F01BE9523A25BC900F9DCCE /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F01BE9423A25BC900F9DCCE /* Settings.storyboard */; };
 		6F1FF79323880AF900FD7630 /* WakeUpTimePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78C23880AF900FD7630 /* WakeUpTimePresenter.swift */; };
 		6F1FF79423880AF900FD7630 /* WakeUpTimeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78D23880AF900FD7630 /* WakeUpTimeWorker.swift */; };
 		6F1FF79523880AF900FD7630 /* WakeUpTimeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F1FF78E23880AF900FD7630 /* WakeUpTimeRouter.swift */; };
@@ -74,6 +75,7 @@
 		6F019E5F239A7BEF00252B63 /* UITableViewHeaderFooterView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewHeaderFooterView+Extensions.swift"; sourceTree = "<group>"; };
 		6F019E61239A819600252B63 /* SoundValueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundValueCell.swift; sourceTree = "<group>"; };
 		6F019E63239E472700252B63 /* SoundVibrationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundVibrationCell.swift; sourceTree = "<group>"; };
+		6F01BE9423A25BC900F9DCCE /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		6F1FF78C23880AF900FD7630 /* WakeUpTimePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimePresenter.swift; sourceTree = "<group>"; };
 		6F1FF78D23880AF900FD7630 /* WakeUpTimeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeWorker.swift; sourceTree = "<group>"; };
 		6F1FF78E23880AF900FD7630 /* WakeUpTimeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeRouter.swift; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		6F4CDFAD2389BBDD005F18CD /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				6F01BE9423A25BC900F9DCCE /* Settings.storyboard */,
 				6F2DD29D238D13FC002B16BE /* SettingsViewController.swift */,
 				6F2DD29E238D13FC002B16BE /* SettingsInteractor.swift */,
 				6F2DD299238D13FC002B16BE /* SettingsPresenter.swift */,
@@ -366,6 +369,7 @@
 				6FB539272326B38B00B5DB92 /* LaunchScreen.storyboard in Resources */,
 				6F24A6AA23931FB000E40B62 /* video.mp4 in Resources */,
 				6FB539242326B38B00B5DB92 /* Assets.xcassets in Resources */,
+				6F01BE9523A25BC900F9DCCE /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
