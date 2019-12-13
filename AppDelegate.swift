@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
-        let sb = UIStoryboard(name: "Settings", bundle: nil)
-        let viewController = sb.instantiateViewController(identifier: "MyTableViewController") as! MyTableViewController
+        let viewController = MainViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()

@@ -17,3 +17,13 @@ enum SleepyTimeType {
     case toTime
     case fromNowTime
 }
+
+
+
+struct MySettings {
+    var alarmVolume: Int
+    var fallAsleepTime: Int
+    var isVibrated: Bool
+    var ringtone: Data?
+    var snoozeTime: Int?
+}

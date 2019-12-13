@@ -62,6 +62,6 @@ class SoundValueCell: UITableViewCell, SettingsCellProtocol {
     }
     
     @objc func sliderChangedValue(sender: UISlider) {
-        settings.alarmVolume = sender.value
+        settings.alarmVolume = sender.value as! NSNumber
     }
 }

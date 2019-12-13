@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="45v-be-rp3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6rX-7z-uIa">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--My Table View Controller-->
+        <!--Settings-->
         <scene sceneID="Xxa-Ez-9tV">
             <objects>
-                <tableViewController storyboardIdentifier="MyTableViewController" id="45v-be-rp3" customClass="MyTableViewController" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewSettingsViewController" id="45v-be-rp3" customClass="NewSettingsViewController" customModule="Sleepy_time" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Maj-Cx-rrb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -61,15 +61,29 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="emA-up-UVk">
                                                     <rect key="frame" x="20" y="11" width="374" height="60"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I usually fall asleep in around: 35 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cLI-SP-4NC">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="WTF-kP-NZg">
                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="20.5"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="zzz" catalog="system" maximumValueImage="moon.zzz.fill" translatesAutoresizingMaskIntoConstraints="NO" id="7ce-bC-eZz">
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I usually fall asleep in around" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cex-ez-S4i">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="313" height="20.5"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cLI-SP-4NC">
+                                                                    <rect key="frame" x="321" y="0.0" width="53" height="20.5"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="45" minimumValueImage="zzz" catalog="system" maximumValueImage="moon.zzz.fill" translatesAutoresizingMaskIntoConstraints="NO" id="7ce-bC-eZz">
                                                             <rect key="frame" x="-2" y="29.5" width="378" height="31.5"/>
+                                                            <connections>
+                                                                <action selector="fallAsleepSliderChanged:" destination="45v-be-rp3" eventType="valueChanged" id="7YQ-0S-sYa"/>
+                                                            </connections>
                                                         </slider>
                                                     </subviews>
                                                 </stackView>
@@ -138,15 +152,18 @@
                                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qNk-5G-Idi">
                                                             <rect key="frame" x="325" y="0.0" width="51" height="31"/>
                                                             <color key="onTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <connections>
+                                                                <action selector="ringtoneVibrationSwitchChanged:" destination="45v-be-rp3" eventType="valueChanged" id="CAT-iT-2Pn"/>
+                                                            </connections>
                                                         </switch>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="FSq-Cx-8KV" firstAttribute="leading" secondItem="XUZ-SP-7Kd" secondAttribute="leadingMargin" id="Hon-ob-0Mz"/>
-                                                <constraint firstItem="FSq-Cx-8KV" firstAttribute="top" secondItem="XUZ-SP-7Kd" secondAttribute="topMargin" id="P2s-or-rj4"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="FSq-Cx-8KV" secondAttribute="bottom" id="qPs-hK-hdT"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="FSq-Cx-8KV" secondAttribute="trailing" id="tg3-5M-fIC"/>
+                                                <constraint firstItem="FSq-Cx-8KV" firstAttribute="leading" secondItem="XUZ-SP-7Kd" secondAttribute="leadingMargin" id="7g0-6k-xKg"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="FSq-Cx-8KV" secondAttribute="trailing" id="Ev9-f5-3av"/>
+                                                <constraint firstItem="FSq-Cx-8KV" firstAttribute="top" secondItem="XUZ-SP-7Kd" secondAttribute="topMargin" id="sJc-K9-8fH"/>
+                                                <constraint firstItem="FSq-Cx-8KV" firstAttribute="bottom" secondItem="XUZ-SP-7Kd" secondAttribute="bottomMargin" id="xxe-bi-vsm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -159,6 +176,9 @@
                                             <subviews>
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="speaker.fill" catalog="system" maximumValueImage="speaker.3.fill" translatesAutoresizingMaskIntoConstraints="NO" id="hMk-Ha-NyH">
                                                     <rect key="frame" x="18" y="11" width="378" height="23"/>
+                                                    <connections>
+                                                        <action selector="ringtoneVolumeSliderChanged:" destination="45v-be-rp3" eventType="valueChanged" id="kwv-rn-Xoa"/>
+                                                    </connections>
                                                 </slider>
                                             </subviews>
                                             <constraints>
@@ -177,8 +197,48 @@
                             <outlet property="delegate" destination="45v-be-rp3" id="1f3-Lc-KdC"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Settings" largeTitleDisplayMode="always" id="MPr-Dv-0K4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="iyb-MK-UTY">
+                            <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="45v-be-rp3" id="Ycf-h1-0xx"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="5pj-2G-ic4">
+                            <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="45v-be-rp3" id="rZ8-9L-ip4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="fallAsleepSlider" destination="7ce-bC-eZz" id="bZ9-8q-Cff"/>
+                        <outlet property="fallAsleepTimeLabel" destination="cLI-SP-4NC" id="gBX-bf-Em4"/>
+                        <outlet property="ringtoneNameLabel" destination="DzA-cm-7gw" id="Kbs-bQ-pff"/>
+                        <outlet property="ringtoneVibrationSwitch" destination="qNk-5G-Idi" id="beq-El-Awj"/>
+                        <outlet property="ringtoneVolumeSlider" destination="hMk-Ha-NyH" id="0Ag-E0-CZs"/>
+                        <outlet property="snoozeTimeLabel" destination="6X8-Ke-0YO" id="ObH-kd-rhJ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAO-C5-Qva" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042.0289855072465" y="132.58928571428572"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="YJu-ky-Lr4">
+            <objects>
+                <navigationController storyboardIdentifier="NewNavigationVC" automaticallyAdjustsScrollViewInsets="NO" id="6rX-7z-uIa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bm5-2B-VFd">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="45v-be-rp3" kind="relationship" relationship="rootViewController" id="Kgf-Kg-Sl9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ytZ-lB-2r6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="131.8840579710145" y="132.58928571428572"/>
         </scene>

@@ -83,7 +83,7 @@ class TimeToFallAsleepCell: UITableViewCell, SettingsCellProtocol {
     
     @objc func sliderChangedValue(sender: UISlider) {
         fallAsleepLabel.text = generatedTextForLabel(sender.value)
-        settings.fallAsleepTime = Int16(sender.value)
+        settings.fallAsleepTime = Int16(sender.value) as NSNumber
     }
     
     func generatedTextForLabel(_ value: Float) -> String {

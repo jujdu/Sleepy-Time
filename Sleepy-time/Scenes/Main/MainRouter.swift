@@ -11,6 +11,7 @@ import UIKit
 protocol MainRoutingLogic {
     func routeToWakeUpTime()
     func routeToSettings()
+    func routeToNewSettings()
 }
 
 protocol MainDataPassing {
@@ -36,12 +37,24 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing {
         navigateToSettings(source: viewController!, destination: navVC)
     }
     
+    func routeToNewSettings() {
+        let sb = UIStoryboard(name: "Settings", bundle: nil)
+        let destinationVC = sb.instantiateViewController(withIdentifier: "NewSettingsViewController") as! NewSettingsViewController
+        let navVC = UINavigationController(rootViewController: destinationVC)
+        navigateToNewSettings(source: viewController!, destination: navVC)
+    }
+    
     // MARK: - Navigation
     func navigateToWakeUpTime(source: MainViewController, destination: WakeUpTimeViewController) {
         source.show(destination, sender: nil)
     }
     
     func navigateToSettings(source: MainViewController, destination: UINavigationController) {
+        destination.modalPresentationStyle = .fullScreen
+        source.present(destination, animated: true, completion: nil)
+    }
+    
+    func navigateToNewSettings(source: MainViewController, destination: UINavigationController) {
         destination.modalPresentationStyle = .fullScreen
         source.present(destination, animated: true, completion: nil)
     }

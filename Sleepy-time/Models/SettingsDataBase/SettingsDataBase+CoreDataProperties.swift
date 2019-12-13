@@ -2,7 +2,7 @@
 //  SettingsDataBase+CoreDataProperties.swift
 //  Sleepy-time
 //
-//  Created by Michael Sidoruk on 10.12.2019.
+//  Created by Michael Sidoruk on 13.12.2019.
 //  Copyright © 2019 Michael Sidoruk. All rights reserved.
 //
 //
@@ -17,10 +17,10 @@ extension SettingsDataBase {
         return NSFetchRequest<SettingsDataBase>(entityName: "SettingsDataBase")
     }
 
-    @NSManaged public var snoozeTime: Int16
-    @NSManaged public var fallAsleepTime: Int16
+    @NSManaged public var alarmVolume: NSNumber?
+    @NSManaged public var fallAsleepTime: NSNumber?
+    @NSManaged public var isVibrated: NSNumber?
     @NSManaged public var ringtone: Data?
-    @NSManaged public var isVibrated: Bool
-    @NSManaged public var alarmVolume: Float
+    @NSManaged public var snoozeTime: NSNumber?
 
 }

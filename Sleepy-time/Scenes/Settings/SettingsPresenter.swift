@@ -18,17 +18,17 @@ class SettingsPresenter: SettingsPresentationLogic {
     
     func presentData(response: Settings.Model.Response.ResponseType) {
         switch response {
-        case .presentSettings(let settings):
+        case .presentSettings(let settings): break
             
-            var items = [SettingsItemProtocol]()
-            items.append(SettingsSnoozeItem())
-            items.append(SettingsFallAlseepItem(value: Double(settings.fallAsleepTime)))
-            items.append(SettingsSongItem())
-            items.append(SettingsSoundVibrationItem(value: settings.isVibrated))
-            items.append(SettingsSoundValueItem(volume: Double(settings.alarmVolume)))
+//            var items = [SettingsItemProtocol]()
+//            items.append(SettingsSnoozeItem())
+//            items.append(SettingsFallAlseepItem(value: Double(settings.fallAsleepTime)))
+//            items.append(SettingsSongItem())
+//            items.append(SettingsSoundVibrationItem(value: settings.isVibrated))
+//            items.append(SettingsSoundValueItem(volume: Double(settings.alarmVolume)))
             
-            let settingsViewModel = SettingsViewModel(items: items)
-            viewController?.displayData(viewModel: .displaySettings(viewModel: settingsViewModel))
+//            let settingsViewModel = SettingsViewModel(items: items)
+//            viewController?.displayData(viewModel: .displaySettings(viewModel: settingsViewModel))
         @unknown default:
             print("SettingsPresenter has another response")
         }

@@ -74,6 +74,6 @@ class SoundVibrationCell: UITableViewCell, SettingsCellProtocol {
     }
     
     @objc func switchChangedValue(sender: UISwitch) {
-        settings.isVibrated = sender.isOn
+        settings.isVibrated = sender.isOn as NSNumber
     }
 }

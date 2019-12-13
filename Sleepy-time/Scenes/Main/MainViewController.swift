@@ -269,7 +269,8 @@ class MainViewController: UIViewController, MainDisplayLogic {
     
     //MARK: - Gesture settingsBarButton
     @objc func settingsBarButtonTapped() {
-        router?.routeToSettings()
+//        router?.routeToSettings()
+        router?.routeToNewSettings()
     }
     
     @objc func infoBarButtonTapped() {
