@@ -84,14 +84,37 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         setupNavigationBar()
         
         //MARK: - получение данных из CoreDate
+//        let fetchRequest: NSFetchRequest<SettingsDataBase> = SettingsDataBase.fetchRequest()
+//        fetchRequest.returnsObjectsAsFaults = false
+//        do {
+//            let count = try context.count(for: fetchRequest)
+//            if count == 0 {
+//                let entity = NSEntityDescription.entity(forEntityName: "SettingsDataBase", in: context)
+//                self.taskObject = NSManagedObject(entity: entity!, insertInto: context) as? SettingsDataBase
+//
+//                taskObject.snoozeTime = 5
+//                taskObject.fallAsleepTime = 14
+//                taskObject.ringtone = Data()
+//                taskObject.isVibrated = true
+//                taskObject.alarmVolume = 1
+//                try context.save()
+//                settings = taskObject.toMySettings()
+//                print("\n Create entity")
+//            } else {
+//                self.taskObject = try context.fetch(fetchRequest).first
+//                settings = self.taskObject?.toMySettings()
+//                print("\n Read entity")
+//            }
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+        
         let fetchRequest: NSFetchRequest<SettingsDataBase> = SettingsDataBase.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         do {
-            let count = try context.count(for: fetchRequest)
-            if count == 0 {
-                let entity = NSEntityDescription.entity(forEntityName: "SettingsDataBase", in: context)
-                self.taskObject = NSManagedObject(entity: entity!, insertInto: context) as? SettingsDataBase
-                
+            let results = try context.fetch(fetchRequest)
+            if results.isEmpty {
+                taskObject = SettingsDataBase(context: context)
                 taskObject.snoozeTime = 5
                 taskObject.fallAsleepTime = 14
                 taskObject.ringtone = Data()
@@ -101,7 +124,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
                 settings = taskObject.toMySettings()
                 print("\n Create entity")
             } else {
-                self.taskObject = try context.fetch(fetchRequest).first
+                self.taskObject = results.first
                 settings = self.taskObject?.toMySettings()
                 print("\n Read entity")
             }
@@ -124,12 +147,13 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     }
     
     func set(settings: MySettings) {
-        guard let snoozeTime = settings.snoozeTime else {
+        if let snoozeTime = settings.snoozeTime {
+            snoozeTimeLabel.text = "\(snoozeTime) min"
+        } else {
             snoozeTimeLabel.text = "Never"
-            return }
+        }
         
-        snoozeTimeLabel.text = "\(snoozeTime) min"
-        fallAsleepTimeLabel.text = String(settings.fallAsleepTime)
+        fallAsleepTimeLabel.text = "\(settings.fallAsleepTime) min"
         fallAsleepSlider.value = Float(settings.fallAsleepTime)
         ringtoneNameLabel.text = "The Weeknd - Starboy"
         ringtoneVibrationSwitch.isOn = settings.isVibrated
@@ -191,7 +215,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     //MARK: - @IBActions
     @IBAction func fallAsleepSliderChanged(_ sender: UISlider) {
-        fallAsleepTimeLabel.text = String(Int16(sender.value))
+        fallAsleepTimeLabel.text = "\(Int(sender.value)) min"
         settings.fallAsleepTime = Int(sender.value)
     }
     
@@ -200,7 +224,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     }
     
     @IBAction func ringtoneVolumeSliderChanged(_ sender: UISlider) {
-        settings.alarmVolume = Int(sender.value)
+        settings.alarmVolume = Double(sender.value)
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -242,12 +266,12 @@ extension NewSettingsViewController: MPMediaPickerControllerDelegate {
 
 extension NewSettingsViewController: NewSnoozeViewControllerDelegate {
     func passData(minutes: Int?) {
-        guard let minutes = minutes else {
+        if let snoozeTime = minutes {
+            settings.snoozeTime = minutes
+            snoozeTimeLabel.text = "\(snoozeTime) min"
+        } else {
             settings.snoozeTime = nil
             snoozeTimeLabel.text = "Never"
-            return
         }
-        settings.snoozeTime = minutes
-        snoozeTimeLabel.text = "\(minutes) min"
     }
 }

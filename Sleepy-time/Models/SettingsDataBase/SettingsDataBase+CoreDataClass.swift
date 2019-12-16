@@ -14,7 +14,7 @@ import CoreData
 public class SettingsDataBase: NSManagedObject {
 
     func toMySettings() -> MySettings {
-        return MySettings(alarmVolume: alarmVolume?.intValue ?? 0,
+        return MySettings(alarmVolume: alarmVolume?.doubleValue ?? 0,
                           fallAsleepTime: fallAsleepTime?.intValue ?? 0,
                           isVibrated: isVibrated?.boolValue ?? true,
                           ringtone: Data(),
@@ -22,9 +22,9 @@ public class SettingsDataBase: NSManagedObject {
     }
     
     func fromMySettings(mySettings: MySettings) {
-        alarmVolume = NSNumber(integerLiteral: mySettings.alarmVolume)
-        fallAsleepTime = NSNumber(integerLiteral: mySettings.fallAsleepTime)
-        isVibrated = NSNumber(booleanLiteral: mySettings.isVibrated)
+        alarmVolume = NSNumber(value: mySettings.alarmVolume)
+        fallAsleepTime = NSNumber(value: mySettings.fallAsleepTime)
+        isVibrated = NSNumber(value: mySettings.isVibrated)
         ringtone = mySettings.ringtone
         snoozeTime = mySettings.snoozeTime as NSNumber?
     }
