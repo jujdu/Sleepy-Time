@@ -96,7 +96,10 @@ class CoreDataStack {
                 self.settingsObject.fromSettings(settings: settingsToUpdate)
                 do {
                     try self.persistentContainer.viewContext.save()
+                    let settings = self.settingsObject.toSettings()
+                    completionHandler(settings)
                 } catch {
+                    completionHandler(nil)
                     print(error.localizedDescription)
                 }
             }

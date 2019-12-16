@@ -30,7 +30,7 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     let infoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
+        label.backgroundColor = .systemBackground
         label.textAlignment = .center
         label.font = UIFont(name: AppFonts.avenirBook, size: 17)
         label.numberOfLines = 0
@@ -86,7 +86,7 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         setupConstraints()
         setupTableView()
         setupNavigationBar()

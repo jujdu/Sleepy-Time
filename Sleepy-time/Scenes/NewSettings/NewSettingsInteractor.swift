@@ -10,18 +10,18 @@ import UIKit
 
 protocol NewSettingsBusinessLogic {
     func makeRequest(request: NewSettings.Model.Request.RequestType)
+    var settings: Settings? { get set }
 }
 
 protocol NewSettingsDataStore {
-    //var name: String { get set }
+    var settings: Settings? { get set }
 }
 
 class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
     
     var presenter: NewSettingsPresentationLogic?
     var worker: NewSettingsWorker?
-    
-    var settingsWorker = SettingsWorker()
+    var settings: Settings?
     
     func makeRequest(request: NewSettings.Model.Request.RequestType) {
         if worker == nil {
@@ -30,11 +30,14 @@ class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
         
         switch request {
         case .getSettings:
-            settingsWorker.fetchSettings { (settings) in
+            worker?.fetchSettings { (settings) in
+                self.settings = settings
                 self.presenter?.presentData(response: .presentSettings(settings: settings))
             }
-        case .updateSettings:
-            settingsWorker.updateSettings(settingsToUpdate: <#T##Settings#>, completionHandler: <#T##(Settings?) -> ()#>)
+        case .updateSettings(let settings):
+            worker?.updateSettings(settingsToUpdate: settings, completionHandler: { (settings) in
+                self.settings = settings
+            })
         @unknown default:
             print("SettingsInteractor has another response")
         }

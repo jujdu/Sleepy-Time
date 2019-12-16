@@ -118,7 +118,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     private func setupNavigationBar() {
         navigationItem.title = "Settings"
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -142,26 +141,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         }
     }
     
-    //MARK: - UITableView Protocol
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        if indexPath.section == 0 && indexPath.row == 0 {
-            let snoozeVC = NewSnoozeViewController()
-            snoozeVC.delegate = self
-            snoozeVC.snoozeTime = settings.snoozeTime
-            self.show(snoozeVC, sender: self)
-        } else if indexPath.section == 1 && indexPath.row == 0 {
-            self.present(mediaPicker, animated: true) {
-                let alert = self.createAttentionAlert()
-                self.mediaPicker.present(alert, animated: true, completion: nil)
-            }
-        }
-    }
-    
     //MARK: - @IBActions
     @IBAction func fallAsleepSliderChanged(_ sender: UISlider) {
         fallAsleepTimeLabel.text = "\(Int(sender.value)) min"
@@ -182,11 +161,33 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         //MARK: - Добавление данных в CoreDate длинным путем
-        interactor?.makeRequest(request: .updateSettings)
-        self.dismiss(animated: true, completion: nil)
+        if interactor?.settings != nil {
+            interactor?.makeRequest(request: .updateSettings(settings: settings))
+            router?.routeToMain()
+        }
     }
-    
-    
+}
+
+extension NewSettingsViewController {
+    //MARK: - UITableView Protocol
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0 && indexPath.row == 0 {
+            let snoozeVC = NewSnoozeViewController()
+            snoozeVC.delegate = self
+            snoozeVC.snoozeTime = settings.snoozeTime
+            self.show(snoozeVC, sender: self)
+        } else if indexPath.section == 1 && indexPath.row == 0 {
+            self.present(mediaPicker, animated: true) {
+                let alert = self.createAttentionAlert()
+                self.mediaPicker.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
 }
 
 //MARK: - MPMediaPickerControllerDelegate

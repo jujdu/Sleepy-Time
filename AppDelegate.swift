@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        viewController.context = coreDataStack.persistentContainer.viewContext
         
         navigationController.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.black,
+            NSAttributedString.Key.foregroundColor: UIColor.label,
             NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
         ]
         navigationController.navigationBar.barStyle = .black

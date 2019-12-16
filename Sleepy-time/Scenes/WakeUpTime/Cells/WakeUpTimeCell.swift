@@ -26,7 +26,6 @@ class WakeUpTimeCell: UITableViewCell {
     let cycleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.textAlignment = .left
         label.font = UIFont(name: "Avenir-Book", size: 18)
         label.numberOfLines = 1
@@ -36,7 +35,6 @@ class WakeUpTimeCell: UITableViewCell {
     let hoursLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.textAlignment = .left
         label.font = UIFont(name: "Avenir-Book", size: 15)
         label.numberOfLines = 1
@@ -47,7 +45,6 @@ class WakeUpTimeCell: UITableViewCell {
     let timeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
         label.textAlignment = .right
         label.font = UIFont(name: "Avenir-Book", size: 32)
         label.numberOfLines = 1
@@ -58,7 +55,6 @@ class WakeUpTimeCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(#imageLiteral(resourceName: "ic_add_alarm_36pt"), for: .normal)
-        button.tintColor = .black
         button.layer.cornerRadius = 5
         button.contentHorizontalAlignment = .right
         button.isUserInteractionEnabled = false

@@ -21,6 +21,7 @@ class NewSnoozeViewController: UIViewController, UITableViewDelegate, UITableVie
         return tableView
     }()
     
+//    var closure: ((Int?) -> ())? callback
     weak var delegate: NewSnoozeViewControllerDelegate?
     var snoozeTime: Int!
     private var index: Int!
@@ -70,6 +71,7 @@ class NewSnoozeViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
         index = indexPath.row
+        self.closure?(minutesArray[index])
         delegate?.passData(minutes: minutesArray[index])
     }
 }

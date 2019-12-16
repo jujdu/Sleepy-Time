@@ -28,7 +28,7 @@ class SwipingViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "pictureBG")
+        imageView.image = UIImage(named: "stars1")
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFill
         return imageView
@@ -42,7 +42,7 @@ class SwipingViewController: UIViewController {
         imageView.image = UIImage(named: "cloudBG")
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .clear
-        //        imageView.alpha = 0.8
+        imageView.alpha = 0.6
         return imageView
     }()
     
@@ -53,7 +53,7 @@ class SwipingViewController: UIViewController {
         imageView.image = UIImage(named: "cloudBG1")
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .clear
-        imageView.alpha = 0.8
+        imageView.alpha = 0.7
         return imageView
     }()
     

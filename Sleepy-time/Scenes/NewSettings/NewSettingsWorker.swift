@@ -9,5 +9,32 @@
 import UIKit
 
 class NewSettingsWorker {
-
+    
+    var settingsStore: CoreDataStack
+    
+    init(settingsStore: CoreDataStack = CoreDataStack()) {
+        self.settingsStore = settingsStore
+    }
+    
+    func fetchSettings(completionHandler: @escaping (Settings?) -> ()) {
+        settingsStore.fetchSettings { settings in
+            DispatchQueue.main.async {
+                guard let settings = settings else {
+                    completionHandler(nil)
+                    return }
+                completionHandler(settings)
+            }
+        }
+    }
+    
+    func updateSettings(settingsToUpdate: Settings, completionHandler: @escaping (Settings?) -> ()) {
+        settingsStore.updateSettings(settingsToUpdate: settingsToUpdate) { settings in
+            DispatchQueue.main.async {
+                guard let settings = settings else {
+                    completionHandler(nil)
+                    return }
+                completionHandler(settings)
+            }
+        }
+    }
 }
