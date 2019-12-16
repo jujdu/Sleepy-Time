@@ -1,5 +1,5 @@
 //
-//  SettingsInteractor.swift
+//  OldSettingsInteractor.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 26.11.2019.
@@ -8,22 +8,22 @@
 
 import UIKit
 
-protocol SettingsBusinessLogic {
-    func makeRequest(request: Settings.Model.Request.RequestType)
+protocol OldSettingsBusinessLogic {
+    func makeRequest(request: OldSettings.Model.Request.RequestType)
 }
 
-protocol SettingsDataStore {
+protocol OldSettingsDataStore {
     //var name: String { get set }
 }
 
-class SettingsInteractor: SettingsBusinessLogic, SettingsDataStore {
+class OldSettingsInteractor: OldSettingsBusinessLogic, OldSettingsDataStore {
     
-    var presenter: SettingsPresentationLogic?
-    var worker: SettingsWorker?
-    
-    func makeRequest(request: Settings.Model.Request.RequestType) {
+    var presenter: OldSettingsPresentationLogic?
+    var worker: OldSettingsWorker?
+
+    func makeRequest(request: OldSettings.Model.Request.RequestType) {
         if worker == nil {
-            worker = SettingsWorker()
+            worker = OldSettingsWorker()
         }
         
         switch request {

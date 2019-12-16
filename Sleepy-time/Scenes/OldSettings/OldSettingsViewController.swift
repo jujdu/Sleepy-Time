@@ -11,11 +11,11 @@ import MediaPlayer
 import AVFoundation
 import CoreData
 
-protocol SettingsDisplayLogic: class {
-    func displayData(viewModel: Settings.Model.ViewModel.ViewModelData)
+protocol OldSettingsDisplayLogic: class {
+    func displayData(viewModel: OldSettings.Model.ViewModel.ViewModelData)
 }
 
-class SettingsViewController: UIViewController, SettingsDisplayLogic {
+class OldSettingsViewController: UIViewController, OldSettingsDisplayLogic {
     
     //MARK: - Views
     let tableView: UITableView = {
@@ -57,17 +57,17 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     }
     
     // MARK: - Properties
-    var interactor: SettingsBusinessLogic?
-    var router: (NSObjectProtocol & SettingsRoutingLogic & SettingsDataPassing)?
+    var interactor: OldSettingsBusinessLogic?
+    var router: (NSObjectProtocol & OldSettingsRoutingLogic & OldSettingsDataPassing)?
     
-    private var viewModel = SettingsViewModel(items: [])
+    private var viewModel = OldSettingsViewModel(items: [])
     private let mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
     private let engine = AVAudioEngine()
     private let player = AVPlayer()
     private let avplayer = AVAudioPlayer()
     
     var context: NSManagedObjectContext! = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
-    var settings: SettingsDataBase!
+    var settings: ManagedSettings!
     
     // MARK: - Object lifecycle
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -84,9 +84,9 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
     
     private func setup() {
         let viewController        = self
-        let interactor            = SettingsInteractor()
-        let presenter             = SettingsPresenter()
-        let router                = SettingsRouter()
+        let interactor            = OldSettingsInteractor()
+        let presenter             = OldSettingsPresenter()
+        let router                = OldSettingsRouter()
         viewController.interactor = interactor
         viewController.router     = router
         interactor.presenter      = presenter
@@ -101,13 +101,13 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
         view.backgroundColor = .white
         
         //MARK: - получение данных из CoreDate
-        let fetchRequest: NSFetchRequest<SettingsDataBase> = SettingsDataBase.fetchRequest()
+        let fetchRequest: NSFetchRequest<ManagedSettings> = ManagedSettings.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let count = try context.count(for: fetchRequest)
             if count == 0 {
-                let entity = NSEntityDescription.entity(forEntityName: "SettingsDataBase", in: context)
-                let taskObject = NSManagedObject(entity: entity!, insertInto: context) as! SettingsDataBase
+                let entity = NSEntityDescription.entity(forEntityName: "ManagedSettings", in: context)
+                let taskObject = NSManagedObject(entity: entity!, insertInto: context) as! ManagedSettings
                 taskObject.snoozeTime = 15
                 taskObject.fallAsleepTime = 24
                 taskObject.ringtone = Data()
@@ -136,7 +136,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
         
     }
     
-    func displayData(viewModel: Settings.Model.ViewModel.ViewModelData) {
+    func displayData(viewModel: OldSettings.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displaySettings(let viewModel):
             self.viewModel = viewModel
@@ -195,7 +195,7 @@ class SettingsViewController: UIViewController, SettingsDisplayLogic {
 }
 
 //MARK: - UITableView Protocols
-extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
+extension OldSettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.items.count
     }
@@ -261,7 +261,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 //MARK: - MPMediaPickerControllerDelegate
-extension SettingsViewController: MPMediaPickerControllerDelegate {
+extension OldSettingsViewController: MPMediaPickerControllerDelegate {
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
         self.dismiss(animated: true, completion: nil)
         print("you picked: \(mediaItemCollection)")
@@ -279,7 +279,7 @@ extension SettingsViewController: MPMediaPickerControllerDelegate {
 }
 
 //MARK: - UINavigationBarDelegate
-extension SettingsViewController: UINavigationBarDelegate {
+extension OldSettingsViewController: UINavigationBarDelegate {
     public func position(for bar: UIBarPositioning) -> UIBarPosition {
         return .topAttached
     }

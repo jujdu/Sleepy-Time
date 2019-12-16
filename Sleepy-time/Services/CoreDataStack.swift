@@ -55,4 +55,52 @@ class CoreDataStack {
         }
     }
     
+    var settingsObject: ManagedSettings!
+    
+    func fetchSettings(completionHandler: @escaping (Settings?) -> ()) {
+        persistentContainer.viewContext.perform {
+            do {
+                let fetchRequest: NSFetchRequest<ManagedSettings> = ManagedSettings.fetchRequest()
+                fetchRequest.returnsObjectsAsFaults = false
+                
+                var settings: Settings
+                
+                let results = try self.persistentContainer.viewContext.fetch(fetchRequest)
+                if results.isEmpty {
+                    self.settingsObject = ManagedSettings(context: self.persistentContainer.viewContext)
+                    self.settingsObject.snoozeTime = 5
+                    self.settingsObject.fallAsleepTime = 14
+                    self.settingsObject.ringtone = Data()
+                    self.settingsObject.isVibrated = true
+                    self.settingsObject.alarmVolume = 1
+                    try self.persistentContainer.viewContext.save()
+                    settings = self.settingsObject.toSettings()
+                    completionHandler(settings)
+                } else {
+                    self.settingsObject = results.first!
+                    settings = self.settingsObject.toSettings()
+                    completionHandler(settings)
+                }
+            } catch {
+                print(error.localizedDescription)
+                completionHandler(nil)
+            }
+        }
+    }
+    
+    func updateSettings(settingsToUpdate: Settings, completionHandler: @escaping (Settings?) -> ()) {
+        persistentContainer.viewContext.perform {
+            do {
+                let fetchRequest: NSFetchRequest<ManagedSettings> = ManagedSettings.fetchRequest()
+                fetchRequest.returnsObjectsAsFaults = false
+                self.settingsObject.fromSettings(settings: settingsToUpdate)
+                do {
+                    try self.persistentContainer.viewContext.save()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
 }

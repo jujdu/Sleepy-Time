@@ -13,9 +13,9 @@ protocol SettingsSongCellProtocol {
 }
 
 class SongCell: UITableViewCell, SettingsCellProtocol {
-    weak var settings: SettingsDataBase!
+    weak var settings: ManagedSettings!
     
-    func set(with viewModel: SettingsItemProtocol) {
+    func set(with viewModel: OldSettingsItemProtocol) {
         
     }
     

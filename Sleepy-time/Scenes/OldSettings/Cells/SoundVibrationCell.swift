@@ -13,9 +13,9 @@ protocol SettingsSoundVibrationCellProtocol {
 }
 
 class SoundVibrationCell: UITableViewCell, SettingsCellProtocol {
-    weak var settings: SettingsDataBase!
+    weak var settings: ManagedSettings!
     
-    func set(with viewModel: SettingsItemProtocol) {
+    func set(with viewModel: OldSettingsItemProtocol) {
         guard let viewModel = viewModel as? SettingsSoundVibrationCellProtocol else { return }
         switchController.isOn = viewModel.value
     }

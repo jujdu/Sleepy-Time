@@ -1,5 +1,5 @@
 //
-//  SettingsRouter.swift
+//  OldSettingsRouter.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 26.11.2019.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-protocol SettingsRoutingLogic {
+protocol OldSettingsRoutingLogic {
     //func routeToSomewhere(segue: UIStoryboardSegue?)
 }
 
-protocol SettingsDataPassing {
-    var dataStore: SettingsDataStore? { get }
+protocol OldSettingsDataPassing {
+    var dataStore: OldSettingsDataStore? { get }
 }
 
-class SettingsRouter: NSObject, SettingsRoutingLogic, SettingsDataPassing {
+class OldSettingsRouter: NSObject, OldSettingsRoutingLogic, OldSettingsDataPassing {
     
-    weak var viewController: SettingsViewController?
-    var dataStore: SettingsDataStore?
+    weak var viewController: OldSettingsViewController?
+    var dataStore: OldSettingsDataStore?
     
     
     // MARK: - Routing

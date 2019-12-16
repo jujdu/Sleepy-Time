@@ -34,8 +34,8 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     private let avplayer = AVAudioPlayer()
     
     var context: NSManagedObjectContext! = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
-    var settings: MySettings!
-    var taskObject: SettingsDataBase!
+    var settings: Settings!
+    var taskObject: ManagedSettings!
     
     
     // MARK: - Object lifecycle
@@ -82,71 +82,20 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         super.viewDidLoad()
         setupMediaPicker()
         setupNavigationBar()
-        
-        //MARK: - получение данных из CoreDate
-//        let fetchRequest: NSFetchRequest<SettingsDataBase> = SettingsDataBase.fetchRequest()
-//        fetchRequest.returnsObjectsAsFaults = false
-//        do {
-//            let count = try context.count(for: fetchRequest)
-//            if count == 0 {
-//                let entity = NSEntityDescription.entity(forEntityName: "SettingsDataBase", in: context)
-//                self.taskObject = NSManagedObject(entity: entity!, insertInto: context) as? SettingsDataBase
-//
-//                taskObject.snoozeTime = 5
-//                taskObject.fallAsleepTime = 14
-//                taskObject.ringtone = Data()
-//                taskObject.isVibrated = true
-//                taskObject.alarmVolume = 1
-//                try context.save()
-//                settings = taskObject.toMySettings()
-//                print("\n Create entity")
-//            } else {
-//                self.taskObject = try context.fetch(fetchRequest).first
-//                settings = self.taskObject?.toMySettings()
-//                print("\n Read entity")
-//            }
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-        
-        let fetchRequest: NSFetchRequest<SettingsDataBase> = SettingsDataBase.fetchRequest()
-        fetchRequest.returnsObjectsAsFaults = false
-        do {
-            let results = try context.fetch(fetchRequest)
-            if results.isEmpty {
-                taskObject = SettingsDataBase(context: context)
-                taskObject.snoozeTime = 5
-                taskObject.fallAsleepTime = 14
-                taskObject.ringtone = Data()
-                taskObject.isVibrated = true
-                taskObject.alarmVolume = 1
-                try context.save()
-                settings = taskObject.toMySettings()
-                print("\n Create entity")
-            } else {
-                self.taskObject = results.first
-                settings = self.taskObject?.toMySettings()
-                print("\n Read entity")
-            }
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        
-        interactor?.makeRequest(request: .getSettings(settings: taskObject))
+        interactor?.makeRequest(request: .getSettings)
     }
 
     func displayData(viewModel: NewSettings.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displaySettings(let viewModel):
-            self.settings = viewModel.toMySettings()
+            self.settings = viewModel
             set(settings: settings)
         @unknown default:
             print("SettingsViewController has another response")
         }
     }
     
-    func set(settings: MySettings) {
+    func set(settings: Settings) {
         if let snoozeTime = settings.snoozeTime {
             snoozeTimeLabel.text = "\(snoozeTime) min"
         } else {
@@ -233,13 +182,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     @IBAction func doneButtonPressed(_ sender: Any) {
         //MARK: - Добавление данных в CoreDate длинным путем
-        self.taskObject.fromMySettings(mySettings: settings)
-        do {
-            try context.save()
-            print("\n Update entity")
-        } catch {
-            print(error.localizedDescription)
-        }
+        interactor?.makeRequest(request: .updateSettings)
         self.dismiss(animated: true, completion: nil)
     }
     

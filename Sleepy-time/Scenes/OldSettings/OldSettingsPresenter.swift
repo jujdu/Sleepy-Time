@@ -1,5 +1,5 @@
 //
-//  SettingsPresenter.swift
+//  OldSettingsPresenter.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 26.11.2019.
@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol SettingsPresentationLogic {
-    func presentData(response: Settings.Model.Response.ResponseType)
+protocol OldSettingsPresentationLogic {
+    func presentData(response: OldSettings.Model.Response.ResponseType)
 }
 
-class SettingsPresenter: SettingsPresentationLogic {
+class OldSettingsPresenter: OldSettingsPresentationLogic {
     
-    weak var viewController: SettingsDisplayLogic?
+    weak var viewController: OldSettingsDisplayLogic?
     
-    func presentData(response: Settings.Model.Response.ResponseType) {
+    func presentData(response: OldSettings.Model.Response.ResponseType) {
         switch response {
         case .presentSettings(let settings): break
             

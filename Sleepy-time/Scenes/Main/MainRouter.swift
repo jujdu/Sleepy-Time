@@ -10,7 +10,7 @@ import UIKit
 
 protocol MainRoutingLogic {
     func routeToWakeUpTime()
-    func routeToSettings()
+//    func routeToSettings()
     func routeToNewSettings()
 }
 
@@ -31,11 +31,11 @@ class MainRouter: NSObject, MainRoutingLogic, MainDataPassing {
         passDataToWakeUpTime(source: dataStore!, destination: &destinationDS)
     }
     
-    func routeToSettings() {
-        let destinationVC = SettingsViewController()
-        let navVC = UINavigationController(rootViewController: destinationVC)
-        navigateToSettings(source: viewController!, destination: navVC)
-    }
+//    func routeToSettings() {
+//        let destinationVC = SettingsViewController()
+//        let navVC = UINavigationController(rootViewController: destinationVC)
+//        navigateToSettings(source: viewController!, destination: navVC)
+//    }
     
     func routeToNewSettings() {
         let sb = UIStoryboard(name: "Settings", bundle: nil)

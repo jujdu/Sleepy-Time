@@ -13,15 +13,15 @@ protocol SettingsSoundValueCellProtocol {
 }
 
 class SoundValueCell: UITableViewCell, SettingsCellProtocol {
-    weak var settings: SettingsDataBase!
-    
-    func set(with viewModel: SettingsItemProtocol) {
+    weak var settings: ManagedSettings!
+
+    func set(with viewModel: OldSettingsItemProtocol) {
         guard let viewModel = viewModel as? SettingsSoundValueCellProtocol else { return }
         fallAsleepSlider.value = Float(viewModel.volume)
     }
-    
+
     static let reuseId = "SoundValue"
-    
+
     //MARK: - FallAsleep Views
     lazy var fallAsleepSlider: UISlider = {
         let slider = UISlider()
@@ -42,25 +42,25 @@ class SoundValueCell: UITableViewCell, SettingsCellProtocol {
         slider.addTarget(self, action: #selector(self.sliderChangedValue), for: .valueChanged)
         return slider
     }()
-    
-    
+
+
     //MARK: - Inits
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     //MARK: - View Configuration
     private func setupConstraints() {
         contentView.addSubview(fallAsleepSlider)
-        
+
         fallAsleepSlider.fillSuperview(padding: Constraints.cellPaddings)
     }
-    
+
     @objc func sliderChangedValue(sender: UISlider) {
         settings.alarmVolume = sender.value as! NSNumber
     }

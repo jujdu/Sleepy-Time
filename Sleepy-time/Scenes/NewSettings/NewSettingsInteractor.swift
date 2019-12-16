@@ -21,14 +21,20 @@ class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
     var presenter: NewSettingsPresentationLogic?
     var worker: NewSettingsWorker?
     
+    var settingsWorker = SettingsWorker()
+    
     func makeRequest(request: NewSettings.Model.Request.RequestType) {
         if worker == nil {
             worker = NewSettingsWorker()
         }
         
         switch request {
-        case .getSettings(let settings):
-            presenter?.presentData(response: .presentSettings(settings: settings))
+        case .getSettings:
+            settingsWorker.fetchSettings { (settings) in
+                self.presenter?.presentData(response: .presentSettings(settings: settings))
+            }
+        case .updateSettings:
+            settingsWorker.updateSettings(settingsToUpdate: <#T##Settings#>, completionHandler: <#T##(Settings?) -> ()#>)
         @unknown default:
             print("SettingsInteractor has another response")
         }

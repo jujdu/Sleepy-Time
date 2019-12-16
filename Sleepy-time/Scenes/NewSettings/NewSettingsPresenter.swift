@@ -19,6 +19,7 @@ class NewSettingsPresenter: NewSettingsPresentationLogic {
     func presentData(response: NewSettings.Model.Response.ResponseType) {
         switch response {
         case .presentSettings(let settings):
+            guard let settings = settings else { return }
             viewController?.displayData(viewModel: .displaySettings(viewModel: settings))
         @unknown default:
             print("SettingsPresenter has another response")

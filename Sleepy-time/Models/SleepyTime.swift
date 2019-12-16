@@ -20,10 +20,3 @@ enum SleepyTimeType {
 
 
 
-struct MySettings {
-    var alarmVolume: Double
-    var fallAsleepTime: Int
-    var isVibrated: Bool
-    var ringtone: Data?
-    var snoozeTime: Int?
-}

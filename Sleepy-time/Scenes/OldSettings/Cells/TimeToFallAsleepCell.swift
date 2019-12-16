@@ -13,10 +13,10 @@ protocol SettingsFallAlseepCellProtocol {
 }
 
 class TimeToFallAsleepCell: UITableViewCell, SettingsCellProtocol {
-    weak var settings: SettingsDataBase!
+    weak var settings: ManagedSettings!
     
-    func set(with viewModel: SettingsItemProtocol) {
-        guard let viewModel = viewModel as? SettingsFallAlseepItem else { return }
+    func set(with viewModel: OldSettingsItemProtocol) {
+        guard let viewModel = viewModel as? OldSettingsFallAlseepItem else { return }
         fallAsleepSlider.value = Float(viewModel.value)
         fallAsleepLabel.text = generatedTextForLabel(Float(viewModel.value))
     }

@@ -13,17 +13,18 @@ enum NewSettings {
     enum Model {
         struct Request {
             enum RequestType {
-                case getSettings(settings: SettingsDataBase)
+                case getSettings
+                case updateSettings
             }
         }
         struct Response {
             enum ResponseType {
-                case presentSettings(settings: SettingsDataBase)
+                case presentSettings(settings: Settings?)
             }
         }
         struct ViewModel {
             enum ViewModelData {
-                case displaySettings(viewModel: SettingsDataBase)
+                case displaySettings(viewModel: Settings)
             }
         }
     }

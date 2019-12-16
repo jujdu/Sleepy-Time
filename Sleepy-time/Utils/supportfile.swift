@@ -9,8 +9,8 @@
 import Foundation
 
 ////MARK: - Добавление данных в CoreDate длинным путем
-//let entity = NSEntityDescription.entity(forEntityName: "SettingsDataBase", in: context)
-//let taskObject = NSManagedObject(entity: entity!, insertInto: context) as! SettingsDataBase
+//let entity = NSEntityDescription.entity(forEntityName: "ManagedSettings", in: context)
+//let taskObject = NSManagedObject(entity: entity!, insertInto: context) as! ManagedSettings
 //taskObject.snoozeTime = 15
 //taskObject.fallAsleepTime = 24
 //taskObject.ringtone = Data()

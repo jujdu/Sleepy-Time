@@ -1,5 +1,5 @@
 //
-//  SettingsModels.swift
+//  OldSettingsModels.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 26.11.2019.
@@ -8,34 +8,34 @@
 
 import UIKit
 
-enum Settings {
+enum OldSettings {
     
     enum Model {
         struct Request {
             enum RequestType {
-                case getSettings(settings: SettingsDataBase)
+                case getSettings(settings: ManagedSettings)
             }
         }
         struct Response {
             enum ResponseType {
-                case presentSettings(settings: SettingsDataBase)
+                case presentSettings(settings: ManagedSettings)
             }
         }
         struct ViewModel {
             enum ViewModelData {
-                case displaySettings(viewModel: SettingsViewModel)
+                case displaySettings(viewModel: OldSettingsViewModel)
             }
         }
     }
     
 }
 
-struct SettingsViewModel {
-    var items: [SettingsItemProtocol]
+struct OldSettingsViewModel {
+    var items: [OldSettingsItemProtocol]
 }
 
 //MARK: - SettingsItemType
-enum SettingsItemType {
+enum OldSettingsItemType {
     case snooze
     case fallAlseep
     case song
@@ -72,7 +72,7 @@ enum SettingsItemType {
         }
     }
     
-    func configureCellForModelItemType(cell: UITableViewCell, data: SettingsItemProtocol, settings: SettingsDataBase) {
+    func configureCellForModelItemType(cell: UITableViewCell, data: OldSettingsItemProtocol, settings: ManagedSettings) {
         switch self {
             case .snooze:
                  let cell = cell as! SnoozeCell
@@ -99,28 +99,28 @@ enum SettingsItemType {
 }
 
 //MARK: - SettingsItemProtocol
-protocol SettingsItemProtocol {
-    var type: SettingsItemType { get }
+protocol OldSettingsItemProtocol {
+    var type: OldSettingsItemType { get }
     var rowsCount: Int { get }
     var sectionTitle: String? { get }
     var sectionHeight: CGFloat { get }
 }
 
-extension SettingsItemProtocol {
+extension OldSettingsItemProtocol {
     var rowsCount: Int { return 1 }
     var sectionTitle: String? { return nil }
     var sectionHeight: CGFloat { return 0 }
 }
 
 // MARK: - Implementation SettingsSnoozeItem
-class SettingsSnoozeItem: SettingsItemProtocol, SettingsSnoozeCellProtocol {
-    var type: SettingsItemType = .snooze
+class OldSettingsSnoozeItem: OldSettingsItemProtocol, SettingsSnoozeCellProtocol {
+    var type: OldSettingsItemType = .snooze
 }
 
 // MARK: - Implementation SettingsFallAlseepItem
-class SettingsFallAlseepItem: SettingsItemProtocol, SettingsFallAlseepCellProtocol {
+class OldSettingsFallAlseepItem: OldSettingsItemProtocol, SettingsFallAlseepCellProtocol {
     var value: Double
-    var type: SettingsItemType = .fallAlseep
+    var type: OldSettingsItemType = .fallAlseep
     
     init(value: Double) {
         self.value = value
@@ -128,25 +128,25 @@ class SettingsFallAlseepItem: SettingsItemProtocol, SettingsFallAlseepCellProtoc
 }
 
 // MARK: - Implementation SettingsSongItem
-class SettingsSongItem: SettingsItemProtocol, SettingsSongCellProtocol {
-    var type: SettingsItemType = .song
+class OldSettingsSongItem: OldSettingsItemProtocol, SettingsSongCellProtocol {
+    var type: OldSettingsItemType = .song
     var sectionTitle: String? = "SOUND"
     var sectionHeight: CGFloat = 36
 }
 
 // MARK: - Implementation SettingsSoundLabel
-class SettingsSoundValueItem: SettingsItemProtocol, SettingsSoundValueCellProtocol {
+class OldSettingsSoundValueItem: OldSettingsItemProtocol, SettingsSoundValueCellProtocol {
     var volume: Double
-    var type: SettingsItemType = .soundValue
+    var type: OldSettingsItemType = .soundValue
     
     init(volume: Double) {
         self.volume = volume
     }
 }
 
-class SettingsSoundVibrationItem: SettingsItemProtocol, SettingsSoundVibrationCellProtocol {
+class OldSettingsSoundVibrationItem: OldSettingsItemProtocol, SettingsSoundVibrationCellProtocol {
     var value: Bool
-    var type: SettingsItemType = .soundVibration
+    var type: OldSettingsItemType = .soundVibration
     
     init(value: Bool) {
         self.value = value

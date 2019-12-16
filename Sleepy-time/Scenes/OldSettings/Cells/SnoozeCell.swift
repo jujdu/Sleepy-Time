@@ -9,16 +9,16 @@
 import UIKit
 
 protocol SettingsCellProtocol {
-    func set(with viewModel: SettingsItemProtocol)
-    var settings: SettingsDataBase! { get set }
+    func set(with viewModel: OldSettingsItemProtocol)
+    var settings: ManagedSettings! { get set }
 }
 
 protocol SettingsSnoozeCellProtocol {
 }
 
 class SnoozeCell: UITableViewCell, SettingsCellProtocol {
-    weak var settings: SettingsDataBase!
-    func set(with viewModel: SettingsItemProtocol) {
+    weak var settings: ManagedSettings!
+    func set(with viewModel: OldSettingsItemProtocol) {
         
     }
     

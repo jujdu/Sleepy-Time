@@ -1,5 +1,5 @@
 //
-//  SettingsWorker.swift
+//  OldSettingsWorker.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 26.11.2019.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class SettingsWorker {
+class OldSettingsWorker {
 
 }
