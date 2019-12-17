@@ -20,10 +20,18 @@ class NewSettingsPresenter: NewSettingsPresentationLogic {
         switch response {
         case .presentSettings(let settings):
             guard let settings = settings else { return }
-            viewController?.displayData(viewModel: .displaySettings(viewModel: settings))
+            let viewModel = fromSettingsToViewModel(settings: settings)
+            viewController?.displayData(viewModel: .displaySettings(viewModel: viewModel))
         @unknown default:
             print("SettingsPresenter has another response")
         }
     }
     
+    private func fromSettingsToViewModel(settings: Settings) -> SettingsViewModel {
+        return SettingsViewModel(snoozeTime: settings.snoozeTime,
+                                                     fallAsleepTime: Float(settings.fallAsleepTime),
+                                                     ringtone: settings.ringtone,
+                                                     isVibrated: settings.isVibrated,
+                                                     alarmVolume: Float(settings.alarmVolume))
+    }
 }

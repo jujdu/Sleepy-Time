@@ -51,13 +51,13 @@ class MainViewController: UIViewController, MainDisplayLogic {
         return label
     }()
 
-    let toTimeLabel: DatePickerLabel = {
+    let toTimeLabel: UIDatePickerLabel = {
         let dateDatePicker = UIDatePicker()
         dateDatePicker.translatesAutoresizingMaskIntoConstraints = false
         dateDatePicker.datePickerMode = .time
         dateDatePicker.minuteInterval = 5
         
-        let label = DatePickerLabel(datePickerView: dateDatePicker)
+        let label = UIDatePickerLabel(datePickerView: dateDatePicker)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.text = "Find out when to get up if you go to bed right now"
@@ -162,7 +162,6 @@ class MainViewController: UIViewController, MainDisplayLogic {
     // MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-//        view.backgroundColor = .white
         toTimeLabel.delegate = self
         setupNavigationBar()
         setupVideoView()
@@ -269,7 +268,6 @@ class MainViewController: UIViewController, MainDisplayLogic {
     
     //MARK: - Gesture settingsBarButton
     @objc func settingsBarButtonTapped() {
-//        router?.routeToSettings()
         router?.routeToNewSettings()
     }
     
@@ -281,8 +279,8 @@ class MainViewController: UIViewController, MainDisplayLogic {
     
 }
 
-extension MainViewController: DatePickerLabelDelegate {
-    func dateDidReceived(date: Date) {
+extension MainViewController: UIDatePickerLabelDelegate {
+    func didReceived(date: Date) {
         choosenTime = date
     }
 }

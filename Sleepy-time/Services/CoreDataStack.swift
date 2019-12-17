@@ -9,9 +9,15 @@
 import Foundation
 import CoreData
 
-class CoreDataStack {
+
+protocol CoreDataStackStoreProtocol {
+    func fetchSettings(completionHandler: @escaping (Settings?) -> ())
+    func updateSettings(settingsToUpdate: Settings, completionHandler: @escaping (Settings?) -> ())
+}
+
+final class CoreDataStack: CoreDataStackStoreProtocol {
     // MARK: - Core Data stack
-    var settingsObject: ManagedSettings!
+    private var settingsObject: ManagedSettings!
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Sleepy-time")
@@ -46,7 +52,9 @@ class CoreDataStack {
                 var settings: Settings
                 
                 let results = try self.persistentContainer.viewContext.fetch(fetchRequest)
+                
                 if results.isEmpty {
+                    //MARK: - Setup default settings
                     self.settingsObject = ManagedSettings(context: self.persistentContainer.viewContext)
                     self.settingsObject.snoozeTime = 5
                     self.settingsObject.fallAsleepTime = 14
@@ -57,6 +65,7 @@ class CoreDataStack {
                     settings = self.settingsObject.toSettings()
                     completionHandler(settings)
                 } else {
+                    //MARK: - Get data from CD
                     self.settingsObject = results.first!
                     settings = self.settingsObject.toSettings()
                     completionHandler(settings)

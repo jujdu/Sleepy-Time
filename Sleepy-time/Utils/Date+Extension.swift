@@ -9,13 +9,6 @@
 import Foundation
 
 extension Date {
-    public func customStyleString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        dateFormatter.timeZone = .current
-        return dateFormatter.string(from: self)
-    }
-
 
     public func shortStyleString() -> String {
         let formatter = DateFormatter()

@@ -33,10 +33,8 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     private let player = AVPlayer()
     private let avplayer = AVAudioPlayer()
     
-    var context: NSManagedObjectContext! = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
-    var settings: Settings!
-    var taskObject: ManagedSettings!
-    
+    var context: NSManagedObjectContext!
+    var viewModel: SettingsViewModel!
     
     // MARK: - Object lifecycle
     
@@ -80,6 +78,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
         setupMediaPicker()
         setupNavigationBar()
         interactor?.makeRequest(request: .getSettings)
@@ -88,25 +87,25 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     func displayData(viewModel: NewSettings.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displaySettings(let viewModel):
-            self.settings = viewModel
-            set(settings: settings)
+            self.viewModel = viewModel
+            set(viewModel: viewModel)
         @unknown default:
             print("SettingsViewController has another response")
         }
     }
     
-    func set(settings: Settings) {
-        if let snoozeTime = settings.snoozeTime {
+    func set(viewModel: SettingsViewModel) {
+        if let snoozeTime = viewModel.snoozeTime {
             snoozeTimeLabel.text = "\(snoozeTime) min"
         } else {
             snoozeTimeLabel.text = "Never"
         }
         
-        fallAsleepTimeLabel.text = "\(settings.fallAsleepTime) min"
-        fallAsleepSlider.value = Float(settings.fallAsleepTime)
+        fallAsleepTimeLabel.text = "\(Int(viewModel.fallAsleepTime)) min"
+        fallAsleepSlider.value = viewModel.fallAsleepTime
         ringtoneNameLabel.text = "The Weeknd - Starboy"
-        ringtoneVibrationSwitch.isOn = settings.isVibrated
-        ringtoneVolumeSlider.value = Float(settings.alarmVolume)
+        ringtoneVibrationSwitch.isOn = viewModel.isVibrated
+        ringtoneVolumeSlider.value = viewModel.alarmVolume
     }
     
     private func setupMediaPicker() {
@@ -152,15 +151,15 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     //MARK: - @IBActions
     @IBAction func fallAsleepSliderChanged(_ sender: UISlider) {
         fallAsleepTimeLabel.text = "\(Int(sender.value)) min"
-        settings.fallAsleepTime = Int(sender.value)
+        viewModel.fallAsleepTime = sender.value
     }
     
     @IBAction func ringtoneVibrationSwitchChanged(_ sender: UISwitch) {
-        settings.isVibrated = sender.isOn
+        viewModel.isVibrated = sender.isOn
     }
     
     @IBAction func ringtoneVolumeSliderChanged(_ sender: UISlider) {
-        settings.alarmVolume = Double(sender.value)
+        viewModel.alarmVolume = sender.value
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -170,7 +169,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBAction func doneButtonPressed(_ sender: Any) {
         //MARK: - Добавление данных в CoreDate длинным путем
         if interactor?.settings != nil {
-            interactor?.makeRequest(request: .updateSettings(settings: settings))
+            interactor?.makeRequest(request: .updateSettings(settings: viewModel))
             router?.routeToMain()
         }
     }
@@ -187,7 +186,7 @@ extension NewSettingsViewController {
         if indexPath.section == 0 && indexPath.row == 0 {
             let snoozeVC = NewSnoozeViewController()
             snoozeVC.delegate = self
-            snoozeVC.snoozeTime = settings.snoozeTime
+            snoozeVC.snoozeTime = viewModel.snoozeTime
             self.show(snoozeVC, sender: self)
         } else if indexPath.section == 1 && indexPath.row == 0 {
             self.present(mediaPicker, animated: true) {
@@ -219,10 +218,10 @@ extension NewSettingsViewController: MPMediaPickerControllerDelegate {
 extension NewSettingsViewController: NewSnoozeViewControllerDelegate {
     func passData(minutes: Int?) {
         if let snoozeTime = minutes {
-            settings.snoozeTime = minutes
+            viewModel.snoozeTime = minutes
             snoozeTimeLabel.text = "\(snoozeTime) min"
         } else {
-            settings.snoozeTime = nil
+            viewModel.snoozeTime = nil
             snoozeTimeLabel.text = "Never"
         }
     }

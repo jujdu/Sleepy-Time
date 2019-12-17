@@ -10,9 +10,9 @@ import UIKit
 
 class NewSettingsWorker {
     
-    var settingsStore: CoreDataStack
+    var settingsStore: CoreDataStackStoreProtocol
     
-    init(settingsStore: CoreDataStack = CoreDataStack()) {
+    init(settingsStore: CoreDataStackStoreProtocol = CoreDataStack()) {
         self.settingsStore = settingsStore
     }
     

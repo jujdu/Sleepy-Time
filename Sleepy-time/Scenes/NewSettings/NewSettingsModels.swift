@@ -14,7 +14,7 @@ enum NewSettings {
         struct Request {
             enum RequestType {
                 case getSettings
-                case updateSettings(settings: Settings)
+                case updateSettings(settings: SettingsViewModel)
             }
         }
         struct Response {
@@ -24,16 +24,16 @@ enum NewSettings {
         }
         struct ViewModel {
             enum ViewModelData {
-                case displaySettings(viewModel: Settings)
+                case displaySettings(viewModel: SettingsViewModel)
             }
         }
     }
-    
-    struct SettingsToUpdate {
-        var alarmVolume: Float
-        var fallAsleepTime: Float
-        var isVibrated: Bool
-        var ringtone: Data
-        var snoozeTime: Int
-    }
+}
+
+struct SettingsViewModel {
+    var snoozeTime: Int?
+    var fallAsleepTime: Float
+    var ringtone: Data?
+    var isVibrated: Bool
+    var alarmVolume: Float
 }

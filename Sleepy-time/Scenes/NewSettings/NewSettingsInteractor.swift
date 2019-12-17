@@ -34,7 +34,8 @@ class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
                 self.settings = settings
                 self.presenter?.presentData(response: .presentSettings(settings: settings))
             }
-        case .updateSettings(let settings):
+        case .updateSettings(let settingsViewModel):
+            let settings = settingsFromSettingsViewModel(settingsViewModel)
             worker?.updateSettings(settingsToUpdate: settings, completionHandler: { (settings) in
                 self.settings = settings
             })
@@ -43,4 +44,11 @@ class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
         }
     }
     
+    private func settingsFromSettingsViewModel(_ settingsViewModel: SettingsViewModel) -> Settings {
+        return Settings(alarmVolume: Double(settingsViewModel.alarmVolume),
+                        fallAsleepTime: Int(settingsViewModel.fallAsleepTime),
+                        isVibrated: settingsViewModel.isVibrated,
+                        ringtone: settingsViewModel.ringtone,
+                        snoozeTime: settingsViewModel.snoozeTime)
+    }
 }
