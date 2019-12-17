@@ -116,11 +116,9 @@ class OldSettingsViewController: UIViewController, OldSettingsDisplayLogic {
                 try context.save()
                 settings = taskObject
                 print("\n Create entity")
-                print(settings)
             } else {
                 settings = try context.fetch(fetchRequest).first
                 print("\n Read entity")
-                print(settings)
             }
         } catch {
             print(error.localizedDescription)

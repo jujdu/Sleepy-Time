@@ -19,12 +19,12 @@ class MainViewController: UIViewController, MainDisplayLogic {
     
     //MARK: - Bar buttons
     lazy var settingsBarButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_settings_36pt"), style: .plain, target: self, action: #selector(self.settingsBarButtonTapped))
+        let barButtonItem = UIBarButtonItem(image: UIImage(named: AppImages.settings), style: .plain, target: self, action: #selector(self.settingsBarButtonTapped))
         return barButtonItem
     }()
     
     lazy var infoBarButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_info_36pt"), style: .plain, target: self, action: #selector(self.infoBarButtonTapped))
+        let barButtonItem = UIBarButtonItem(image: UIImage(named: AppImages.info), style: .plain, target: self, action: #selector(self.infoBarButtonTapped))
         return barButtonItem
     }()
     

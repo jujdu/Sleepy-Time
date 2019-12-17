@@ -21,6 +21,13 @@ struct AppFonts {
     static let avenirHeavy = "Avenir-Heavy"
 }
 
+struct AppImages {
+    static let addAlarm = "AddAlarm"
+    static let addAlarm36pt = "AddAlarm36pt"
+    static let settings = "Settings"
+    static let info = "Info"
+}
+
 struct Constraints {
     static let cellPaddings = UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
     static let buttonPaddings = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)

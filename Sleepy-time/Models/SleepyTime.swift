@@ -16,7 +16,15 @@ struct SleepyTime {
 enum SleepyTimeType {
     case toTime
     case fromNowTime
+    
+    func getDescription(from strDate: String) -> String {
+        switch self {
+        case .toTime:
+            return "If you want to wake up at \(strDate), you should try to fall asleep at one of the following times:"
+        case .fromNowTime:
+            return "If you head to bed right now at \(strDate), you should try to wake up at one of the following times:"
+        }
+    }
 }
-
 
 

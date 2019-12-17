@@ -16,7 +16,7 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     
     //MARK: - Bar buttons
     lazy var alarmBarButton: UIBarButtonItem = {
-        let barButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "ic_add_alarm_36pt"), style: .plain, target: self, action: #selector(handleBarButtonItemTapped))
+        let barButtonItem = UIBarButtonItem(image: UIImage(named: AppImages.addAlarm), style: .plain, target: self, action: #selector(handleBarButtonItemTapped))
         return barButtonItem
     }()
     
@@ -119,11 +119,7 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     
     private func setupInfoLbl() {
         let date = viewModel?.sleepyTime.choosenDate.shortStyleString() ?? ""
-        if viewModel?.sleepyTime.type == .toTime {
-            infoLabel.text = "If you want to wake up at \(date), you should try to fall asleep at one of the following times:"
-        } else {
-            infoLabel.text = "If you head to bed right now at \(date), you should try to wake up at one of the following times:"
-        }
+        infoLabel.text = viewModel?.sleepyTime.type.getDescription(from: date)
     }
     
     func displayData(viewModel: WakeUpTime.Model.ViewModel.ViewModelData) {

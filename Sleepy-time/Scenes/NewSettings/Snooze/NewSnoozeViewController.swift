@@ -71,7 +71,7 @@ class NewSnoozeViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
         index = indexPath.row
-        self.closure?(minutesArray[index])
+//        self.closure?(minutesArray[index])
         delegate?.passData(minutes: minutesArray[index])
     }
 }

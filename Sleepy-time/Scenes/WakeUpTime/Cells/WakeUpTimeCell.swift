@@ -27,7 +27,7 @@ class WakeUpTimeCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont(name: "Avenir-Book", size: 18)
+        label.font = UIFont(name: AppFonts.avenirBook, size: 18)
         label.numberOfLines = 1
         return label
     }()
@@ -36,7 +36,7 @@ class WakeUpTimeCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont(name: "Avenir-Book", size: 15)
+        label.font = UIFont(name: AppFonts.avenirBook, size: 15)
         label.numberOfLines = 1
         return label
     }()
@@ -46,7 +46,7 @@ class WakeUpTimeCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
-        label.font = UIFont(name: "Avenir-Book", size: 32)
+        label.font = UIFont(name: AppFonts.avenirBook, size: 32)
         label.numberOfLines = 1
         return label
     }()
@@ -54,7 +54,7 @@ class WakeUpTimeCell: UITableViewCell {
     lazy var alarmButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(#imageLiteral(resourceName: "ic_add_alarm_36pt"), for: .normal)
+        button.setImage(UIImage(named: AppImages.addAlarm36pt), for: .normal)
         button.layer.cornerRadius = 5
         button.contentHorizontalAlignment = .right
         button.isUserInteractionEnabled = false

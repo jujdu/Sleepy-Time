@@ -18,7 +18,7 @@ class OldSettingsPresenter: OldSettingsPresentationLogic {
     
     func presentData(response: OldSettings.Model.Response.ResponseType) {
         switch response {
-        case .presentSettings(let settings): break
+        case .presentSettings: break
             
 //            var items = [SettingsItemProtocol]()
 //            items.append(SettingsSnoozeItem())

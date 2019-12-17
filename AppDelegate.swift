@@ -24,14 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
 //        viewController.context = coreDataStack.persistentContainer.viewContext
-        
-        navigationController.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.label,
-            NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
-        ]
         navigationController.navigationBar.barStyle = .black
         navigationController.navigationBar.isTranslucent = true
-        navigationController.navigationBar.tintColor = .white
+        //        navigationController.navigationBar.tintColor = .white
+        
+        navigationController.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
+        ]
         
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers, .allowAirPlay])

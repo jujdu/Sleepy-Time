@@ -119,6 +119,14 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     private func setupNavigationBar() {
         navigationItem.title = "Settings"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.label,
+            NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
+        ]
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.label,
+            NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 32)!
+        ]
     }
     
     //MARK: - AVEngine
