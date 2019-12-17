@@ -18,15 +18,15 @@ class WakeUpTimePresenter: WakeUpTimePresentationLogic {
     
     func presentData(response: WakeUpTime.Model.Response.ResponseType) {
         switch response {
-        case .presentWakeUpTime(let sleepyTime):
+        case .presentWakeUpTime(let sleepyTime, let settings):
             let date = sleepyTime.choosenDate
-            if sleepyTime.type == .fromNowTime {
-                let alarmTimes = calculateFromNowTime(date: date)
-                let viewModel = WakeUpTimeViewModel(sleepyTime: sleepyTime, cells: alarmTimes)
+            if sleepyTime.type == .toTime {
+                let alarmTime = calculateToTime(choosenDate: date, fallAsleepTime: settings?.fallAsleepTime)
+                let viewModel = WakeUpTimeViewModel(sleepyTime: sleepyTime, cells: alarmTime)
                 viewController?.displayData(viewModel: .displayWakeUpTime(viewModel: viewModel))
             } else {
-                let alarmTime = calculateToTime(date: date)
-                let viewModel = WakeUpTimeViewModel(sleepyTime: sleepyTime, cells: alarmTime)
+                let alarmTimes = calculateFromNowTime(choosenDate: date, fallAsleepTime: settings?.fallAsleepTime)
+                let viewModel = WakeUpTimeViewModel(sleepyTime: sleepyTime, cells: alarmTimes)
                 viewController?.displayData(viewModel: .displayWakeUpTime(viewModel: viewModel))
             }
         @unknown default:
@@ -34,10 +34,10 @@ class WakeUpTimePresenter: WakeUpTimePresentationLogic {
         }
     }
     
-    private func calculateToTime(date: Date) -> [WakeUpTimeViewModel.Cell] {
-        //        let minToFallAsleep = userDefaults.double(forKey: UserDefaultKeys.fallAsleepSlider)
-        let minToFallAsleep = 0.0
-        var date = Date(timeInterval: -5400 - (minToFallAsleep * 60), since: date)
+    //MARK: - Support methods
+    private func calculateToTime(choosenDate: Date, fallAsleepTime: Int?) -> [WakeUpTimeViewModel.Cell] {
+        let minToFallAsleep = Double(fallAsleepTime ?? 0)
+        var date = Date(timeInterval: -5400 - (minToFallAsleep * 60), since: choosenDate)
         
         var alarmsArray = [WakeUpTimeViewModel.Cell(cyclesCount: 1, date: date)]
         for i in 1..<6 {
@@ -49,11 +49,10 @@ class WakeUpTimePresenter: WakeUpTimePresentationLogic {
     }
     
     
-    private func calculateFromNowTime(date: Date) -> [WakeUpTimeViewModel.Cell] {
-        //        let minToFallAsleep = userDefaults.double(forKey: UserDefaultKeys.fallAsleepSlider)
-        let minToFallAsleep = 0.0
+    private func calculateFromNowTime(choosenDate: Date, fallAsleepTime: Int?) -> [WakeUpTimeViewModel.Cell] {
+        let minToFallAsleep = Double(fallAsleepTime ?? 0)
         //к передаваемой дате добавить 1.5 часа(5400 сек) + время на засыпание ( сек)
-        var date = Date(timeInterval: 5400 + (minToFallAsleep * 60), since: date)
+        var date = Date(timeInterval: 5400 + (minToFallAsleep * 60), since: choosenDate)
         
         var alarmsArray = [WakeUpTimeViewModel.Cell(cyclesCount: 1, date: date)]
         for i in 1..<6 {

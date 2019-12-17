@@ -18,19 +18,19 @@ protocol WakeUpTimeDataStore {
 
 class WakeUpTimeInteractor: WakeUpTimeBusinessLogic, WakeUpTimeDataStore {
     
-    var sleepyTime: SleepyTime!
-    
     var presenter: WakeUpTimePresentationLogic?
-    var worker: WakeUpTimeWorker?
+    var worker = SettingsWorker()
+    
+    var sleepyTime: SleepyTime!
+    var settings: Settings?
     
     func makeRequest(request: WakeUpTime.Model.Request.RequestType) {
-        if worker == nil {
-            worker = WakeUpTimeWorker()
-        }
-        
         switch request {
         case .getWakeUpTime:
-            presenter?.presentData(response: .presentWakeUpTime(sleepyTime: sleepyTime))
+            worker.fetchSettings { (settings) in
+                self.settings = settings
+                self.presenter?.presentData(response: .presentWakeUpTime(sleepyTime: self.sleepyTime, settings: settings))                
+            }
         @unknown default:
             print("WakeUpTimeInteractor has another request")
         }

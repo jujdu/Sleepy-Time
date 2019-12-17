@@ -61,6 +61,7 @@
 		6FB7D8AF2331AD5A00B40711 /* WakeUpTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB7D8AD2331AD5A00B40711 /* WakeUpTimeCell.swift */; };
 		6FBAE4D4239FBF6400251E70 /* Sleepy-time.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6FBAE4D2239FBF6400251E70 /* Sleepy-time.xcdatamodeld */; };
 		6FBF15012387CC4E006AB01F /* UIView+Constraints+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */; };
+		6FCFDF2B23A8F70200CE9D5E /* SettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCFDF2A23A8F70200CE9D5E /* SettingsWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -133,6 +134,7 @@
 		6FB7D8AD2331AD5A00B40711 /* WakeUpTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpTimeCell.swift; sourceTree = "<group>"; };
 		6FBAE4D3239FBF6400251E70 /* Settings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Settings.xcdatamodel; sourceTree = "<group>"; };
 		6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints+Extension.swift"; sourceTree = "<group>"; };
+		6FCFDF2A23A8F70200CE9D5E /* SettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */,
+				6FCFDF2923A8F6DA00CE9D5E /* SettingsWorker */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -336,6 +339,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		6FCFDF2923A8F6DA00CE9D5E /* SettingsWorker */ = {
+			isa = PBXGroup;
+			children = (
+				6FCFDF2A23A8F70200CE9D5E /* SettingsWorker.swift */,
+			);
+			path = SettingsWorker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -443,6 +454,7 @@
 				6FAB430823A370C90050BCF6 /* NewSettingsWorker.swift in Sources */,
 				6F93248923340CF6006E97B1 /* Date+Extension.swift in Sources */,
 				6F90928123A11B10002C1313 /* TrashFile.swift in Sources */,
+				6FCFDF2B23A8F70200CE9D5E /* SettingsWorker.swift in Sources */,
 				6FAB430A23A370C90050BCF6 /* NewSettingsModels.swift in Sources */,
 				6F1FF79823880AF900FD7630 /* WakeUpTimeInteractor.swift in Sources */,
 				6FAB430C23A370C90050BCF6 /* NewSettingsInteractor.swift in Sources */,

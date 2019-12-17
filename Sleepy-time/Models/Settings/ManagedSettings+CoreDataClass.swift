@@ -14,11 +14,11 @@ import CoreData
 public class ManagedSettings: NSManagedObject {
     
     func toSettings() -> Settings {
-        return Settings(alarmVolume: alarmVolume?.doubleValue ?? 0,
+        return Settings(snoozeTime: snoozeTime?.intValue,
                         fallAsleepTime: fallAsleepTime?.intValue ?? 0,
-                        isVibrated: isVibrated?.boolValue ?? true,
                         ringtone: Data(),
-                        snoozeTime: snoozeTime?.intValue)
+                        isVibrated: isVibrated?.boolValue ?? true,
+                        alarmVolume: alarmVolume?.doubleValue ?? 0)
     }
     
     func fromSettings(settings: Settings) {

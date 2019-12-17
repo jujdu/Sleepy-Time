@@ -9,9 +9,9 @@
 import Foundation
 
 struct Settings {
-    var alarmVolume: Double
-    var fallAsleepTime: Int
-    var isVibrated: Bool
-    var ringtone: Data?
     var snoozeTime: Int?
+    var fallAsleepTime: Int
+    var ringtone: Data?
+    var isVibrated: Bool
+    var alarmVolume: Double
 }

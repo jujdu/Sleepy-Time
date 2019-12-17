@@ -119,14 +119,19 @@ class SwipingViewController: UIViewController {
     }()
     
     //MARK: - Properties
-    var pages: [Page] = [Page(imageName: "bear", text: "first", isButtonActive: false, color: .yellow), Page(imageName: "bear", text: "second", isButtonActive: false, color: .orange), Page(imageName: "bear", text: "third", isButtonActive: false, color: .red), Page(imageName: "bear", text: "fourth", isButtonActive: true, color: .green)]
+    var pages: [Page] = [
+            Page(imageName: "bear", text: "first", isButtonActive: false, color: .yellow),
+            Page(imageName: "bear", text: "second", isButtonActive: false, color: .orange),
+            Page(imageName: "bear", text: "third", isButtonActive: false, color: .red),
+            Page(imageName: "bear", text: "fourth", isButtonActive: true, color: .green)
+    ]
     
     private var currentPage: Int = 0 {
         willSet {
             guard currentPage != newValue else { return }
             pageControl.currentPage = newValue
             setButtonsStatusDependsOnControl(newValue: newValue)
-            makeVibration()
+            doVibration()
         }
     }
     
@@ -141,8 +146,10 @@ class SwipingViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: { (_) in
             self.collectionView.collectionViewLayout.invalidateLayout()
-            let indexPath = IndexPath(item: self.currentPage, section: 0)
-            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+            let xOffset = self.view.frame.width * CGFloat(self.currentPage)
+            self.collectionView.contentOffset = CGPoint(x: xOffset, y: 0)
+//            let indexPath = IndexPath(item: self.currentPage, section: 0)
+//            self.collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true) //same
         }, completion: nil)
     }
     
@@ -170,7 +177,7 @@ class SwipingViewController: UIViewController {
         stackView.heightAnchor.constraint(equalToConstant: 45).isActive = true
     }
     
-    func makeVibration() {
+    func doVibration() {
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
     }
@@ -224,7 +231,7 @@ extension SwipingViewController: UIScrollViewDelegate {
         let width = view.frame.width
         let halfWidth = width / 2
         let cPage = CGFloat(currentPage)
-        
+
         if scrollView.isTracking || scrollView.isDragging {
             if xOffset <= (width * cPage) - halfWidth && currentPage != 0 {
                 currentPage -= 1

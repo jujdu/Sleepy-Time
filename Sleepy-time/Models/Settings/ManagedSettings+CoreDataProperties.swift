@@ -17,10 +17,10 @@ extension ManagedSettings {
         return NSFetchRequest<ManagedSettings>(entityName: "ManagedSettings")
     }
     
-    @NSManaged public var alarmVolume: NSNumber?
-    @NSManaged public var fallAsleepTime: NSNumber?
-    @NSManaged public var isVibrated: NSNumber?
-    @NSManaged public var ringtone: Data?
     @NSManaged public var snoozeTime: NSNumber?
+    @NSManaged public var fallAsleepTime: NSNumber?
+    @NSManaged public var ringtone: Data?
+    @NSManaged public var isVibrated: NSNumber?
+    @NSManaged public var alarmVolume: NSNumber?
     
 }
