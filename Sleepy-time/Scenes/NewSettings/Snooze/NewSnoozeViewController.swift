@@ -12,8 +12,9 @@ protocol NewSnoozeViewControllerDelegate: class {
     func passData(minutes: Int?)
 }
 
-class NewSnoozeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class NewSnoozeViewController: UIViewController {
     
+    //MARK: - Views
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -21,12 +22,16 @@ class NewSnoozeViewController: UIViewController, UITableViewDelegate, UITableVie
         return tableView
     }()
     
+    //MARK: - Properties
 //    var closure: ((Int?) -> ())? callback
     weak var delegate: NewSnoozeViewControllerDelegate?
     var snoozeTime: Int!
+    
     private var index: Int!
     private let minutesArray = [nil, 1, 3, 5, 10, 15, 20, 25, 30, 45, 60]
+    private let reuseId = "Cell"
     
+    //MARK: - View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -35,23 +40,27 @@ class NewSnoozeViewController: UIViewController, UITableViewDelegate, UITableVie
         index = { return minutesArray.firstIndex(of: snoozeTime) }()
     }
     
+    //MARK: - Methods
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseId)
     }
     
     private func setupConstraints() {
         view.addSubview(tableView)
         tableView.fillSuperview()
     }
-    
+}
+
+//MARK: - UITableViewDelegate
+extension NewSnoozeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return minutesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseId, for: indexPath)
 
         if indexPath.row == index {
             cell.accessoryType = .checkmark
