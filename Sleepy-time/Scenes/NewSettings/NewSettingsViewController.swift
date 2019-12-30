@@ -30,9 +30,9 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     var interactor: NewSettingsBusinessLogic?
     var router: (NSObjectProtocol & NewSettingsRoutingLogic & NewSettingsDataPassing)?
     private lazy var mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
-    private lazy var engine = AVAudioEngine()
-    private let player = AVPlayer()
-    private let avplayer = AVAudioPlayer()
+    private lazy var engine = CustomAVAudioEngine()
+//    private let player = AVPlayer()
+//    private let avplayer = AVAudioPlayer()
     
     private var isPlaying: Bool = false {
         willSet {
@@ -41,7 +41,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
                 guard let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId), let url = item.assetURL else {
                     print("Something else")
                     return }
-                startEngine(playFileAt: url)
+                engine.startEngine(playFileAt: url)
                 ringtonePlayButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
             } else {
                 engine.stop()
@@ -135,27 +135,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         ]
     }
     
-    //FIXME: - AVEngine
-    //перенести в другой файл
-    private func startEngine(playFileAt: URL) {
-        engine.stop()
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback)
-
-            let avAudioFile = try AVAudioFile(forReading: playFileAt)
-            let player = AVAudioPlayerNode()
-
-            engine.attach(player)
-            engine.connect(player, to: engine.mainMixerNode, format: avAudioFile.processingFormat)
-
-            try engine.start()
-            player.scheduleFile(avAudioFile, at: nil, completionHandler: nil)
-            player.play()
-        } catch {
-            assertionFailure(String(describing: error))
-        }
-    }
-    
     //MARK: - @IBActions
     @IBAction func setFallAsleepTime(_ sender: UISlider) {
         fallAsleepTimeLabel.text = "\(Int(sender.value)) min"
@@ -175,7 +154,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     }
     
     @IBAction func tapCancelButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        router?.routeToMain()
     }
     
     @IBAction func tapDoneButton(_ sender: Any) {
@@ -198,8 +177,10 @@ extension NewSettingsViewController {
             let snoozeVC = NewSnoozeViewController()
             snoozeVC.delegate = self
             snoozeVC.snoozeTime = viewModel.snoozeTime
+            //FIXME: - to Router???
             self.show(snoozeVC, sender: self)
         } else if indexPath.section == 1 && indexPath.row == 0 {
+            //FIXME: - to Router???
             self.present(mediaPicker, animated: true) {
                 let defaults = UserDefaults.standard
                 if !defaults.bool(forKey: "neverShow") {
@@ -228,9 +209,11 @@ extension NewSettingsViewController: MPMediaPickerControllerDelegate {
                                                         ringtoneName: item.title ?? "",
                                                         persistentId: String(item.persistentID))
         
-        startEngine(playFileAt: url)
+        engine.startEngine(playFileAt: url)
         ringtoneNameLabel.text = "\(item.artist ?? "") - \(item.title ?? "")"
         isPlaying = true
+        
+        //FIXME: - to Router???
         mediaPicker.dismiss(animated: true)
     }
     
@@ -238,10 +221,10 @@ extension NewSettingsViewController: MPMediaPickerControllerDelegate {
         let predicate = MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID)
         let query = MPMediaQuery()
         query.addFilterPredicate(predicate)
+        
         var ringtone: MPMediaItem?
-        if let items = query.items, items.count > 0 {
-            ringtone = items.first
-        }
+        guard let items = query.items, items.count > 0 else { return nil }
+        ringtone = items.first
         return ringtone
     }
 }
