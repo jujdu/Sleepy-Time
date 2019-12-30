@@ -43,7 +43,9 @@ class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
     private func settingsFromSettingsViewModel(_ settingsViewModel: SettingsViewModel) -> Settings {
         return Settings(snoozeTime: settingsViewModel.snoozeTime,
                         fallAsleepTime: Int(settingsViewModel.fallAsleepTime),
-                        ringtone: settingsViewModel.ringtone,
+                        ringtone: Ringtone(artistName: settingsViewModel.ringtone.artistName,
+                                           ringtoneName: settingsViewModel.ringtone.ringtoneName,
+                                           persistentId: settingsViewModel.ringtone.persistentId),
                         isVibrated: settingsViewModel.isVibrated,
                         alarmVolume: Double(settingsViewModel.alarmVolume))
     }

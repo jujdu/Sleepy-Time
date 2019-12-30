@@ -82,7 +82,7 @@
                                                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="45" minimumValueImage="zzz" catalog="system" maximumValueImage="moon.zzz.fill" translatesAutoresizingMaskIntoConstraints="NO" id="7ce-bC-eZz">
                                                             <rect key="frame" x="-2" y="29.5" width="378" height="31.5"/>
                                                             <connections>
-                                                                <action selector="fallAsleepSliderChanged:" destination="45v-be-rp3" eventType="valueChanged" id="7YQ-0S-sYa"/>
+                                                                <action selector="setFallAsleepTime:" destination="45v-be-rp3" eventType="valueChanged" id="7YQ-0S-sYa"/>
                                                             </connections>
                                                         </slider>
                                                     </subviews>
@@ -110,12 +110,23 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Gxg-a4-usd">
                                                     <rect key="frame" x="20" y="11" width="355" height="21.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Ringtone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phd-FJ-rdM">
-                                                            <rect key="frame" x="0.0" y="0.5" width="174.5" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Ringtone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phd-FJ-rdM">
+                                                            <rect key="frame" x="0.0" y="0.5" width="136.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-8r-JKq">
+                                                            <rect key="frame" x="144.5" y="0.0" width="30" height="21.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21.5" id="5W5-TW-qRo"/>
+                                                                <constraint firstAttribute="width" constant="30" id="BAW-m5-Zoq"/>
+                                                            </constraints>
+                                                            <state key="normal" image="play.fill" catalog="system"/>
+                                                            <connections>
+                                                                <action selector="playRingtone:" destination="45v-be-rp3" eventType="touchUpInside" id="XRA-rd-kNj"/>
+                                                            </connections>
+                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Weeknd - Starboy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzA-cm-7gw">
                                                             <rect key="frame" x="182.5" y="0.5" width="172.5" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -153,7 +164,7 @@
                                                             <rect key="frame" x="325" y="0.0" width="51" height="31"/>
                                                             <color key="onTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
-                                                                <action selector="ringtoneVibrationSwitchChanged:" destination="45v-be-rp3" eventType="valueChanged" id="CAT-iT-2Pn"/>
+                                                                <action selector="setVibrationState:" destination="45v-be-rp3" eventType="valueChanged" id="CAT-iT-2Pn"/>
                                                             </connections>
                                                         </switch>
                                                     </subviews>
@@ -177,7 +188,7 @@
                                                 <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="speaker.fill" catalog="system" maximumValueImage="speaker.3.fill" translatesAutoresizingMaskIntoConstraints="NO" id="hMk-Ha-NyH">
                                                     <rect key="frame" x="18" y="11" width="378" height="23"/>
                                                     <connections>
-                                                        <action selector="ringtoneVolumeSliderChanged:" destination="45v-be-rp3" eventType="valueChanged" id="kwv-rn-Xoa"/>
+                                                        <action selector="setRingtoneVolume:" destination="45v-be-rp3" eventType="valueChanged" id="kwv-rn-Xoa"/>
                                                     </connections>
                                                 </slider>
                                             </subviews>
@@ -201,13 +212,13 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="iyb-MK-UTY">
                             <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="cancelButtonPressed:" destination="45v-be-rp3" id="Ycf-h1-0xx"/>
+                                <action selector="tapCancelButton:" destination="45v-be-rp3" id="Ycf-h1-0xx"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="5pj-2G-ic4">
                             <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="doneButtonPressed:" destination="45v-be-rp3" id="rZ8-9L-ip4"/>
+                                <action selector="tapDoneButton:" destination="45v-be-rp3" id="rZ8-9L-ip4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -215,6 +226,7 @@
                         <outlet property="fallAsleepSlider" destination="7ce-bC-eZz" id="bZ9-8q-Cff"/>
                         <outlet property="fallAsleepTimeLabel" destination="cLI-SP-4NC" id="gBX-bf-Em4"/>
                         <outlet property="ringtoneNameLabel" destination="DzA-cm-7gw" id="Kbs-bQ-pff"/>
+                        <outlet property="ringtonePlayButton" destination="Mfp-8r-JKq" id="wSY-RG-X8m"/>
                         <outlet property="ringtoneVibrationSwitch" destination="qNk-5G-Idi" id="beq-El-Awj"/>
                         <outlet property="ringtoneVolumeSlider" destination="hMk-Ha-NyH" id="0Ag-E0-CZs"/>
                         <outlet property="snoozeTimeLabel" destination="6X8-Ke-0YO" id="ObH-kd-rhJ"/>
@@ -245,6 +257,7 @@
     </scenes>
     <resources>
         <image name="moon.zzz.fill" catalog="system" width="58" height="64"/>
+        <image name="play.fill" catalog="system" width="58" height="64"/>
         <image name="speaker.3.fill" catalog="system" width="64" height="44"/>
         <image name="speaker.fill" catalog="system" width="64" height="60"/>
         <image name="zzz" catalog="system" width="60" height="64"/>

@@ -21,6 +21,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBOutlet weak var snoozeTimeLabel: UILabel!
     @IBOutlet weak var fallAsleepTimeLabel: UILabel!
     @IBOutlet weak var fallAsleepSlider: UISlider!
+    @IBOutlet weak var ringtonePlayButton: UIButton!
     @IBOutlet weak var ringtoneNameLabel: UILabel!
     @IBOutlet weak var ringtoneVibrationSwitch: UISwitch!
     @IBOutlet weak var ringtoneVolumeSlider: UISlider!
@@ -140,24 +141,32 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     }
     
     //MARK: - @IBActions
-    @IBAction func fallAsleepSliderChanged(_ sender: UISlider) {
+    @IBAction func setFallAsleepTime(_ sender: UISlider) {
         fallAsleepTimeLabel.text = "\(Int(sender.value)) min"
         viewModel.fallAsleepTime = sender.value
     }
     
-    @IBAction func ringtoneVibrationSwitchChanged(_ sender: UISwitch) {
+    @IBAction func playRingtone(_ sender: Any) {
+        print("persistentId: \(viewModel.ringtone.persistentId)")
+        guard let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId), let url = item.assetURL else {
+            print("Something else")
+            return }
+        startEngine(playFileAt: url)
+    }
+    
+    @IBAction func setVibrationState(_ sender: UISwitch) {
         viewModel.isVibrated = sender.isOn
     }
     
-    @IBAction func ringtoneVolumeSliderChanged(_ sender: UISlider) {
+    @IBAction func setRingtoneVolume(_ sender: UISlider) {
         viewModel.alarmVolume = sender.value
     }
     
-    @IBAction func cancelButtonPressed(_ sender: Any) {
+    @IBAction func tapCancelButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func doneButtonPressed(_ sender: Any) {
+    @IBAction func tapDoneButton(_ sender: Any) {
         if interactor?.settings != nil {
             interactor?.makeRequest(request: .updateSettings(settings: viewModel))
             router?.routeToMain()
@@ -190,18 +199,39 @@ extension NewSettingsViewController {
 //MARK: - MPMediaPickerControllerDelegate
 extension NewSettingsViewController: MPMediaPickerControllerDelegate {
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-        self.dismiss(animated: true, completion: nil)
-        print("you picked: \(mediaItemCollection)")
         guard let item = mediaItemCollection.items.first else {
             print("no item")
             return
         }
-        print("picking \(item.title!)")
-        guard let url = item.assetURL else {
-            return print("no url")
-        }
+        print("picking \(item.artist!) - \(item.title!)")
+        print("picking id \(item.persistentID)")
 
+        guard let url = item.assetURL else {
+            print("no url")
+            return
+        }
+        viewModel.ringtone = SettingsViewModel.Ringtone(artistName: item.artist ?? "asds",
+                                                        ringtoneName: item.title ?? "21312",
+                                                        persistentId: String(item.persistentID))
+//
+//        guard let itemWithPersistentId = getRingtoneWithPersistentId(String(item.persistentID)),
+//            let url = itemWithPersistentId.assetURL else {
+//            print("Can't get assetUrl")
+//            return }
+        
         startEngine(playFileAt: url)
+        mediaPicker.dismiss(animated: true)
+    }
+    
+    func getRingtoneWithPersistentId(_ id: String) -> MPMediaItem? {
+        let predicate = MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID)
+        let query = MPMediaQuery()
+        query.addFilterPredicate(predicate)
+        var ringtone: MPMediaItem?
+        if let items = query.items, items.count > 0 {
+            ringtone = items.first
+        }
+        return ringtone
     }
 }
 
@@ -216,3 +246,19 @@ extension NewSettingsViewController: NewSnoozeViewControllerDelegate {
         }
     }
 }
+
+
+
+
+
+//To use all apple music library, but it must use system mpplayer
+//if item.persistentID != 0 {
+//    let mp = MPMusicPlayerController.systemMusicPlayer
+//    mp.setQueue(with: mediaItemCollection)
+//    mp.prepareToPlay()
+//    mp.play()
+//    self.dismiss(animated: true, completion: nil)
+//} else {
+//    let alert = createSimpleAlert(title: "Error", message: "You can't use Apple's playlist. First, you must add it to your library")
+//    self.mediaPicker.present(alert, animated: true, completion: nil)
+//}

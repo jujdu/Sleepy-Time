@@ -33,7 +33,13 @@ enum NewSettings {
 struct SettingsViewModel {
     var snoozeTime: Int?
     var fallAsleepTime: Float
-    var ringtone: Data?
+    var ringtone: Ringtone
     var isVibrated: Bool
     var alarmVolume: Float
+    
+    struct Ringtone {
+        var artistName: String
+        var ringtoneName: String
+        var persistentId: String
+    }
 }

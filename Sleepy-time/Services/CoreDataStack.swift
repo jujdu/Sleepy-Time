@@ -18,6 +18,7 @@ protocol CoreDataStackStoreProtocol {
 final class CoreDataStack: CoreDataStackStoreProtocol {
     // MARK: - Core Data stack
     private var settingsObject: ManagedSettings!
+    private var ringtoneObject: ManagedRingtone!
     
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Sleepy-time")
@@ -56,9 +57,11 @@ final class CoreDataStack: CoreDataStackStoreProtocol {
                 if results.isEmpty {
                     //MARK: - Setup default settings
                     self.settingsObject = ManagedSettings(context: self.persistentContainer.viewContext)
+                    self.ringtoneObject = ManagedRingtone(context: self.persistentContainer.viewContext)
+                    
                     self.settingsObject.snoozeTime = 5
                     self.settingsObject.fallAsleepTime = 14
-                    self.settingsObject.ringtone = Data()
+                    self.settingsObject.managedRingtone = self.ringtoneObject
                     self.settingsObject.isVibrated = true
                     self.settingsObject.alarmVolume = 1
                     try self.persistentContainer.viewContext.save()
@@ -84,9 +87,11 @@ final class CoreDataStack: CoreDataStackStoreProtocol {
                 let fetchRequest: NSFetchRequest<ManagedSettings> = ManagedSettings.fetchRequest()
                 fetchRequest.returnsObjectsAsFaults = false
                 self.settingsObject.fromSettings(settings: settingsToUpdate)
+                self.settingsObject.managedRingtone = self.ringtoneObject.fromRingtone(ringtone: settingsToUpdate.ringtone)
                 do {
                     try self.persistentContainer.viewContext.save()
-                    let settings = self.settingsObject.toSettings()
+                    var settings = self.settingsObject.toSettings()
+                    settings.ringtone = self.ringtoneObject.toRingtone(managedRingtone: self.ringtoneObject)
                     completionHandler(settings)
                 } catch {
                     completionHandler(nil)

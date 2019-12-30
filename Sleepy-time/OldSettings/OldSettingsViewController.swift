@@ -110,7 +110,7 @@ class OldSettingsViewController: UIViewController, OldSettingsDisplayLogic {
                 let taskObject = NSManagedObject(entity: entity!, insertInto: context) as! ManagedSettings
                 taskObject.snoozeTime = 15
                 taskObject.fallAsleepTime = 24
-                taskObject.ringtone = Data()
+//                taskObject.ringtone = Data()
                 taskObject.isVibrated = false
                 taskObject.alarmVolume = 1
                 try context.save()
