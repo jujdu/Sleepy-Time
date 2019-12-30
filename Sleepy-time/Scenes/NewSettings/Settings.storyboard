@@ -111,29 +111,36 @@
                                                     <rect key="frame" x="20" y="11" width="355" height="21.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Ringtone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phd-FJ-rdM">
-                                                            <rect key="frame" x="0.0" y="0.5" width="136.5" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="0.5" width="119" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-8r-JKq">
-                                                            <rect key="frame" x="144.5" y="0.0" width="30" height="21.5"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-8r-JKq">
+                                                            <rect key="frame" x="127" y="0.0" width="50" height="21.5"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="21.5" id="5W5-TW-qRo"/>
-                                                                <constraint firstAttribute="width" constant="30" id="BAW-m5-Zoq"/>
+                                                                <constraint firstAttribute="width" constant="50" id="BAW-m5-Zoq"/>
                                                             </constraints>
+                                                            <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             <state key="normal" image="play.fill" catalog="system"/>
                                                             <connections>
-                                                                <action selector="playRingtone:" destination="45v-be-rp3" eventType="touchUpInside" id="XRA-rd-kNj"/>
+                                                                <action selector="playStopRingtone:" destination="45v-be-rp3" eventType="touchUpInside" id="XRA-rd-kNj"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Weeknd - Starboy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzA-cm-7gw">
-                                                            <rect key="frame" x="182.5" y="0.5" width="172.5" height="20.5"/>
+                                                            <rect key="frame" x="185" y="0.5" width="170" height="20.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="170" id="dMQ-pb-aui"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottomMargin" secondItem="Mfp-8r-JKq" secondAttribute="bottom" id="nqs-J3-KLK"/>
+                                                        <constraint firstItem="Mfp-8r-JKq" firstAttribute="top" secondItem="Gxg-a4-usd" secondAttribute="top" id="woX-tj-Fsm"/>
+                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>

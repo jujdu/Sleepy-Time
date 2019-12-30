@@ -13,10 +13,10 @@ import CoreData
 @objc(ManagedRingtone)
 public class ManagedRingtone: NSManagedObject {
 
-    func toRingtone(managedRingtone: ManagedRingtone?) -> Ringtone {
-        return Ringtone(artistName: managedRingtone?.artistName,
-                        ringtoneName: managedRingtone?.ringtoneName,
-                        persistentId: managedRingtone?.persistentId)
+    func toRingtone() -> Ringtone {
+        return Ringtone(artistName: artistName,
+                        ringtoneName: ringtoneName,
+                        persistentId: persistentId)
     }
     
     func fromRingtone(ringtone: Ringtone) -> ManagedRingtone? {

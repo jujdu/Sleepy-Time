@@ -16,7 +16,7 @@ public class ManagedSettings: NSManagedObject {
     func toSettings() -> Settings {
         return Settings(snoozeTime: snoozeTime?.intValue,
                         fallAsleepTime: fallAsleepTime?.intValue ?? 0,
-                        ringtone: managedRingtone?.toRingtone(managedRingtone: managedRingtone) ?? Ringtone(),
+                        ringtone: managedRingtone?.toRingtone() ?? Ringtone(),
                         isVibrated: isVibrated?.boolValue ?? true,
                         alarmVolume: alarmVolume?.doubleValue ?? 0)
     }

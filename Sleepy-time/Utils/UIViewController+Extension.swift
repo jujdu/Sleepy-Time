@@ -18,7 +18,10 @@ extension UIViewController {
     
     func createAttentionAlert() -> UIAlertController {
         let alert = createSimpleAlert(title: "Attention", message: "Unfortunately, the application cannot support iCloud Media Library and Apple Music because of copyright issues. However, you still have possibility to upload your own music to iTunes throught Music App.\nThank's for your understanding.")
-        let neverShow = UIAlertAction(title: "Never show", style: .cancel, handler: nil)
+        let defaults = UserDefaults.standard
+        let neverShow = UIAlertAction(title: "Never show", style: .cancel) { (_) in
+            defaults.set(true, forKey: "neverShow")
+        }
         alert.addAction(neverShow)
         return alert
     }

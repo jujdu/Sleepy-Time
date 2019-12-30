@@ -58,6 +58,9 @@ final class CoreDataStack: CoreDataStackStoreProtocol {
                     //MARK: - Setup default settings
                     self.settingsObject = ManagedSettings(context: self.persistentContainer.viewContext)
                     self.ringtoneObject = ManagedRingtone(context: self.persistentContainer.viewContext)
+                    self.ringtoneObject.artistName = " "
+                    self.ringtoneObject.ringtoneName = " "
+                    self.ringtoneObject.persistentId = " "
                     
                     self.settingsObject.snoozeTime = 5
                     self.settingsObject.fallAsleepTime = 14
@@ -87,11 +90,9 @@ final class CoreDataStack: CoreDataStackStoreProtocol {
                 let fetchRequest: NSFetchRequest<ManagedSettings> = ManagedSettings.fetchRequest()
                 fetchRequest.returnsObjectsAsFaults = false
                 self.settingsObject.fromSettings(settings: settingsToUpdate)
-                self.settingsObject.managedRingtone = self.ringtoneObject.fromRingtone(ringtone: settingsToUpdate.ringtone)
                 do {
                     try self.persistentContainer.viewContext.save()
-                    var settings = self.settingsObject.toSettings()
-                    settings.ringtone = self.ringtoneObject.toRingtone(managedRingtone: self.ringtoneObject)
+                    let settings = self.settingsObject.toSettings()
                     completionHandler(settings)
                 } catch {
                     completionHandler(nil)

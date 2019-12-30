@@ -29,10 +29,26 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     // MARK: - Properties
     var interactor: NewSettingsBusinessLogic?
     var router: (NSObjectProtocol & NewSettingsRoutingLogic & NewSettingsDataPassing)?
-    private let mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
-    private let engine = AVAudioEngine()
+    private lazy var mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
+    private lazy var engine = AVAudioEngine()
     private let player = AVPlayer()
     private let avplayer = AVAudioPlayer()
+    
+    private var isPlaying: Bool = false {
+        willSet {
+            if newValue {
+                print("persistentId: \(viewModel.ringtone.persistentId)")
+                guard let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId), let url = item.assetURL else {
+                    print("Something else")
+                    return }
+                startEngine(playFileAt: url)
+                ringtonePlayButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+            } else {
+                engine.stop()
+                ringtonePlayButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+            }
+        }
+    }
     
     var context: NSManagedObjectContext!
     var viewModel: SettingsViewModel!
@@ -94,7 +110,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         
         fallAsleepTimeLabel.text = "\(Int(viewModel.fallAsleepTime)) min"
         fallAsleepSlider.value = viewModel.fallAsleepTime
-        ringtoneNameLabel.text = "The Weeknd - Starboy"
+        ringtoneNameLabel.text = "\(viewModel.ringtone.artistName) - \(viewModel.ringtone.ringtoneName)"
         ringtoneVibrationSwitch.isOn = viewModel.isVibrated
         ringtoneVolumeSlider.value = viewModel.alarmVolume
     }
@@ -146,12 +162,8 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         viewModel.fallAsleepTime = sender.value
     }
     
-    @IBAction func playRingtone(_ sender: Any) {
-        print("persistentId: \(viewModel.ringtone.persistentId)")
-        guard let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId), let url = item.assetURL else {
-            print("Something else")
-            return }
-        startEngine(playFileAt: url)
+    @IBAction func playStopRingtone(_ sender: Any) {
+        isPlaying = !isPlaying
     }
     
     @IBAction func setVibrationState(_ sender: UISwitch) {
@@ -189,8 +201,11 @@ extension NewSettingsViewController {
             self.show(snoozeVC, sender: self)
         } else if indexPath.section == 1 && indexPath.row == 0 {
             self.present(mediaPicker, animated: true) {
-                let alert = self.createAttentionAlert()
-                self.mediaPicker.present(alert, animated: true, completion: nil)
+                let defaults = UserDefaults.standard
+                if !defaults.bool(forKey: "neverShow") {
+                    let alert = self.createAttentionAlert()
+                    self.mediaPicker.present(alert, animated: true, completion: nil)
+                }
             }
         }
     }
@@ -203,23 +218,19 @@ extension NewSettingsViewController: MPMediaPickerControllerDelegate {
             print("no item")
             return
         }
-        print("picking \(item.artist!) - \(item.title!)")
         print("picking id \(item.persistentID)")
 
         guard let url = item.assetURL else {
             print("no url")
             return
         }
-        viewModel.ringtone = SettingsViewModel.Ringtone(artistName: item.artist ?? "asds",
-                                                        ringtoneName: item.title ?? "21312",
+        viewModel.ringtone = SettingsViewModel.Ringtone(artistName: item.artist ?? "",
+                                                        ringtoneName: item.title ?? "",
                                                         persistentId: String(item.persistentID))
-//
-//        guard let itemWithPersistentId = getRingtoneWithPersistentId(String(item.persistentID)),
-//            let url = itemWithPersistentId.assetURL else {
-//            print("Can't get assetUrl")
-//            return }
         
         startEngine(playFileAt: url)
+        ringtoneNameLabel.text = "\(item.artist ?? "") - \(item.title ?? "")"
+        isPlaying = true
         mediaPicker.dismiss(animated: true)
     }
     
