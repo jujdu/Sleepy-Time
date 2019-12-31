@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 extension UIViewController {
     func createSimpleAlert(title: String, message: String) -> UIAlertController {

@@ -58,10 +58,7 @@ final class CoreDataStack: CoreDataStackStoreProtocol {
                     //MARK: - Setup default settings
                     self.settingsObject = ManagedSettings(context: self.persistentContainer.viewContext)
                     self.ringtoneObject = ManagedRingtone(context: self.persistentContainer.viewContext)
-                    self.ringtoneObject.artistName = " "
-                    self.ringtoneObject.ringtoneName = " "
-                    self.ringtoneObject.persistentId = " "
-                    
+         
                     self.settingsObject.snoozeTime = 5
                     self.settingsObject.fallAsleepTime = 14
                     self.settingsObject.managedRingtone = self.ringtoneObject

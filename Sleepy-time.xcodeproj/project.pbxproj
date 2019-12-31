@@ -65,7 +65,7 @@
 		6FBAE4D4239FBF6400251E70 /* Sleepy-time.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6FBAE4D2239FBF6400251E70 /* Sleepy-time.xcdatamodeld */; };
 		6FBF15012387CC4E006AB01F /* UIView+Constraints+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */; };
 		6FCFDF2B23A8F70200CE9D5E /* SettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCFDF2A23A8F70200CE9D5E /* SettingsWorker.swift */; };
-		6FCFDF2D23AA3C6D00CE9D5E /* CustomCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCFDF2C23AA3C6D00CE9D5E /* CustomCoreDataStack.swift */; };
+		6FF347FA23BB35C1003D5554 /* MPVolumeView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF347F923BB35C1003D5554 /* MPVolumeView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -142,7 +142,7 @@
 		6FBAE4D3239FBF6400251E70 /* Settings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Settings.xcdatamodel; sourceTree = "<group>"; };
 		6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints+Extension.swift"; sourceTree = "<group>"; };
 		6FCFDF2A23A8F70200CE9D5E /* SettingsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWorker.swift; sourceTree = "<group>"; };
-		6FCFDF2C23AA3C6D00CE9D5E /* CustomCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCoreDataStack.swift; sourceTree = "<group>"; };
+		6FF347F923BB35C1003D5554 /* MPVolumeView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPVolumeView+Extensi\U0010on.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +167,6 @@
 		6F0970E42388037400BE161D /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				6FCFDF2C23AA3C6D00CE9D5E /* CustomCoreDataStack.swift */,
 				6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */,
 				6FCFDF2923A8F6DA00CE9D5E /* SettingsWorker */,
 			);
@@ -327,6 +326,7 @@
 			children = (
 				6FB539352326C2C800B5DB92 /* Constants.swift */,
 				6F3E18AF23BAA1E00098314F /* CustomAVAudioEngine.swift */,
+				6FF347F923BB35C1003D5554 /* MPVolumeView+Extension.swift */,
 				6F019E5A239A486B00252B63 /* UIViewController+Extension.swift */,
 				6F4E88342337BD140068791B /* UIView+Extension.swift */,
 				6FBF15002387CC4E006AB01F /* UIView+Constraints+Extension.swift */,
@@ -463,6 +463,7 @@
 				6F7D93102387FC44006A8640 /* SleepyTime.swift in Sources */,
 				6F47FB59238DB34B0005EEE5 /* Testmodel.swift in Sources */,
 				6F019E5B239A486B00252B63 /* UIViewController+Extension.swift in Sources */,
+				6FF347FA23BB35C1003D5554 /* MPVolumeView+Extension.swift in Sources */,
 				6F2DD2A3238D13FC002B16BE /* OldSettingsModels.swift in Sources */,
 				6F019E60239A7BEF00252B63 /* UITableViewHeaderFooterView+Extensions.swift in Sources */,
 				6F2DD2A1238D13FC002B16BE /* OldSettingsWorker.swift in Sources */,
@@ -476,7 +477,6 @@
 				6FAB430C23A370C90050BCF6 /* NewSettingsInteractor.swift in Sources */,
 				6F2DD2A8238D624A002B16BE /* SwipingViewController.swift in Sources */,
 				6F1FF79723880AF900FD7630 /* WakeUpTimeViewController.swift in Sources */,
-				6FCFDF2D23AA3C6D00CE9D5E /* CustomCoreDataStack.swift in Sources */,
 				6F7D931C2387FFA2006A8640 /* MainModels.swift in Sources */,
 				6F1FF79423880AF900FD7630 /* WakeUpTimeWorker.swift in Sources */,
 				6F5150B42385A47100F9B977 /* UIDatePickerLabel.swift in Sources */,

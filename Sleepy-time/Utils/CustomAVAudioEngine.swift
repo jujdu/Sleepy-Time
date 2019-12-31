@@ -12,23 +12,32 @@ import AVFoundation
 class CustomAVAudioEngine: AVAudioEngine {
     
 //    static let engine = CustomAVAudioEngine()
+//    let mixer = AVAudioMixerNode()
     
     func startEngine(playFileAt: URL) {
-        self.stop()
+        stop()
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback)
 
-            let avAudioFile = try AVAudioFile(forReading: playFileAt)
+            let audioFile = try AVAudioFile(forReading: playFileAt)
+            let audioFormat = audioFile.processingFormat
+            let audioFrameCount = AVAudioFrameCount(audioFile.length)
+            guard let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioFrameCount) else { return }
+            
+            try audioFile.read(into: audioFileBuffer)
+
+            //Nodes
             let player = AVAudioPlayerNode()
-
-            self.attach(player)
-            self.connect(player, to: self.mainMixerNode, format: avAudioFile.processingFormat)
-
-            try self.start()
-            player.scheduleFile(avAudioFile, at: nil, completionHandler: nil)
+            let mixer = mainMixerNode
+            
+            attach(player)
+            connect(player, to: mixer, format: audioFormat)
+            
+            try start()
+            player.scheduleBuffer(audioFileBuffer, at: nil, options: .loops)
             player.play()
-        } catch {
-            assertionFailure(String(describing: error))
+        } catch let error as NSError {
+            debugPrint(error.localizedDescription, error.userInfo)
         }
     }
 }

@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ManagedRingtone" representedClassName="ManagedRingtone" syncable="YES">
         <attribute name="artistName" optional="YES" attributeType="String"/>
-        <attribute name="persistentId" attributeType="String"/>
+        <attribute name="persistentId" optional="YES" attributeType="String"/>
         <attribute name="ringtoneName" optional="YES" attributeType="String"/>
         <relationship name="managedSettings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedSettings" inverseName="managedRingtone" inverseEntity="ManagedSettings"/>
     </entity>

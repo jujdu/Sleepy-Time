@@ -25,27 +25,40 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBOutlet weak var ringtoneNameLabel: UILabel!
     @IBOutlet weak var ringtoneVibrationSwitch: UISwitch!
     @IBOutlet weak var ringtoneVolumeSlider: UISlider!
+    lazy var mpVolumeView: MPVolumeView! = {
+        let hiddenView = UIView(frame: .zero)
+        let mpVolumeView = MPVolumeView(frame: .zero)
+        mpVolumeView.clipsToBounds = true
+        view.addSubview(hiddenView)
+        hiddenView.addSubview(mpVolumeView)
+        return mpVolumeView
+    }()
     
     // MARK: - Properties
     var interactor: NewSettingsBusinessLogic?
     var router: (NSObjectProtocol & NewSettingsRoutingLogic & NewSettingsDataPassing)?
     private lazy var mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
-    private lazy var engine = CustomAVAudioEngine()
+    lazy var engine = CustomAVAudioEngine()
 //    private let player = AVPlayer()
 //    private let avplayer = AVAudioPlayer()
-    
+    var userVolumeValue: Float?
     private var isPlaying: Bool = false {
         willSet {
             if newValue {
-                print("persistentId: \(viewModel.ringtone.persistentId)")
-                guard let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId), let url = item.assetURL else {
-                    print("Something else")
-                    return }
-                engine.startEngine(playFileAt: url)
                 ringtonePlayButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
+                guard let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId), let url = item.assetURL else { return }
+                DispatchQueue.global().async {
+                    self.engine.startEngine(playFileAt: url)
+                    DispatchQueue.main.async {
+                        self.userVolumeValue = self.mpVolumeView.slider?.value
+                        print( self.mpVolumeView.slider?.value)
+                        self.mpVolumeView.setVolume(self.viewModel.alarmVolume)
+                    }
+                }
             } else {
-                engine.stop()
                 ringtonePlayButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
+                engine.stop()
+                self.mpVolumeView.setVolume(userVolumeValue!)
             }
         }
     }
@@ -85,6 +98,10 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     override func viewDidLoad() {
         super.viewDidLoad()
         context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
+
+//        view.addSubview(mpVolumeView)
+////        hiddenView.addSubview(mpVolumeView)
+//        mpVolumeView.clipsToBounds = true
         setupMediaPicker()
         setupNavigationBar()
         interactor?.makeRequest(request: .getSettings)
@@ -110,9 +127,25 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         
         fallAsleepTimeLabel.text = "\(Int(viewModel.fallAsleepTime)) min"
         fallAsleepSlider.value = viewModel.fallAsleepTime
-        ringtoneNameLabel.text = "\(viewModel.ringtone.artistName) - \(viewModel.ringtone.ringtoneName)"
+        setRingtoneNameLabel(ringtone: viewModel.ringtone)
         ringtoneVibrationSwitch.isOn = viewModel.isVibrated
         ringtoneVolumeSlider.value = viewModel.alarmVolume
+        engine.mainMixerNode.outputVolume = viewModel.alarmVolume
+    }
+    
+    
+    func setRingtoneNameLabel(ringtone: SettingsViewModel.Ringtone) {
+        ringtonePlayButton.isHidden = false
+        ringtoneNameLabel.isHidden = false
+        
+        if let artistName = ringtone.artistName, let rigntoneName = ringtone.ringtoneName {
+            ringtoneNameLabel.text = "\(artistName) - \(rigntoneName)"
+        } else if let rigntoneName = ringtone.ringtoneName {
+            ringtoneNameLabel.text = "\(rigntoneName)"
+        } else {
+            ringtonePlayButton.isHidden = true
+            ringtoneNameLabel.isHidden = true
+        }
     }
     
     private func setupMediaPicker() {
@@ -151,6 +184,11 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     @IBAction func setRingtoneVolume(_ sender: UISlider) {
         viewModel.alarmVolume = sender.value
+        if isPlaying {
+            engine.mainMixerNode.outputVolume = viewModel.alarmVolume
+            mpVolumeView.setVolume(sender.value)
+        }
+
     }
     
     @IBAction func tapCancelButton(_ sender: Any) {
@@ -205,12 +243,14 @@ extension NewSettingsViewController: MPMediaPickerControllerDelegate {
             print("no url")
             return
         }
-        viewModel.ringtone = SettingsViewModel.Ringtone(artistName: item.artist ?? "",
-                                                        ringtoneName: item.title ?? "",
+        viewModel.ringtone = SettingsViewModel.Ringtone(artistName: item.artist,
+                                                        ringtoneName: item.title,
                                                         persistentId: String(item.persistentID))
         
-        engine.startEngine(playFileAt: url)
-        ringtoneNameLabel.text = "\(item.artist ?? "") - \(item.title ?? "")"
+        DispatchQueue.global().async {
+            self.engine.startEngine(playFileAt: url)
+        }
+        setRingtoneNameLabel(ringtone: viewModel.ringtone)
         isPlaying = true
         
         //FIXME: - to Router???

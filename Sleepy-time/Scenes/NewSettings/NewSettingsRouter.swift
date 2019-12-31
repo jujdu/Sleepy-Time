@@ -32,6 +32,7 @@ class NewSettingsRouter: NSObject, NewSettingsRoutingLogic, NewSettingsDataPassi
     // MARK: - Navigation
     
     func navigateToMain(source: NewSettingsViewController, destination: MainViewController) {
+        source.engine.stop()
         source.dismiss(animated: true, completion: nil)
     }
     

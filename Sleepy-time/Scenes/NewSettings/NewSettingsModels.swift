@@ -38,8 +38,8 @@ struct SettingsViewModel {
     var alarmVolume: Float
     
     struct Ringtone {
-        var artistName: String
-        var ringtoneName: String
+        var artistName: String?
+        var ringtoneName: String?
         var persistentId: String
     }
 }

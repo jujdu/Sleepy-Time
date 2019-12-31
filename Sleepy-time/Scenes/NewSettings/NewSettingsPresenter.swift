@@ -29,11 +29,11 @@ class NewSettingsPresenter: NewSettingsPresentationLogic {
     
     private func fromSettingsToViewModel(settings: Settings) -> SettingsViewModel {
         return SettingsViewModel(snoozeTime: settings.snoozeTime,
-                                                     fallAsleepTime: Float(settings.fallAsleepTime),
-                                                     ringtone: SettingsViewModel.Ringtone(artistName: settings.ringtone.artistName ?? "",
-                                                                                          ringtoneName: settings.ringtone.ringtoneName ?? "",
-                                                                                          persistentId: settings.ringtone.persistentId ?? ""),
-                                                     isVibrated: settings.isVibrated,
-                                                     alarmVolume: Float(settings.alarmVolume))
+                                 fallAsleepTime: Float(settings.fallAsleepTime),
+                                 ringtone: SettingsViewModel.Ringtone(artistName: settings.ringtone.artistName,
+                                                                      ringtoneName: settings.ringtone.ringtoneName,
+                                                                      persistentId: settings.ringtone.persistentId ?? ""),
+                                 isVibrated: settings.isVibrated,
+                                 alarmVolume: Float(settings.alarmVolume))
     }
 }
