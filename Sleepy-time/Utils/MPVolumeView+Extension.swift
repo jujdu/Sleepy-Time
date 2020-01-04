@@ -10,7 +10,7 @@ import MediaPlayer
 import UIKit
 
 extension MPVolumeView {
-    var slider: UISlider? {
+    private var slider: UISlider? {
         let volumeView = MPVolumeView()
         return volumeView.subviews.first as? UISlider
     }
@@ -21,5 +21,4 @@ extension MPVolumeView {
             }
         }
     }
-
 }

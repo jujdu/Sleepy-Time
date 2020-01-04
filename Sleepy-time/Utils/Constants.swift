@@ -26,6 +26,8 @@ struct AppImages {
     static let addAlarm36pt = "AddAlarm36pt"
     static let settings = "Settings"
     static let info = "Info"
+    static let pause = "pause.fill"
+    static let play = "play.fill"
 }
 
 struct Constraints {

@@ -108,27 +108,28 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Gxg-a4-usd">
-                                                    <rect key="frame" x="20" y="11" width="355" height="21.5"/>
+                                                    <rect key="frame" x="20" y="0.0" width="343" height="43.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Ringtone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phd-FJ-rdM">
-                                                            <rect key="frame" x="0.0" y="0.5" width="119" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="11.5" width="70" height="20.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="70" id="6Mp-P8-Nn4"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-8r-JKq">
-                                                            <rect key="frame" x="127" y="0.0" width="50" height="21.5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="50" id="BAW-m5-Zoq"/>
-                                                            </constraints>
-                                                            <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mfp-8r-JKq">
+                                                            <rect key="frame" x="78" y="0.0" width="87" height="43.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
                                                             <state key="normal" image="play.fill" catalog="system"/>
                                                             <connections>
                                                                 <action selector="playStopRingtone:" destination="45v-be-rp3" eventType="touchUpInside" id="XRA-rd-kNj"/>
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Weeknd - Starboy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzA-cm-7gw">
-                                                            <rect key="frame" x="185" y="0.5" width="170" height="20.5"/>
+                                                            <rect key="frame" x="173" y="11.5" width="170" height="20.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" relation="lessThanOrEqual" constant="170" id="dMQ-pb-aui"/>
                                                             </constraints>
@@ -138,16 +139,18 @@
                                                         </label>
                                                     </subviews>
                                                     <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="phd-FJ-rdM" secondAttribute="bottom" constant="11.5" id="FXr-za-zDE"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="Mfp-8r-JKq" secondAttribute="bottom" id="nqs-J3-KLK"/>
                                                         <constraint firstItem="Mfp-8r-JKq" firstAttribute="top" secondItem="Gxg-a4-usd" secondAttribute="top" id="woX-tj-Fsm"/>
+                                                        <constraint firstItem="phd-FJ-rdM" firstAttribute="top" secondItem="Gxg-a4-usd" secondAttribute="top" constant="11.5" id="zyC-67-829"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Gxg-a4-usd" firstAttribute="leading" secondItem="9dt-CW-ucR" secondAttribute="leadingMargin" id="47M-Ar-iTv"/>
-                                                <constraint firstItem="Gxg-a4-usd" firstAttribute="top" secondItem="9dt-CW-ucR" secondAttribute="topMargin" id="Nt7-UL-T5G"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Gxg-a4-usd" secondAttribute="trailing" id="e8G-ES-u3a"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Gxg-a4-usd" secondAttribute="bottom" id="h8k-zm-PYj"/>
+                                                <constraint firstItem="Gxg-a4-usd" firstAttribute="leading" secondItem="9dt-CW-ucR" secondAttribute="leading" constant="20" symbolic="YES" id="62z-kq-ZZP"/>
+                                                <constraint firstAttribute="trailing" secondItem="Gxg-a4-usd" secondAttribute="trailing" constant="20" symbolic="YES" id="IDX-yY-Nz1"/>
+                                                <constraint firstAttribute="bottom" secondItem="Gxg-a4-usd" secondAttribute="bottom" id="YFf-ht-NYX"/>
+                                                <constraint firstItem="Gxg-a4-usd" firstAttribute="top" secondItem="9dt-CW-ucR" secondAttribute="top" id="pNX-oI-QPZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

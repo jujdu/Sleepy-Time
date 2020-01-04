@@ -32,6 +32,7 @@ class CustomAVAudioEngine: AVAudioEngine {
             
             attach(player)
             connect(player, to: mixer, format: audioFormat)
+            prepare()
             
             try start()
             player.scheduleBuffer(audioFileBuffer, at: nil, options: .loops)

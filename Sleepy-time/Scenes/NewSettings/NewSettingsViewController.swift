@@ -25,7 +25,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBOutlet weak var ringtoneNameLabel: UILabel!
     @IBOutlet weak var ringtoneVibrationSwitch: UISwitch!
     @IBOutlet weak var ringtoneVolumeSlider: UISlider!
-    lazy var mpVolumeView: MPVolumeView! = {
+    lazy var mpVolumeView: MPVolumeView = {
         let hiddenView = UIView(frame: .zero)
         let mpVolumeView = MPVolumeView(frame: .zero)
         mpVolumeView.clipsToBounds = true
@@ -37,31 +37,21 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     // MARK: - Properties
     var interactor: NewSettingsBusinessLogic?
     var router: (NSObjectProtocol & NewSettingsRoutingLogic & NewSettingsDataPassing)?
+    
     private lazy var mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
-    lazy var engine = CustomAVAudioEngine()
+    
+    var engine: CustomAVAudioEngine?
+    lazy private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
 //    private let player = AVPlayer()
 //    private let avplayer = AVAudioPlayer()
-    var userVolumeValue: Float?
+    
+    var userVolumeValue: Float!
     private var isPlaying: Bool = false {
         willSet {
-            if newValue {
-                ringtonePlayButton.setImage(UIImage(systemName: "pause.fill"), for: .normal)
-                guard let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId), let url = item.assetURL else { return }
-                DispatchQueue.global().async {
-                    self.engine.startEngine(playFileAt: url)
-                    DispatchQueue.main.async {
-                        self.userVolumeValue = self.mpVolumeView.slider?.value
-                        print( self.mpVolumeView.slider?.value)
-                        self.mpVolumeView.setVolume(self.viewModel.alarmVolume)
-                    }
-                }
-            } else {
-                ringtonePlayButton.setImage(UIImage(systemName: "play.fill"), for: .normal)
-                engine.stop()
-                self.mpVolumeView.setVolume(userVolumeValue!)
-            }
+            playRingtone(newValue)
         }
     }
+    
     
     var context: NSManagedObjectContext!
     var viewModel: SettingsViewModel!
@@ -99,9 +89,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         super.viewDidLoad()
         context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.persistentContainer.viewContext
 
-//        view.addSubview(mpVolumeView)
-////        hiddenView.addSubview(mpVolumeView)
-//        mpVolumeView.clipsToBounds = true
         setupMediaPicker()
         setupNavigationBar()
         interactor?.makeRequest(request: .getSettings)
@@ -118,36 +105,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     }
     
     //MARK: - Methods
-    func set(viewModel: SettingsViewModel) {
-        if let snoozeTime = viewModel.snoozeTime {
-            snoozeTimeLabel.text = "\(snoozeTime) min"
-        } else {
-            snoozeTimeLabel.text = "Never"
-        }
-        
-        fallAsleepTimeLabel.text = "\(Int(viewModel.fallAsleepTime)) min"
-        fallAsleepSlider.value = viewModel.fallAsleepTime
-        setRingtoneNameLabel(ringtone: viewModel.ringtone)
-        ringtoneVibrationSwitch.isOn = viewModel.isVibrated
-        ringtoneVolumeSlider.value = viewModel.alarmVolume
-        engine.mainMixerNode.outputVolume = viewModel.alarmVolume
-    }
-    
-    
-    func setRingtoneNameLabel(ringtone: SettingsViewModel.Ringtone) {
-        ringtonePlayButton.isHidden = false
-        ringtoneNameLabel.isHidden = false
-        
-        if let artistName = ringtone.artistName, let rigntoneName = ringtone.ringtoneName {
-            ringtoneNameLabel.text = "\(artistName) - \(rigntoneName)"
-        } else if let rigntoneName = ringtone.ringtoneName {
-            ringtoneNameLabel.text = "\(rigntoneName)"
-        } else {
-            ringtonePlayButton.isHidden = true
-            ringtoneNameLabel.isHidden = true
-        }
-    }
-    
     private func setupMediaPicker() {
         mediaPicker.allowsPickingMultipleItems = false
         mediaPicker.showsCloudItems = false
@@ -168,6 +125,64 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         ]
     }
     
+    func set(viewModel: SettingsViewModel) {
+        if let snoozeTime = viewModel.snoozeTime {
+            snoozeTimeLabel.text = "\(snoozeTime) min"
+        } else {
+            snoozeTimeLabel.text = "Never"
+        }
+        
+        fallAsleepTimeLabel.text = "\(Int(viewModel.fallAsleepTime)) min"
+        fallAsleepSlider.value = viewModel.fallAsleepTime
+        setRingtoneNameLabel(ringtone: viewModel.ringtone)
+        ringtoneVibrationSwitch.isOn = viewModel.isVibrated
+        ringtoneVolumeSlider.value = viewModel.alarmVolume
+        engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+    }
+    
+    private func setRingtoneNameLabel(ringtone: SettingsViewModel.Ringtone) {
+        ringtonePlayButton.isHidden = false
+        ringtoneNameLabel.isHidden = false
+        
+        if let artistName = ringtone.artistName, let rigntoneName = ringtone.ringtoneName {
+            ringtoneNameLabel.text = "\(artistName) - \(rigntoneName)"
+        } else if let rigntoneName = ringtone.ringtoneName {
+            ringtoneNameLabel.text = "\(rigntoneName)"
+        } else {
+            ringtonePlayButton.isHidden = true
+            ringtoneNameLabel.isHidden = true
+        }
+    }
+    
+    private func playRingtone(_ value: Bool) {
+        if value {
+            ringtonePlayButton.setImage(UIImage(systemName: AppImages.pause), for: .normal)
+            
+            guard
+                let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId),
+                let url = item.assetURL else { return }
+            
+            engine = CustomAVAudioEngine()
+            let semaphore = DispatchSemaphore(value: 1)
+            
+            userVolumeValue = AVAudioSession.sharedInstance().outputVolume
+            DispatchQueue.main.async { //иначе setVolume не сработает первый раз
+                self.mpVolumeView.setVolume(self.viewModel.alarmVolume)
+            }
+            
+            avEngineQueue.async { [weak self] in
+                defer { semaphore.signal() }
+                semaphore.wait()
+                self?.engine?.startEngine(playFileAt: url)
+            }
+        } else {
+            ringtonePlayButton.setImage(UIImage(systemName: AppImages.play), for: .normal)
+            mpVolumeView.setVolume(userVolumeValue)
+            engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
+        }
+    }
+    
+    
     //MARK: - @IBActions
     @IBAction func setFallAsleepTime(_ sender: UISlider) {
         fallAsleepTimeLabel.text = "\(Int(sender.value)) min"
@@ -185,7 +200,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBAction func setRingtoneVolume(_ sender: UISlider) {
         viewModel.alarmVolume = sender.value
         if isPlaying {
-            engine.mainMixerNode.outputVolume = viewModel.alarmVolume
+            engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
             mpVolumeView.setVolume(sender.value)
         }
 
@@ -233,23 +248,12 @@ extension NewSettingsViewController {
 //MARK: - MPMediaPickerControllerDelegate
 extension NewSettingsViewController: MPMediaPickerControllerDelegate {
     func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
-        guard let item = mediaItemCollection.items.first else {
-            print("no item")
-            return
-        }
-        print("picking id \(item.persistentID)")
+        guard let item = mediaItemCollection.items.first else { return }
 
-        guard let url = item.assetURL else {
-            print("no url")
-            return
-        }
         viewModel.ringtone = SettingsViewModel.Ringtone(artistName: item.artist,
                                                         ringtoneName: item.title,
                                                         persistentId: String(item.persistentID))
-        
-        DispatchQueue.global().async {
-            self.engine.startEngine(playFileAt: url)
-        }
+
         setRingtoneNameLabel(ringtone: viewModel.ringtone)
         isPlaying = true
         

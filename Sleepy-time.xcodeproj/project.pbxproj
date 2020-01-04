@@ -28,6 +28,7 @@
 		6F2DD2A5238D13FC002B16BE /* OldSettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DD29E238D13FC002B16BE /* OldSettingsInteractor.swift */; };
 		6F2DD2A8238D624A002B16BE /* SwipingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DD2A7238D624A002B16BE /* SwipingViewController.swift */; };
 		6F3E18B023BAA1E00098314F /* CustomAVAudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E18AF23BAA1E00098314F /* CustomAVAudioEngine.swift */; };
+		6F404E0823C0C8C100A80C4F /* AVEngineWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F404E0723C0C8C100A80C4F /* AVEngineWorker.swift */; };
 		6F47FB57238D9FF20005EEE5 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F47FB56238D9FF20005EEE5 /* CollectionViewCell.swift */; };
 		6F47FB59238DB34B0005EEE5 /* Testmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F47FB58238DB34B0005EEE5 /* Testmodel.swift */; };
 		6F49496523A2C47A00746662 /* NewSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F49496423A2C47A00746662 /* NewSettingsViewController.swift */; };
@@ -103,6 +104,7 @@
 		6F2DD29E238D13FC002B16BE /* OldSettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldSettingsInteractor.swift; sourceTree = "<group>"; };
 		6F2DD2A7238D624A002B16BE /* SwipingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingViewController.swift; sourceTree = "<group>"; };
 		6F3E18AF23BAA1E00098314F /* CustomAVAudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAVAudioEngine.swift; sourceTree = "<group>"; };
+		6F404E0723C0C8C100A80C4F /* AVEngineWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVEngineWorker.swift; sourceTree = "<group>"; };
 		6F47FB56238D9FF20005EEE5 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		6F47FB58238DB34B0005EEE5 /* Testmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Testmodel.swift; sourceTree = "<group>"; };
 		6F49496423A2C47A00746662 /* NewSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSettingsViewController.swift; sourceTree = "<group>"; };
@@ -168,7 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */,
-				6FCFDF2923A8F6DA00CE9D5E /* SettingsWorker */,
+				6FCFDF2923A8F6DA00CE9D5E /* Workers */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -351,12 +353,13 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		6FCFDF2923A8F6DA00CE9D5E /* SettingsWorker */ = {
+		6FCFDF2923A8F6DA00CE9D5E /* Workers */ = {
 			isa = PBXGroup;
 			children = (
 				6FCFDF2A23A8F70200CE9D5E /* SettingsWorker.swift */,
+				6F404E0723C0C8C100A80C4F /* AVEngineWorker.swift */,
 			);
-			path = SettingsWorker;
+			path = Workers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,6 +473,7 @@
 				6F8618F423BA0FA0001A0238 /* ManagedRingtone+CoreDataProperties.swift in Sources */,
 				6FAB430823A370C90050BCF6 /* NewSettingsWorker.swift in Sources */,
 				6F93248923340CF6006E97B1 /* Date+Extension.swift in Sources */,
+				6F404E0823C0C8C100A80C4F /* AVEngineWorker.swift in Sources */,
 				6F90928123A11B10002C1313 /* TrashFile.swift in Sources */,
 				6FCFDF2B23A8F70200CE9D5E /* SettingsWorker.swift in Sources */,
 				6FAB430A23A370C90050BCF6 /* NewSettingsModels.swift in Sources */,
