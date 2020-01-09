@@ -8,15 +8,18 @@
 
 import UIKit
 import AVFoundation
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     lazy var coreDataStack = CoreDataStack()
+    let notifications = Notifications()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        //MARK: - Windows setup
         window = UIWindow(frame: UIScreen.main.bounds)
         let viewController = MainViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
@@ -24,15 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
 //        viewController.context = coreDataStack.persistentContainer.viewContext
+        
+        //MARK: - NC setup
         navigationController.navigationBar.barStyle = .black
         navigationController.navigationBar.isTranslucent = true
         //        navigationController.navigationBar.tintColor = .white
-        
         navigationController.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.white,
             NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
         ]
         
+        //MARK: - Background audio setup
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers, .allowAirPlay])
             try AVAudioSession.sharedInstance().setActive(true)
@@ -40,6 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(error)
         }
         
+        //MARK: - Notification setup
+        notifications.requestAuthorization()
+        notifications.notificationCenter.delegate = notifications
         return true
     }
     
@@ -60,6 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        UIApplication.shared.applicationIconBadgeNumber = 0
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -67,5 +76,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         coreDataStack.saveContext()
     }
     
+  
 }
 

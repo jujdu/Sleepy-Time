@@ -50,6 +50,7 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
     var interactor: WakeUpTimeBusinessLogic?
     var router: (NSObjectProtocol & WakeUpTimeRoutingLogic & WakeUpTimeDataPassing)?
     var viewModel: WakeUpTimeViewModel?
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
     
     // MARK: - Object lifecycle
     
