@@ -87,13 +87,13 @@ extension Notifications: UNUserNotificationCenterDelegate {
         if response.notification.request.identifier == "LocalNotification" {
             print("Handling notification")
         }
-        
+
         switch response.actionIdentifier {
         case UNNotificationDismissActionIdentifier:
             print("dissmiss action")
         case UNNotificationDefaultActionIdentifier://when tap on notification
             print("default action")
-            viewController?.present(UIViewController(), animated: true, completion: nil)
+            viewController?.present(AlarmViewViewController(), animated: true, completion: nil)
         case "Snooze":
             print("Snooze action")
             self.scheduleNotification()

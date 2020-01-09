@@ -91,6 +91,9 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
 
         setupMediaPicker()
         setupNavigationBar()
+        
+        userVolumeValue = AVAudioSession.sharedInstance().outputVolume
+
         interactor?.makeRequest(request: .getSettings)
     }
 
@@ -165,7 +168,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
             engine = CustomAVAudioEngine()
             let semaphore = DispatchSemaphore(value: 1)
             
-            userVolumeValue = AVAudioSession.sharedInstance().outputVolume
             DispatchQueue.main.async { //иначе setVolume не сработает первый раз
                 self.mpVolumeView.setVolume(self.viewModel.alarmVolume)
             }
