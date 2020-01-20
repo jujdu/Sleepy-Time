@@ -1,5 +1,5 @@
 //
-//  AlarmViewViewController.swift
+//  AlarmViewController.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 09.01.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AlarmViewViewController: UIViewController {
+class AlarmViewController: UIViewController {
     
     let stopButton: UIButton = {
         let button = UIButton()
@@ -27,7 +27,7 @@ class AlarmViewViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .red
         
         view.addSubview(stopButton)
         

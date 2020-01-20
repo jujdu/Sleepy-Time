@@ -16,7 +16,7 @@ class Notifications: NSObject {
     
     //ask user if we can push notifications to him
     func requestAuthorization() {
-        notificationCenter.requestAuthorization(options: [.alert,.badge,.sound]) { (granted, error) in
+        notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             print("Permission granted: \(granted)")
             guard granted else { return }
             self.getNotificationSettings()
@@ -84,6 +84,7 @@ extension Notifications: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+
         if response.notification.request.identifier == "LocalNotification" {
             print("Handling notification")
         }
@@ -93,7 +94,12 @@ extension Notifications: UNUserNotificationCenterDelegate {
             print("dissmiss action")
         case UNNotificationDefaultActionIdentifier://when tap on notification
             print("default action")
-            viewController?.present(AlarmViewViewController(), animated: true, completion: nil)
+            let window = (UIApplication.shared.delegate as? AppDelegate)?.window
+            let navVC = (window?.rootViewController as? UINavigationController)
+            let mainVC = navVC?.viewControllers.first
+            navVC?.popToRootViewController(animated: false)
+            let alarmVC = AlarmViewController()
+            mainVC?.present(alarmVC, animated: true, completion: nil)
         case "Snooze":
             print("Snooze action")
             self.scheduleNotification()
