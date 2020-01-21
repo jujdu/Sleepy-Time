@@ -78,32 +78,33 @@ class Notifications: NSObject {
     
 }
 
-
+var avWorker = AVEngineWorker()
 //MARK: - UNUserNotificationCenterDelegate
 extension Notifications: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert,.sound])
         
-        let settings = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.4)
+        let settings = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.2)
 
         
         //работает, но только через системный плеер
-        let mp = MPMusicPlayerController.systemMusicPlayer
+//        let mp = MPMusicPlayerController.systemMusicPlayer
+//
+//        let predicate = MPMediaPropertyPredicate(value: settings.ringtone.persistentId, forProperty: MPMediaItemPropertyPersistentID)
+//        let query = MPMediaQuery()
+//        query.addFilterPredicate(predicate)
+//        guard let items = query.items, items.count > 0 else { return }
+//
+//        let mPMediaItemCollection = MPMediaItemCollection(items: items)
+//        mp.setQueue(with: mPMediaItemCollection)
+//        mp.prepareToPlay()
+//        mp.play()
+//
         
-        let predicate = MPMediaPropertyPredicate(value: settings.ringtone.persistentId, forProperty: MPMediaItemPropertyPersistentID)
-        let query = MPMediaQuery()
-        query.addFilterPredicate(predicate)
-        guard let items = query.items, items.count > 0 else { return }
-        
-        let mPMediaItemCollection = MPMediaItemCollection(items: items)
-        mp.setQueue(with: mPMediaItemCollection)
-        mp.prepareToPlay()
-        mp.play()
         
         //не работает без системного плеера, мб нужно получать токен. Нужен аккаунт разработчика
-        //        let avWorker = AVEngineWorker()
-        //         let settings = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640552"), isVibrated: true, alarmVolume: 0.4)
-        //         avWorker.playRingtone(true, viewModel: settings)
+        avWorker.playRingtone(true, viewModel: settings)
+        
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {

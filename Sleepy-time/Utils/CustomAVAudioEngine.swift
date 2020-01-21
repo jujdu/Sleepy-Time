@@ -17,7 +17,10 @@ class CustomAVAudioEngine: AVAudioEngine {
     func startEngine(playFileAt: URL) {
         stop()
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback)
+//            try AVAudioSession.sharedInstance().setCategory(.playback)
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true)
+            print(try AVAudioSession.sharedInstance().availableInputs)
 
             let audioFile = try AVAudioFile(forReading: playFileAt)
             let audioFormat = audioFile.processingFormat
@@ -36,9 +39,10 @@ class CustomAVAudioEngine: AVAudioEngine {
             
             try start()
             player.scheduleBuffer(audioFileBuffer, at: nil, options: .loops)
+            
             player.play()
         } catch let error as NSError {
-            debugPrint(error.localizedDescription, error.userInfo)
+            debugPrint(error, error.userInfo)
         }
     }
 }

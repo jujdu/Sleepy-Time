@@ -307,7 +307,6 @@
 		6FB539102326B38500B5DB92 = {
 			isa = PBXGroup;
 			children = (
-				6FB5391C2326B38500B5DB92 /* AppDelegate.swift */,
 				6FB5391B2326B38500B5DB92 /* Sleepy-time */,
 				6FB5391A2326B38500B5DB92 /* Products */,
 			);
@@ -324,6 +323,7 @@
 		6FB5391B2326B38500B5DB92 /* Sleepy-time */ = {
 			isa = PBXGroup;
 			children = (
+				6FB5391C2326B38500B5DB92 /* AppDelegate.swift */,
 				6F0970E52388037A00BE161D /* Models */,
 				6F0970E42388037400BE161D /* Services */,
 				6FB539372326C2D000B5DB92 /* Utils */,

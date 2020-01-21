@@ -10,9 +10,12 @@ import UIKit
 import MediaPlayer
 
 class AVEngineWorker {
-
+    
+    deinit {
+        print("AVEngineWorker deinit")
+    }
     var engine: CustomAVAudioEngine?
-    lazy private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
+    private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
 
     var userVolumeValue: Float!
 
@@ -33,16 +36,22 @@ class AVEngineWorker {
                 mpVolumeView?.setVolume(viewModel.alarmVolume)
             }
 
-            avEngineQueue.async { [weak self] in
+            avEngineQueue.async {
                 defer { semaphore.signal() }
                 semaphore.wait()
-                self?.engine?.startEngine(playFileAt: url)
+                self.engine!.startEngine(playFileAt: url)
+                print("isRunning \(String(describing: self.engine!.isRunning))")
             }
         } else {
             mpVolumeView?.setVolume(userVolumeValue)
             engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
         }
     }
+    
+//    func stopRingtone(mpVolumeView: MPVolumeView? = nil) {
+//        mpVolumeView?.setVolume(userVolumeValue)
+//        engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
+//    }
 
     private func getRingtoneWithPersistentId(_ id: String) -> MPMediaItem? {
         let predicate = MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID)
@@ -54,4 +63,5 @@ class AVEngineWorker {
         ringtone = items.first
         return ringtone
     }
+    
 }
