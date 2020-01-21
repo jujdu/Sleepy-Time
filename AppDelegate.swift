@@ -16,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     lazy var coreDataStack = CoreDataStack()
     let notifications = Notifications()
+//
+//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+//        <#code#>
+//    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -39,8 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: - Background audio setup
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers, .allowAirPlay])
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.duckOthers, .defaultToSpeaker, .allowAirPlay])
             try AVAudioSession.sharedInstance().setActive(true)
+            UIApplication.shared.beginReceivingRemoteControlEvents()
         } catch {
             print(error)
         }
@@ -48,6 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MARK: - Notification setup
         notifications.requestAuthorization()
         notifications.notificationCenter.delegate = notifications
+        
         return true
     }
     

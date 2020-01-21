@@ -8,6 +8,8 @@
 
 import UIKit
 import UserNotifications
+import MediaPlayer
+
 
 class Notifications: NSObject {
     
@@ -81,10 +83,31 @@ class Notifications: NSObject {
 extension Notifications: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert,.sound])
+        
+        let settings = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.4)
+
+        
+        //работает, но только через системный плеер
+        let mp = MPMusicPlayerController.systemMusicPlayer
+        
+        let predicate = MPMediaPropertyPredicate(value: settings.ringtone.persistentId, forProperty: MPMediaItemPropertyPersistentID)
+        let query = MPMediaQuery()
+        query.addFilterPredicate(predicate)
+        guard let items = query.items, items.count > 0 else { return }
+        
+        let mPMediaItemCollection = MPMediaItemCollection(items: items)
+        mp.setQueue(with: mPMediaItemCollection)
+        mp.prepareToPlay()
+        mp.play()
+        
+        //не работает без системного плеера, мб нужно получать токен. Нужен аккаунт разработчика
+        //        let avWorker = AVEngineWorker()
+        //         let settings = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640552"), isVibrated: true, alarmVolume: 0.4)
+        //         avWorker.playRingtone(true, viewModel: settings)
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-
+        
         if response.notification.request.identifier == "LocalNotification" {
             print("Handling notification")
         }
@@ -97,9 +120,19 @@ extension Notifications: UNUserNotificationCenterDelegate {
             let window = (UIApplication.shared.delegate as? AppDelegate)?.window
             let navVC = (window?.rootViewController as? UINavigationController)
             let mainVC = navVC?.viewControllers.first
-            navVC?.popToRootViewController(animated: false)
+            navVC?.popToRootViewController(animated: true)
             let alarmVC = AlarmViewController()
-            mainVC?.present(alarmVC, animated: true, completion: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                mainVC?.present(alarmVC, animated: true, completion: nil)
+            }
+//            если делать презент без задержки, то будет ошибка "Presenting view controllers on detached view controllers is discouraged". Она вроде не влияет на работу, но на всякий случай делаю задержку, которая убирает ошибку.
+            
+//            не работает если animated FALSE
+//            navVC?.transitionCoordinator?.animate(alongsideTransition: nil) { _ in
+//                print("transitionCoordinator")
+//                let alarmVC = AlarmViewController()
+//                mainVC?.present(alarmVC, animated: true, completion: nil)
+//            }
         case "Snooze":
             print("Snooze action")
             self.scheduleNotification()

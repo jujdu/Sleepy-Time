@@ -27,7 +27,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBOutlet weak var ringtoneVolumeSlider: UISlider!
     lazy var mpVolumeView: MPVolumeView = {
         let hiddenView = UIView(frame: .zero)
-        let mpVolumeView = MPVolumeView(frame: .zero)
+        let mpVolumeView = MPVolumeView()
         mpVolumeView.clipsToBounds = true
         view.addSubview(hiddenView)
         hiddenView.addSubview(mpVolumeView)
@@ -40,15 +40,20 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     private lazy var mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
     
-    var engine: CustomAVAudioEngine?
     lazy private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
 //    private let player = AVPlayer()
 //    private let avplayer = AVAudioPlayer()
+    var avWorker = AVEngineWorker()
     
     var userVolumeValue: Float!
     private var isPlaying: Bool = false {
         willSet {
-            playRingtone(newValue)
+            avWorker.playRingtone(newValue, viewModel: viewModel, mpVolumeView: mpVolumeView)
+            if newValue {
+                ringtonePlayButton.setImage(UIImage(systemName: AppImages.pause), for: .normal)
+            } else {
+                ringtonePlayButton.setImage(UIImage(systemName: AppImages.play), for: .normal)
+            }
         }
     }
     
@@ -140,7 +145,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         setRingtoneNameLabel(ringtone: viewModel.ringtone)
         ringtoneVibrationSwitch.isOn = viewModel.isVibrated
         ringtoneVolumeSlider.value = viewModel.alarmVolume
-        engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+        avWorker.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
     }
     
     private func setRingtoneNameLabel(ringtone: SettingsViewModel.Ringtone) {
@@ -156,34 +161,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
             ringtoneNameLabel.isHidden = true
         }
     }
-    
-    private func playRingtone(_ value: Bool) {
-        if value {
-            ringtonePlayButton.setImage(UIImage(systemName: AppImages.pause), for: .normal)
-            
-            guard
-                let item = getRingtoneWithPersistentId(viewModel.ringtone.persistentId),
-                let url = item.assetURL else { return }
-            
-            engine = CustomAVAudioEngine()
-            let semaphore = DispatchSemaphore(value: 1)
-            
-            DispatchQueue.main.async { //иначе setVolume не сработает первый раз
-                self.mpVolumeView.setVolume(self.viewModel.alarmVolume)
-            }
-            
-            avEngineQueue.async { [weak self] in
-                defer { semaphore.signal() }
-                semaphore.wait()
-                self?.engine?.startEngine(playFileAt: url)
-            }
-        } else {
-            ringtonePlayButton.setImage(UIImage(systemName: AppImages.play), for: .normal)
-            mpVolumeView.setVolume(userVolumeValue)
-            engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
-        }
-    }
-    
     
     //MARK: - @IBActions
     @IBAction func setFallAsleepTime(_ sender: UISlider) {
@@ -202,7 +179,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBAction func setRingtoneVolume(_ sender: UISlider) {
         viewModel.alarmVolume = sender.value
         if isPlaying {
-            engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+            avWorker.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
             mpVolumeView.setVolume(sender.value)
         }
 
