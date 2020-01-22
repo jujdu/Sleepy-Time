@@ -12,15 +12,14 @@ import AVFoundation
 class CustomAVAudioEngine: AVAudioEngine {
     
 //    static let engine = CustomAVAudioEngine()
-//    let mixer = AVAudioMixerNode()
     
     func startEngine(playFileAt: URL) {
         stop()
         do {
-//            try AVAudioSession.sharedInstance().setCategory(.playback)
+//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: [.defaultToSpeaker, .allowAirPlay])
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
+
             try AVAudioSession.sharedInstance().setActive(true)
-            print(try AVAudioSession.sharedInstance().availableInputs)
 
             let audioFile = try AVAudioFile(forReading: playFileAt)
             let audioFormat = audioFile.processingFormat

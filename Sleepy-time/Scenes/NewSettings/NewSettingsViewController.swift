@@ -25,12 +25,9 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBOutlet weak var ringtoneNameLabel: UILabel!
     @IBOutlet weak var ringtoneVibrationSwitch: UISwitch!
     @IBOutlet weak var ringtoneVolumeSlider: UISlider!
-    lazy var mpVolumeView: MPVolumeView = {
-        let hiddenView = UIView(frame: .zero)
-        let mpVolumeView = MPVolumeView()
-        mpVolumeView.clipsToBounds = true
-        view.addSubview(hiddenView)
-        hiddenView.addSubview(mpVolumeView)
+    lazy var mpVolumeView: HiddenMPVolumeView = {
+        let mpVolumeView = HiddenMPVolumeView()
+        view.addSubview(mpVolumeView)
         return mpVolumeView
     }()
     

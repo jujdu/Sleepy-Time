@@ -11,15 +11,12 @@ import MediaPlayer
 
 class AVEngineWorker {
     
-    deinit {
-        print("AVEngineWorker deinit")
-    }
     var engine: CustomAVAudioEngine?
     private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
 
     var userVolumeValue: Float!
 
-    func playRingtone(_ value: Bool, viewModel: SettingsViewModel? = nil, mpVolumeView: MPVolumeView? = nil) {
+    func playRingtone(_ value: Bool, viewModel: SettingsViewModel? = nil, mpVolumeView: HiddenMPVolumeView? = HiddenMPVolumeView()) {
         if value {
             guard
                 let viewModel = viewModel,
@@ -39,8 +36,7 @@ class AVEngineWorker {
             avEngineQueue.async {
                 defer { semaphore.signal() }
                 semaphore.wait()
-                self.engine!.startEngine(playFileAt: url)
-                print("isRunning \(String(describing: self.engine!.isRunning))")
+                self.engine?.startEngine(playFileAt: url)
             }
         } else {
             mpVolumeView?.setVolume(userVolumeValue)
@@ -62,6 +58,10 @@ class AVEngineWorker {
         guard let items = query.items, items.count > 0 else { return nil }
         ringtone = items.first
         return ringtone
+    }
+    
+    deinit {
+        print("AVEngineWorker deinit")
     }
     
 }

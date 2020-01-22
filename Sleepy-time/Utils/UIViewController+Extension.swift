@@ -38,7 +38,7 @@ extension WakeUpTimeViewController {
         
         let alert = UIAlertController(title: "Alarm", message: "Do you really want to set the alarm\n at \(date)?", preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default) { (_) in
-            self.appDelegate?.notifications.scheduleNotification(viewController: self)
+            self.appDelegate?.notifications.scheduleNotification()
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(ok)

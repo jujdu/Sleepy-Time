@@ -14,7 +14,7 @@ import MediaPlayer
 class Notifications: NSObject {
     
     let notificationCenter = UNUserNotificationCenter.current()
-    weak var viewController: UIViewController?
+    var avWorker = AVEngineWorker()
     
     //ask user if we can push notifications to him
     func requestAuthorization() {
@@ -33,10 +33,8 @@ class Notifications: NSObject {
     }
     
     //set timer for notifications
-    func scheduleNotification(viewController: UIViewController? = nil) {
-        
-        self.viewController = viewController
-        
+    func scheduleNotification() {
+                
         let content = UNMutableNotificationContent()
         let requestIdentifire = "LocalNotification"
         let userActionIdentifire = "UserActionIdentifire"
@@ -78,32 +76,29 @@ class Notifications: NSObject {
     
 }
 
-var avWorker = AVEngineWorker()
 //MARK: - UNUserNotificationCenterDelegate
 extension Notifications: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.alert,.sound])
         
         let settings = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.2)
-
-        
-        //работает, но только через системный плеер
-//        let mp = MPMusicPlayerController.systemMusicPlayer
 //
-//        let predicate = MPMediaPropertyPredicate(value: settings.ringtone.persistentId, forProperty: MPMediaItemPropertyPersistentID)
-//        let query = MPMediaQuery()
-//        query.addFilterPredicate(predicate)
-//        guard let items = query.items, items.count > 0 else { return }
+//                //работает, но только через системный плеер
+//                let mp = MPMusicPlayerController.systemMusicPlayer
 //
-//        let mPMediaItemCollection = MPMediaItemCollection(items: items)
-//        mp.setQueue(with: mPMediaItemCollection)
-//        mp.prepareToPlay()
-//        mp.play()
+//                let predicate = MPMediaPropertyPredicate(value: settings.ringtone.persistentId, forProperty: MPMediaItemPropertyPersistentID)
+//                let query = MPMediaQuery()
+//                query.addFilterPredicate(predicate)
+//                guard let items = query.items, items.count > 0 else { return }
 //
-        
+//                let mPMediaItemCollection = MPMediaItemCollection(items: items)
+//                mp.setQueue(with: mPMediaItemCollection)
+//                mp.prepareToPlay()
+//                mp.play()
         
         //не работает без системного плеера, мб нужно получать токен. Нужен аккаунт разработчика
-        avWorker.playRingtone(true, viewModel: settings)
+        //upd. из-за того что воркер создавался в методе, после его выполнения, воркер деинициализировался. С сильной ссылкой работает.
+        self.avWorker.playRingtone(true, viewModel: settings)
         
     }
     
@@ -118,22 +113,7 @@ extension Notifications: UNUserNotificationCenterDelegate {
             print("dissmiss action")
         case UNNotificationDefaultActionIdentifier://when tap on notification
             print("default action")
-            let window = (UIApplication.shared.delegate as? AppDelegate)?.window
-            let navVC = (window?.rootViewController as? UINavigationController)
-            let mainVC = navVC?.viewControllers.first
-            navVC?.popToRootViewController(animated: true)
-            let alarmVC = AlarmViewController()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                mainVC?.present(alarmVC, animated: true, completion: nil)
-            }
-//            если делать презент без задержки, то будет ошибка "Presenting view controllers on detached view controllers is discouraged". Она вроде не влияет на работу, но на всякий случай делаю задержку, которая убирает ошибку.
-            
-//            не работает если animated FALSE
-//            navVC?.transitionCoordinator?.animate(alongsideTransition: nil) { _ in
-//                print("transitionCoordinator")
-//                let alarmVC = AlarmViewController()
-//                mainVC?.present(alarmVC, animated: true, completion: nil)
-//            }
+            self.showAlarmViewController()
         case "Snooze":
             print("Snooze action")
             self.scheduleNotification()
@@ -145,4 +125,49 @@ extension Notifications: UNUserNotificationCenterDelegate {
         
         completionHandler()
     }
+    
+    private func showAlarmViewController() {
+        let window = (UIApplication.shared.delegate as? AppDelegate)?.window
+        let navVC = (window?.rootViewController as? UINavigationController)
+        let mainVC = navVC?.viewControllers.first
+        navVC?.popToRootViewController(animated: true)
+        let alarmVC = AlarmViewController()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            mainVC?.present(alarmVC, animated: true, completion: nil)
+        }
+        //            если делать презент без задержки, то будет ошибка "Presenting view controllers on detached view controllers is discouraged". Она вроде не влияет на работу, но на всякий случай делаю задержку, которая убирает ошибку. Через координатор тоже делать не очень, т.к. если нет анимации у транзишена, то комплишен координатора не срабатывает.
+    }
 }
+
+
+
+
+
+
+
+
+
+
+        
+        //работает, но только через системный плеер
+//        let mp = MPMusicPlayerController.systemMusicPlayer
+//
+//        let predicate = MPMediaPropertyPredicate(value: settings.ringtone.persistentId, forProperty: MPMediaItemPropertyPersistentID)
+//        let query = MPMediaQuery()
+//        query.addFilterPredicate(predicate)
+//        guard let items = query.items, items.count > 0 else { return }
+//
+//        let mPMediaItemCollection = MPMediaItemCollection(items: items)
+//        mp.setQueue(with: mPMediaItemCollection)
+//        mp.prepareToPlay()
+//        mp.play()
+        
+
+
+            
+//            не работает если animated FALSE
+//            navVC?.transitionCoordinator?.animate(alongsideTransition: nil) { _ in
+//                print("transitionCoordinator")
+//                let alarmVC = AlarmViewController()
+//                mainVC?.present(alarmVC, animated: true, completion: nil)
+//            }

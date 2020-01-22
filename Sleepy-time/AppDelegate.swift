@@ -42,16 +42,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         //MARK: - Background audio setup
-        do {
-            try AVAudioSession.sharedInstance().setActive(false)
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
-//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
-            try AVAudioSession.sharedInstance().setActive(true)
-            try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSession.PortOverride.speaker)
-//            UIApplication.shared.beginReceivingRemoteControlEvents()
-        } catch {
-            print(error)
-        }
+//        do {
+//            try AVAudioSession.sharedInstance().setActive(false)
+//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
+////            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
+//            try AVAudioSession.sharedInstance().setActive(true)
+//            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+////            UIApplication.shared.beginReceivingRemoteControlEvents()
+//        } catch {
+//            print(error)
+//        }
         
         //MARK: - Notification setup
         notifications.requestAuthorization()
