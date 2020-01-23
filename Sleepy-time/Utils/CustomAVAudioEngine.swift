@@ -38,13 +38,17 @@ class CustomAVAudioEngine: AVAudioEngine {
             try start()
             player.scheduleBuffer(audioFileBuffer, at: nil, options: .loops)
             
-                        
-            let delay: Double = 15.0 // seconds - in case you wanna delay the start
+            let delay: Double = 15.0 // seconds 'till alarm
 
             let startSampleTime = (player.lastRenderTime?.sampleTime)!
 
             let startTime = AVAudioTime(sampleTime: startSampleTime + Int64((delay * audioFormat.sampleRate)), atRate: audioFormat.sampleRate)
             player.play(at: startTime)
+            
+            //also works
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
+//                player.play()
+//            }
 
         } catch let error as NSError {
             debugPrint(error, error.userInfo)
