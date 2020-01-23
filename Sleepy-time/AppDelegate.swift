@@ -42,7 +42,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         //MARK: - Background audio setup
-//        do {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        } catch let error as NSError{
+            print("could not set session. err:\(error.localizedDescription)")
+        }
+        do {
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch let error as NSError{
+            print("could not active session. err:\(error.localizedDescription)")
+        }
+        
+        //        do {
 //            try AVAudioSession.sharedInstance().setActive(false)
 //            try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
 ////            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])

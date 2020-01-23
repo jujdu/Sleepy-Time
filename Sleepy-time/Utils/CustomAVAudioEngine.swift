@@ -16,10 +16,9 @@ class CustomAVAudioEngine: AVAudioEngine {
     func startEngine(playFileAt: URL) {
         stop()
         do {
-//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: [.defaultToSpeaker, .allowAirPlay])
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
-
-            try AVAudioSession.sharedInstance().setActive(true)
+//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
+//
+//            try AVAudioSession.sharedInstance().setActive(true
 
             let audioFile = try AVAudioFile(forReading: playFileAt)
             let audioFormat = audioFile.processingFormat
@@ -39,7 +38,14 @@ class CustomAVAudioEngine: AVAudioEngine {
             try start()
             player.scheduleBuffer(audioFileBuffer, at: nil, options: .loops)
             
-            player.play()
+                        
+            let delay: Double = 15.0 // seconds - in case you wanna delay the start
+
+            let startSampleTime = (player.lastRenderTime?.sampleTime)!
+
+            let startTime = AVAudioTime(sampleTime: startSampleTime + Int64((delay * audioFormat.sampleRate)), atRate: audioFormat.sampleRate)
+            player.play(at: startTime)
+
         } catch let error as NSError {
             debugPrint(error, error.userInfo)
         }
