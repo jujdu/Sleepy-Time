@@ -45,6 +45,11 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
         tableView.isScrollEnabled = false
         return tableView
     }()
+    lazy var mpVolumeView: HiddenMPVolumeView = {
+           let mpVolumeView = HiddenMPVolumeView()
+           view.addSubview(mpVolumeView)
+           return mpVolumeView
+    }()
     
     // MARK: - Properties
     var interactor: WakeUpTimeBusinessLogic?

@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+//MARK: - NSNotification.Name
+extension NSNotification.Name {
+    static let startStopVibrationFromNotification = Notification.Name("startStopVibrationFromNotification")
+}

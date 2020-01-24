@@ -13,13 +13,9 @@ class CustomAVAudioEngine: AVAudioEngine {
     
 //    static let engine = CustomAVAudioEngine()
     
-    func startEngine(playFileAt: URL) {
+    func startEngine(playFileAt: URL, atTime delayTime: Double) {
         stop()
         do {
-//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, policy: .default, options: .defaultToSpeaker)
-//
-//            try AVAudioSession.sharedInstance().setActive(true
-
             let audioFile = try AVAudioFile(forReading: playFileAt)
             let audioFormat = audioFile.processingFormat
             let audioFrameCount = AVAudioFrameCount(audioFile.length)
@@ -38,11 +34,9 @@ class CustomAVAudioEngine: AVAudioEngine {
             try start()
             player.scheduleBuffer(audioFileBuffer, at: nil, options: .loops)
             
-            let delay: Double = 15.0 // seconds 'till alarm
-
             let startSampleTime = (player.lastRenderTime?.sampleTime)!
 
-            let startTime = AVAudioTime(sampleTime: startSampleTime + Int64((delay * audioFormat.sampleRate)), atRate: audioFormat.sampleRate)
+            let startTime = AVAudioTime(sampleTime: startSampleTime + Int64((delayTime * audioFormat.sampleRate)), atRate: audioFormat.sampleRate)
             player.play(at: startTime)
             
             //also works

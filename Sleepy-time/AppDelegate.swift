@@ -16,10 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     lazy var coreDataStack = CoreDataStack()
     let notifications = Notifications()
-//
-//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-//        <#code#>
-//    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -43,26 +39,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: - Background audio setup
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: .defaultToSpeaker)
+            try AVAudioSession.sharedInstance().setActive(true)
         } catch let error as NSError{
             print("could not set session. err:\(error.localizedDescription)")
         }
-        do {
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch let error as NSError{
-            print("could not active session. err:\(error.localizedDescription)")
-        }
-        
-        //        do {
-//            try AVAudioSession.sharedInstance().setActive(false)
-//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord)
-////            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker])
-//            try AVAudioSession.sharedInstance().setActive(true)
-//            try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
-////            UIApplication.shared.beginReceivingRemoteControlEvents()
-//        } catch {
-//            print(error)
-//        }
         
         //MARK: - Notification setup
         notifications.requestAuthorization()

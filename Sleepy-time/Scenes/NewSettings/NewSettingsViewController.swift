@@ -25,11 +25,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBOutlet weak var ringtoneNameLabel: UILabel!
     @IBOutlet weak var ringtoneVibrationSwitch: UISwitch!
     @IBOutlet weak var ringtoneVolumeSlider: UISlider!
-    lazy var mpVolumeView: HiddenMPVolumeView = {
-        let mpVolumeView = HiddenMPVolumeView()
-        view.addSubview(mpVolumeView)
-        return mpVolumeView
-    }()
+    private lazy var mpVolumeView = HiddenMPVolumeView()
     
     // MARK: - Properties
     var interactor: NewSettingsBusinessLogic?
@@ -38,17 +34,21 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     private lazy var mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
     
     lazy private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
-//    private let player = AVPlayer()
-//    private let avplayer = AVAudioPlayer()
+
     var avWorker = AVEngineWorker()
     
-    var userVolumeValue: Float!
     private var isPlaying: Bool = false {
         willSet {
-            avWorker.playRingtone(newValue, viewModel: viewModel, mpVolumeView: mpVolumeView)
             if newValue {
+                view.addSubview(mpVolumeView)
+                avWorker.startRingtone(viewModel: viewModel)
                 ringtonePlayButton.setImage(UIImage(systemName: AppImages.pause), for: .normal)
             } else {
+                //откладываю ремув, чтобы при остановке engine не появлялся MPVolumeSlider
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.mpVolumeView.removeFromSuperview()
+                }
+                avWorker.stopRingtone()
                 ringtonePlayButton.setImage(UIImage(systemName: AppImages.play), for: .normal)
             }
         }
@@ -94,8 +94,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         setupMediaPicker()
         setupNavigationBar()
         
-        userVolumeValue = AVAudioSession.sharedInstance().outputVolume
-
         interactor?.makeRequest(request: .getSettings)
     }
 
@@ -142,7 +140,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         setRingtoneNameLabel(ringtone: viewModel.ringtone)
         ringtoneVibrationSwitch.isOn = viewModel.isVibrated
         ringtoneVolumeSlider.value = viewModel.alarmVolume
-        avWorker.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
     }
     
     private func setRingtoneNameLabel(ringtone: SettingsViewModel.Ringtone) {
@@ -171,6 +168,11 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     @IBAction func setVibrationState(_ sender: UISwitch) {
         viewModel.isVibrated = sender.isOn
+        
+        let dic: [NSNotification.Name: Bool] = [.startStopVibrationFromNotification: sender.isOn]
+        NotificationCenter.default.post(name: .startStopVibrationFromNotification,
+                                        object: nil,
+                                        userInfo: dic)
     }
     
     @IBAction func setRingtoneVolume(_ sender: UISlider) {
@@ -236,19 +238,9 @@ extension NewSettingsViewController: MPMediaPickerControllerDelegate {
         //FIXME: - to Router???
         mediaPicker.dismiss(animated: true)
     }
-    
-    func getRingtoneWithPersistentId(_ id: String) -> MPMediaItem? {
-        let predicate = MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID)
-        let query = MPMediaQuery()
-        query.addFilterPredicate(predicate)
-        
-        var ringtone: MPMediaItem?
-        guard let items = query.items, items.count > 0 else { return nil }
-        ringtone = items.first
-        return ringtone
-    }
 }
 
+//MARK: - NewSnoozeViewControllerDelegate
 extension NewSettingsViewController: NewSnoozeViewControllerDelegate {
     func passData(minutes: Int?) {
         if let snoozeTime = minutes {

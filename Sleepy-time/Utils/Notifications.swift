@@ -34,7 +34,7 @@ class Notifications: NSObject {
     }
     
     //set timer for notifications
-    func scheduleNotification() {
+    func scheduleNotification(atTime: Double) {
         
         let content = UNMutableNotificationContent()
         let requestIdentifire = "LocalNotification"
@@ -48,7 +48,7 @@ class Notifications: NSObject {
         content.categoryIdentifier = userActionIdentifire
         
         //date and trigger setup
-        let date = Date(timeIntervalSinceNow: 600)
+        let date = Date(timeIntervalSinceNow: atTime)
         let dateMatching = Calendar.current.dateComponents([.day,.hour,.minute,.second], from: date)
         print(dateMatching)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateMatching, repeats: false)
@@ -74,26 +74,16 @@ class Notifications: NSObject {
         
         print(#function)
         
-        let settings = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.2)
-        
-        //vibrate phone first
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            //set vibrate callback
-            AudioServicesAddSystemSoundCompletion(SystemSoundID(kSystemSoundID_Vibrate),nil, nil, { (_:SystemSoundID, _:UnsafeMutableRawPointer?) -> Void in
-                AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate)) }, nil)
-        }
-        
-        //        avWorker.playRingtone1(true, viewModel: settings)
-        avWorker.playRingtone(true, viewModel: settings)
+        let viewModel = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.2)
+                
+        self.avWorker.startRingtone(atTime: atTime, viewModel: viewModel)
     }
-    
 }
 
 //MARK: - UNUserNotificationCenterDelegate
 extension Notifications: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert,.badge])
+        completionHandler([.alert])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -107,12 +97,17 @@ extension Notifications: UNUserNotificationCenterDelegate {
             print("dissmiss action")
         case UNNotificationDefaultActionIdentifier://when tap on notification
             print("default action")
-            self.showAlarmViewController()
+            let state = UIApplication.shared.applicationState
+            if state == .inactive || state == .background {
+                self.showAlarmViewController()
+            }
         case "Snooze":
             print("Snooze action")
-            self.scheduleNotification()
+            self.avWorker.stopRingtone()
+            self.scheduleNotification(atTime: 10)
         case "Stop":
             print("Stop action")
+            self.avWorker.stopRingtone()
         default:
             print("unknown action")
         }
