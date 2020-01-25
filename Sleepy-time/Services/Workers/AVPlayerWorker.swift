@@ -14,20 +14,19 @@ class AVPlayerWorker {
     static let shared = AVPlayerWorker()
     
     var player: AVAudioPlayer?
-    private var avPlayerQueue: DispatchQueue = DispatchQueue(label: "avPlayerQueue", qos: .userInitiated, attributes: .concurrent)
     let mpVolumeView: HiddenMPVolumeView = HiddenMPVolumeView()
     
     var userVolumeValue: Float!
     
     private init() {
         self.userVolumeValue = AVAudioSession.sharedInstance().outputVolume
+        addNotificationObserverForVibration()
     }
     
     func startRingtone(viewModel: SettingsViewModel?) {
         startRingtone(atTime: 0, viewModel: viewModel)
     }
     func startRingtone(atTime: Double, viewModel: SettingsViewModel?) {
-        addNotificationObserverForVibration()
         guard
             let viewModel = viewModel,
             let item = AVAudioEngineWorker.getRingtoneWithPersistentId(viewModel.ringtone.persistentId),
@@ -37,19 +36,22 @@ class AVPlayerWorker {
         
         let semaphore = DispatchSemaphore(value: 1)
         
+        DispatchQueue.main.async { //иначе setVolume не сработает первый раз
+            self.mpVolumeView.setVolume(viewModel.alarmVolume)
+        }
+
         Timer.scheduledTimer(withTimeInterval: atTime, repeats: false) { (_) in
-            DispatchQueue.main.async { //иначе setVolume не сработает первый раз
-                self.mpVolumeView.setVolume(viewModel.alarmVolume)
-            }
             do {
-                try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.duckOthers])
-                try AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+//                try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .mixWithOthers])
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, options: [.duckOthers, .defaultToSpeaker])
+                    try AVAudioSession.sharedInstance().setActive(true)
+                UIApplication.shared.beginReceivingRemoteControlEvents()
             } catch {
                 print(error)
             }
         }
         
-        avPlayerQueue.async {
+        DispatchQueue.global().async {
             defer { semaphore.signal() }
             do {
                 self.player = try AVAudioPlayer(contentsOf: url)
@@ -70,12 +72,12 @@ class AVPlayerWorker {
         self.stopVibrate()
         self.mpVolumeView.setVolume(userVolumeValue)
         player = nil
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.ambient, options: .mixWithOthers)
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print(error.localizedDescription)
-        }
+//        do {
+//            try AVAudioSession.sharedInstance().setCategory(.ambient, options: .mixWithOthers)
+//            try AVAudioSession.sharedInstance().setActive(true)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
         
         let nc = NotificationCenter.default
         nc.removeObserver(self)
@@ -89,6 +91,8 @@ class AVPlayerWorker {
     private func startVibrate(atTime time: Double) {
         
         Timer.scheduledTimer(withTimeInterval: time, repeats: false) { (_) in
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(Int(time))) {
             //vibrate phone first
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
             //set vibrate when kSystemSoundID_Vibrate is completed. Kind of recursion
@@ -98,6 +102,7 @@ class AVPlayerWorker {
                                                   { _,_ in
                                                     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) },
                                                   nil)
+            
         }
     }
     private func stopVibrate() {

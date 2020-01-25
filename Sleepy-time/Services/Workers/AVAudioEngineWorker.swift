@@ -44,22 +44,19 @@ class AVAudioEngineWorker {
         print(viewModel.ringtone.persistentId)
         
         let semaphore = DispatchSemaphore(value: 1)
-        
+//        do {
+//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .mixWithOthers])
+//        } catch {
+//            print(error)
+//        }
         self.engine = AVAudioEngineService()
-        Timer.scheduledTimer(withTimeInterval: time, repeats: false) { (_) in
-            self.mpVolumeView.setVolume(viewModel.alarmVolume)
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .duckOthers])
-                try AVAudioSession.sharedInstance().setActive(true)
-            } catch {
-                print(error)
-            }
-            self.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
-            self.avEngineQueue.async {
-                defer { semaphore.signal() }
-                semaphore.wait()
-                self.engine?.startEngine(playFileAt: url, atTime: 0.5)
-            }
+        self.mpVolumeView.setVolume(viewModel.alarmVolume)
+        self.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+
+        self.avEngineQueue.async() {
+            defer { semaphore.signal() }
+            semaphore.wait()
+            self.engine?.startEngine(playFileAt: url, atTime: time)
         }
         
         if viewModel.isVibrated {
@@ -71,12 +68,12 @@ class AVAudioEngineWorker {
         self.stopVibrate()
         self.mpVolumeView.setVolume(userVolumeValue)
         engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.ambient, options: .mixWithOthers)
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print(error.localizedDescription)
-        }
+//        do {
+//            try AVAudioSession.sharedInstance().setCategory(.ambient, options: .mixWithOthers)
+//            try AVAudioSession.sharedInstance().setActive(true)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
 
     }
     
