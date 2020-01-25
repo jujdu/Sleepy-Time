@@ -22,8 +22,6 @@ class NewSettingsPresenter: NewSettingsPresentationLogic {
             guard let settings = settings else { return }
             let viewModel = fromSettingsToViewModel(settings: settings)
             viewController?.displayData(viewModel: .displaySettings(viewModel: viewModel))
-        @unknown default:
-            print("SettingsPresenter has another response")
         }
     }
     

@@ -10,9 +10,19 @@ import UIKit
 
 struct UserDefaultKeys {
     static let repeatLbl = "repeatLbl"
-    static let repeatSlider = "repeatSlider"
-    static let repeatSwitch = "repeatSwitch"
-    static let fallAsleepSlider = "fallAsleepSlider"
+}
+
+struct UNNotificationKeys {
+    
+    struct Identifiers {
+        static let request = "LocalNotification"
+        static let category = "CategoryIdentifier"
+        
+        struct Actions {
+            static let snooze = "Snooze"
+            static let stop = "Stop"
+        }
+    }
 }
 
 struct AppFonts {

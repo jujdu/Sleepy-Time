@@ -1,5 +1,5 @@
 //
-//  CustomAVAudioEngine.swift
+//  AVAudioEngineService.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 31.12.2019.
@@ -9,41 +9,46 @@
 import Foundation
 import AVFoundation
 
-class CustomAVAudioEngine: AVAudioEngine {
+class AVAudioEngineService: AVAudioEngine {
     
-//    static let engine = CustomAVAudioEngine()
+//    static let engine = AVAudioEngineService()
+//    override init() {
+//        super.init()
+//        prepare()
+//    }
     
     func startEngine(playFileAt: URL, atTime delayTime: Double) {
         stop()
+        
         do {
+            
             let audioFile = try AVAudioFile(forReading: playFileAt)
             let audioFormat = audioFile.processingFormat
             let audioFrameCount = AVAudioFrameCount(audioFile.length)
             guard let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioFrameCount) else { return }
             
             try audioFile.read(into: audioFileBuffer)
-
+            
             //Nodes
             let player = AVAudioPlayerNode()
-            let mixer = mainMixerNode
+            let mixer = self.mainMixerNode
             
-            attach(player)
-            connect(player, to: mixer, format: audioFormat)
-            prepare()
+            self.attach(player)
+            self.connect(player, to: mixer, format: audioFormat)
+            self.prepare()
             
-            try start()
+            try self.start()
             player.scheduleBuffer(audioFileBuffer, at: nil, options: .loops)
             
             let startSampleTime = (player.lastRenderTime?.sampleTime)!
-
-            let startTime = AVAudioTime(sampleTime: startSampleTime + Int64((delayTime * audioFormat.sampleRate)), atRate: audioFormat.sampleRate)
-            player.play(at: startTime)
             
+            let startTime = AVAudioTime(sampleTime: startSampleTime + Int64(((delayTime - 0.5) * audioFormat.sampleRate)), atRate: audioFormat.sampleRate)
+            player.play(at: startTime)
             //also works
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
-//                player.play()
-//            }
-
+            //            DispatchQueue.main.asyncAfter(deadline: .now() + delayTime) {
+            //                player.play()
+            //            }
+            
         } catch let error as NSError {
             debugPrint(error, error.userInfo)
         }

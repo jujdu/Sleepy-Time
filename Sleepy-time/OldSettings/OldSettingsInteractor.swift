@@ -29,8 +29,6 @@ class OldSettingsInteractor: OldSettingsBusinessLogic, OldSettingsDataStore {
         switch request {
         case .getSettings(let settings):
             presenter?.presentData(response: .presentSettings(settings: settings))
-        @unknown default:
-            print("SettingsInteractor has another response")
         }
     }
 }

@@ -139,8 +139,6 @@ class OldSettingsViewController: UIViewController, OldSettingsDisplayLogic {
         case .displaySettings(let viewModel):
             self.viewModel = viewModel
             tableView.reloadData()
-        @unknown default:
-            print("SettingsViewController has another response")
         }
     }
     
@@ -174,7 +172,7 @@ class OldSettingsViewController: UIViewController, OldSettingsDisplayLogic {
     private func startEngine(playFileAt: URL) {
         engine.stop()
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playback)
+//            try AVAudioSession.sharedInstance().setCategory(.playback)
 
             let avAudioFile = try AVAudioFile(forReading: playFileAt)
             let player = AVAudioPlayerNode()

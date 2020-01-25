@@ -21,9 +21,13 @@ class AlarmViewController: UIViewController {
     }()
     
     @objc func handleStopButton() {
-        self.dismiss(animated: true)
+        AVPlayerWorker.shared.stopRingtone()
+
+//        avWorker.stopRingtone()
+//        self.dismiss(animated: true)
     }
 
+    let avWorker = AVAudioEngineWorker.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +38,10 @@ class AlarmViewController: UIViewController {
         stopButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stopButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-
+    
+    override func viewDidDisappear(_ animated: Bool) {
+//        avWorker.stopRingtone()
+        AVPlayerWorker.shared.stopRingtone()
+    }
 
 }

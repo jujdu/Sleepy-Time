@@ -35,8 +35,6 @@ class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
             worker.updateSettings(settingsToUpdate: settings, completionHandler: { (settings) in
                 self.settings = settings
             })
-        @unknown default:
-            print("SettingsInteractor has another response")
         }
     }
     

@@ -29,8 +29,6 @@ class WakeUpTimePresenter: WakeUpTimePresentationLogic {
                 let viewModel = WakeUpTimeViewModel(sleepyTime: sleepyTime, cells: alarmTimes)
                 viewController?.displayData(viewModel: .displayWakeUpTime(viewModel: viewModel))
             }
-        @unknown default:
-            print("WakeUpTimePresenter has another response")
         }
     }
     

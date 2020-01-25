@@ -29,8 +29,6 @@ class OldSettingsPresenter: OldSettingsPresentationLogic {
             
 //            let settingsViewModel = SettingsViewModel(items: items)
 //            viewController?.displayData(viewModel: .displaySettings(viewModel: settingsViewModel))
-        @unknown default:
-            print("SettingsPresenter has another response")
         }
     }
     

@@ -31,14 +31,9 @@ extension UIViewController {
 extension WakeUpTimeViewController {
     func createAlarmTimeAlert(date: Date) -> UIAlertController {
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
-        dateFormatter.dateFormat = "HH:mm"
-        let date = dateFormatter.string(from: date)
-        
-        let alert = UIAlertController(title: "Alarm", message: "Do you really want to set the alarm\n at \(date)?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Alarm", message: "Do you really want to set the alarm\n at \(date.shortStyleString())?", preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .default) { (_) in
-            self.appDelegate?.notifications.scheduleNotification(atTime: 1)
+            self.appDelegate?.UNNotifications.scheduleNotification(atDate: date)
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(ok)

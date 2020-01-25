@@ -31,8 +31,6 @@ class WakeUpTimeInteractor: WakeUpTimeBusinessLogic, WakeUpTimeDataStore {
                 self.settings = settings
                 self.presenter?.presentData(response: .presentWakeUpTime(sleepyTime: self.sleepyTime, settings: settings))                
             }
-        @unknown default:
-            print("WakeUpTimeInteractor has another request")
         }
     }
 }

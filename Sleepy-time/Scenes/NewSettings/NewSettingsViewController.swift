@@ -35,7 +35,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     lazy private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
 
-    var avWorker = AVEngineWorker()
+    var avWorker = AVPlayerWorker.shared
     
     private var isPlaying: Bool = false {
         willSet {
@@ -102,8 +102,6 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
         case .displaySettings(let viewModel):
             self.viewModel = viewModel
             set(viewModel: viewModel)
-        @unknown default:
-            print("SettingsViewController has another response")
         }
     }
     
@@ -178,7 +176,8 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBAction func setRingtoneVolume(_ sender: UISlider) {
         viewModel.alarmVolume = sender.value
         if isPlaying {
-            avWorker.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+            avWorker.player?.setVolume(viewModel.alarmVolume, fadeDuration: 0)
+//            avWorker.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
             mpVolumeView.setVolume(sender.value)
         }
 

@@ -135,8 +135,6 @@ class WakeUpTimeViewController: UIViewController, WakeUpTimeDisplayLogic {
             setupInfoLbl()
             setupNavigationBar()
             tableView.reloadData()
-        @unknown default:
-            print("WakeUpTimeViewController has another viewModel")
         }
     }
 }

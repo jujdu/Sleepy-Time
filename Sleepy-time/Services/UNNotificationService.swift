@@ -1,5 +1,5 @@
 //
-//  Notifications.swift
+//  UNNotificationService.swift
 //  Sleepy-time
 //
 //  Created by Michael Sidoruk on 09.01.2020.
@@ -12,10 +12,10 @@ import MediaPlayer
 import CoreHaptics
 
 
-class Notifications: NSObject {
+class UNNotificationService: NSObject {
     
     let notificationCenter = UNUserNotificationCenter.current()
-    var avWorker = AVEngineWorker()
+    var avWorker = AVAudioEngineWorker.shared
     
     //ask user if we can push notifications to him
     func requestAuthorization() {
@@ -34,27 +34,31 @@ class Notifications: NSObject {
     }
     
     //set timer for notifications
-    func scheduleNotification(atTime: Double) {
+    func scheduleNotification(atDate: Date) {
+        
+        //calculate time interval
+        let atDate = Date() + 10
+        
+        let timeInterval = atDate.timeIntervalSince(Date())
+        print("Caclulated timeInterval \(timeInterval)")
         
         let content = UNMutableNotificationContent()
-        let requestIdentifire = "LocalNotification"
-        let userActionIdentifire = "UserActionIdentifire"
-        
         //content setup
         content.title = "Alarm"
         content.title = "It's time to wake up, body!"
         content.sound = UNNotificationSound.default
         content.badge = 1
-        content.categoryIdentifier = userActionIdentifire
+        content.categoryIdentifier = UNNotificationKeys.Identifiers.category
         
-        //date and trigger setup
-        let date = Date(timeIntervalSinceNow: atTime)
-        let dateMatching = Calendar.current.dateComponents([.day,.hour,.minute,.second], from: date)
+        //trigger setup
+        let dateMatching = Calendar.current.dateComponents([.day,.hour,.minute,.second], from: atDate)
         print(dateMatching)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateMatching, repeats: false)
         
         //request setup
-        let request = UNNotificationRequest(identifier: requestIdentifire, content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: UNNotificationKeys.Identifiers.request,
+                                            content: content,
+                                            trigger: trigger)
         
         notificationCenter.add(request) { (error) in
             if let error = error {
@@ -63,10 +67,14 @@ class Notifications: NSObject {
         }
         
         //category setup
-        let snoozeAction = UNNotificationAction(identifier: "Snooze", title: "Snooze", options: [])
-        let stopAction = UNNotificationAction(identifier: "Stop", title: "Stop", options: [.destructive])
+        let snoozeAction = UNNotificationAction(identifier: UNNotificationKeys.Identifiers.Actions.snooze,
+                                                title: UNNotificationKeys.Identifiers.Actions.snooze,
+                                                options: [])
+        let stopAction = UNNotificationAction(identifier: UNNotificationKeys.Identifiers.Actions.stop,
+                                              title: UNNotificationKeys.Identifiers.Actions.stop,
+                                              options: [.destructive])
         
-        let category = UNNotificationCategory(identifier: userActionIdentifire,
+        let category = UNNotificationCategory(identifier: UNNotificationKeys.Identifiers.category,
                                               actions: [snoozeAction,stopAction],
                                               intentIdentifiers: [],
                                               options: [])
@@ -74,21 +82,23 @@ class Notifications: NSObject {
         
         print(#function)
         
-        let viewModel = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.2)
+        let viewModel = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.5)
                 
-        self.avWorker.startRingtone(atTime: atTime, viewModel: viewModel)
+//        self.avWorker.startRingtone(atTime: timeInterval, viewModel: viewModel)
+        AVPlayerWorker.shared.startRingtone(atTime: timeInterval, viewModel: viewModel)
     }
 }
 
 //MARK: - UNUserNotificationCenterDelegate
-extension Notifications: UNUserNotificationCenterDelegate {
+extension UNNotificationService: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        self.showAlarmViewController()
         completionHandler([.alert])
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        if response.notification.request.identifier == "LocalNotification" {
+        if response.notification.request.identifier == UNNotificationKeys.Identifiers.request {
             print("Handling notification")
         }
         
@@ -101,11 +111,12 @@ extension Notifications: UNUserNotificationCenterDelegate {
             if state == .inactive || state == .background {
                 self.showAlarmViewController()
             }
-        case "Snooze":
+            
+        case UNNotificationKeys.Identifiers.Actions.snooze:
             print("Snooze action")
             self.avWorker.stopRingtone()
-            self.scheduleNotification(atTime: 10)
-        case "Stop":
+            self.scheduleNotification(atDate: Date() + 10)
+        case UNNotificationKeys.Identifiers.Actions.stop:
             print("Stop action")
             self.avWorker.stopRingtone()
         default:
@@ -154,4 +165,12 @@ extension Notifications: UNUserNotificationCenterDelegate {
 //    print("transitionCoordinator")
 //    let alarmVC = AlarmViewController()
 //    mainVC?.present(alarmVC, animated: true, completion: nil)
+//}
+
+
+//let window = (UIApplication.shared.delegate as? AppDelegate)?.window
+//let navVC = (window?.rootViewController as? UINavigationController)
+//let mainVC = navVC?.viewControllers.first
+//
+//if !(mainVC?.presentedViewController is AlarmViewController) {
 //}
