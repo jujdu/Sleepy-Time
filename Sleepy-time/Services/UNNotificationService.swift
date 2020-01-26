@@ -37,7 +37,7 @@ class UNNotificationService: NSObject {
     func scheduleNotification(atDate: Date) {
         
         //calculate time interval
-        let atDate = Date() + 10
+        let atDate = Date() + 600
         
         let timeInterval = atDate.timeIntervalSince(Date())
         print("Caclulated timeInterval \(timeInterval)")
@@ -82,7 +82,7 @@ class UNNotificationService: NSObject {
         
         print(#function)
         
-        let viewModel = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.2)
+        let viewModel = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.4)
 
         AVAudioEngineWorker.shared.startRingtone(atTime: timeInterval, viewModel: viewModel)
 //        AVPlayerWor.startRingtone(atTime: timeInterval, viewModel: viewModel)
@@ -93,11 +93,6 @@ class UNNotificationService: NSObject {
 extension UNNotificationService: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         self.showAlarmViewController()
-        do {
-            try AVAudioSession.sharedInstance().setActive(true)
-        } catch {
-            print(error)
-        }
         completionHandler([.alert])
     }
     

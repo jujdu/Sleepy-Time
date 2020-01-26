@@ -44,15 +44,15 @@ class AVAudioEngineWorker {
         print(viewModel.ringtone.persistentId)
         
         let semaphore = DispatchSemaphore(value: 1)
-//        do {
-//            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .mixWithOthers])
-//        } catch {
-//            print(error)
-//        }
-        self.engine = AVAudioEngineService()
-        self.mpVolumeView.setVolume(viewModel.alarmVolume)
-        self.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
 
+        self.engine = AVAudioEngineService()
+//        self.engine = AVAudioEngineService(playFileAt: url)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(Int(time))) {
+            self.mpVolumeView.setVolume(viewModel.alarmVolume)
+            self.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+        }
+//        self.engine?.startPlay(atTime: time)
         self.avEngineQueue.async() {
             defer { semaphore.signal() }
             semaphore.wait()
@@ -65,16 +65,15 @@ class AVAudioEngineWorker {
     }
     
     func stopRingtone() {
+        print(#function)
         self.stopVibrate()
         self.mpVolumeView.setVolume(userVolumeValue)
         engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
-//        do {
-//            try AVAudioSession.sharedInstance().setCategory(.ambient, options: .mixWithOthers)
-//            try AVAudioSession.sharedInstance().setActive(true)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     //MARK: - Start Stop Vibration

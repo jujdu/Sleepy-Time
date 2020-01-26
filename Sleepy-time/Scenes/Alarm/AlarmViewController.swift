@@ -21,7 +21,7 @@ class AlarmViewController: UIViewController {
     }()
     
     @objc func handleStopButton() {
-        AVPlayerWorker.shared.stopRingtone()
+        AVAudioEngineWorker.shared.stopRingtone()
 
 //        avWorker.stopRingtone()
 //        self.dismiss(animated: true)
@@ -41,7 +41,7 @@ class AlarmViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
 //        avWorker.stopRingtone()
-        AVPlayerWorker.shared.stopRingtone()
+        AVAudioEngineWorker.shared.stopRingtone()
     }
 
 }
