@@ -19,20 +19,22 @@ class AVAudioEngineWorker {
     
     var userVolumeValue: Float
     
-    private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
+    private var avEngineQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
+    private let semaphore = DispatchSemaphore(value: 1)
     
     //MARK: - Init
     private init() {
         self.userVolumeValue = AVAudioSession.sharedInstance().outputVolume
-        self.addNotificationObserverForVibration()
     }
     
-    //MARK: - Start Stop Ringtone Methods
+    //MARK: - Start/Stop Ringtone Methods
     func startRingtone(viewModel: SettingsViewModel?) {
         self.startRingtone(atTime: 0, viewModel: viewModel)
     }
     
     func startRingtone(atTime time: Double, viewModel: SettingsViewModel?) {
+        self.userVolumeValue = AVAudioSession.sharedInstance().outputVolume
+        self.addNotificationObserverForVibration()
         
         guard
             let viewModel = viewModel,
@@ -43,19 +45,17 @@ class AVAudioEngineWorker {
         
         print(viewModel.ringtone.persistentId)
         
-        let semaphore = DispatchSemaphore(value: 1)
-
         self.engine = AVAudioEngineService()
-//        self.engine = AVAudioEngineService(playFileAt: url)
+        //        self.engine = AVAudioEngineService(playFileAt: url)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(Int(time))) {
             self.mpVolumeView.setVolume(viewModel.alarmVolume)
             self.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
         }
-//        self.engine?.startPlay(atTime: time)
+        //        self.engine?.startPlay(atTime: time)
         self.avEngineQueue.async() {
-            defer { semaphore.signal() }
-            semaphore.wait()
+            defer { self.semaphore.signal() }
+            self.semaphore.wait()
             self.engine?.startEngine(playFileAt: url, atTime: time)
         }
         
@@ -65,19 +65,21 @@ class AVAudioEngineWorker {
     }
     
     func stopRingtone() {
-        print(#function)
         self.stopVibrate()
         self.mpVolumeView.setVolume(userVolumeValue)
         engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
+        
         do {
             try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
         } catch {
             print(error.localizedDescription)
         }
+        
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK: - Start Stop Vibration
-    func startVibrate() {
+    private func startVibrate() {
         self.startVibrate(atTime: 0)
     }
     
@@ -93,7 +95,48 @@ class AVAudioEngineWorker {
                                                   { _,_ in
                                                     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) },
                                                   nil)
-            }
+        }
+    }
+    
+    private func stopVibrate() {
+        AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate)
+    }
+    
+    //MARK: - Notification observe for Vibration
+    private func addNotificationObserverForVibration() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(startStopVibrationByNotification(notification:)),
+                                               name: .startStopVibrationFromNotification,
+                                               object: nil)
+    }
+    
+    @objc private func startStopVibrationByNotification(notification: Notification) {
+        guard
+            let dic = notification.userInfo as? [Notification.Name: Bool],
+            let isActive = dic[.startStopVibrationFromNotification] else { return }
+        
+        if isActive && engine != nil {
+            startVibrate()
+        } else {
+            stopVibrate()
+        }
+    }
+    
+    //MARK: - Support Methods
+    public static func getRingtoneWithPersistentId(_ id: String) -> MPMediaItem? {
+        let predicate = MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID)
+        let query = MPMediaQuery()
+        query.addFilterPredicate(predicate)
+        
+        var ringtone: MPMediaItem?
+        guard let items = query.items, items.count > 0 else { return nil }
+        ringtone = items.first
+        return ringtone
+    }
+}
+
+
+
         
 //        DispatchQueue.main.asyncAfter(wallDeadline: .now() + time) {
 //            //vibrate phone first
@@ -121,49 +164,3 @@ class AVAudioEngineWorker {
         //                strongSelf.backgroundTaskID = nil
         //            }
         //        }
-    }
-    
-    private func stopVibrate() {
-        AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate)
-    }
-    
-    //MARK: - Notification observe for Vibration
-    private func addNotificationObserverForVibration() {
-        let nc = NotificationCenter.default
-        nc.addObserver(self,
-                       selector: #selector(startStopVibrationByNotification(notification:)),
-                       name: .startStopVibrationFromNotification,
-                       object: nil)
-    }
-    
-    @objc func startStopVibrationByNotification(notification: Notification) {
-        guard
-            let dic = notification.userInfo as? [Notification.Name: Bool],
-            let isActive = dic[.startStopVibrationFromNotification] else { return }
-        
-        if isActive && engine != nil {
-            startVibrate()
-        } else {
-            stopVibrate()
-        }
-    }
-    
-    //MARK: - Support Methods
-    public static func getRingtoneWithPersistentId(_ id: String) -> MPMediaItem? {
-        let predicate = MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID)
-        let query = MPMediaQuery()
-        query.addFilterPredicate(predicate)
-        
-        var ringtone: MPMediaItem?
-        guard let items = query.items, items.count > 0 else { return nil }
-        ringtone = items.first
-        return ringtone
-    }
-    
-    //MARK: - Deinit
-    deinit {
-        let nc = NotificationCenter.default
-        nc.removeObserver(self)
-        print("AVEngineWorker deinit")
-    }
-}
