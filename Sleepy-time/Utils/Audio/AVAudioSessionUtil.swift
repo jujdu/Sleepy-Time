@@ -23,7 +23,7 @@ public func avAudioSessionPlayAndRecord(afterTime time: Double) {
 public func avAudioSessionPlayback() {
     DispatchQueue.global().async {
         do {
-            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.mixWithOthers])
+            try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
         } catch let error as NSError{
             print(error.localizedDescription)
         }
