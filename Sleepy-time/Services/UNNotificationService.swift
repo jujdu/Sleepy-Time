@@ -37,7 +37,7 @@ class UNNotificationService: NSObject {
     func scheduleNotification(atDate: Date) {
         
         //calculate time interval
-        let atDate = Date() + 600
+        let atDate = Date() + 15
         
         let timeInterval = atDate.timeIntervalSince(Date())
         print("Caclulated timeInterval \(timeInterval)")
@@ -82,7 +82,7 @@ class UNNotificationService: NSObject {
         
         print(#function)
         
-        let viewModel = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.4)
+        let viewModel = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.1) 
 
         AVAudioEngineWorker.shared.startRingtone(atTime: timeInterval, viewModel: viewModel)
 //        AVPlayerWor.startRingtone(atTime: timeInterval, viewModel: viewModel)

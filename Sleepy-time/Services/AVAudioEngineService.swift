@@ -11,10 +11,66 @@ import AVFoundation
 
 class AVAudioEngineService: AVAudioEngine {
 
+    func startEngine(playFileAt: URL, atTime delayTime: Double) {
+        
+        stop()
+        
+        avAudioSessionPlayAndRecord(afterTime: delayTime)
+        
+        do {
+            let audioFile = try AVAudioFile(forReading: playFileAt)
+            let audioFormat = audioFile.processingFormat
+            let audioFrameCount = AVAudioFrameCount(audioFile.length)
+            guard let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioFrameCount) else { return }
+            
+            try audioFile.read(into: audioFileBuffer)
+            
+            //Nodes
+            let player = AVAudioPlayerNode()
+            let mixer = mainMixerNode
+            
+            attach(player)
+            
+            connect(player, to: mixer, format: audioFormat)
+            prepare()
+            
+            try start()
+            
+            let rate = audioFormat.sampleRate
+            let delay = AVAudioFramePosition((0.5 + delayTime) * rate)
+            let startTime = AVAudioTime(sampleTime: delay, atRate: rate)
+            
+            player.scheduleBuffer(audioFileBuffer, at: startTime, options: .loops) {
+                print("complete")
+            }
+            
+            player.play()
+            
+        } catch let error as NSError {
+            debugPrint(error, error.userInfo)
+        }
+    }
+}
+
+//let startFramePosition: AVAudioFramePosition = (player.lastRenderTime?.sampleTime)!
+//let startTime = AVAudioTime(sampleTime: startFramePosition + Int64(delayTime), atRate: audioFormat.sampleRate)
+//startFramePosition не нужОн. Работает через mach_absolute_time() в hostTime, или вообзе без него.
+
+
 //    var engine = AVAudioEngine()
 //    var player = AVAudioPlayerNode()
 //
+//    var audioFileURL: URL {
+//        didSet {
+//            print(audioFileURL)
+////            if let audioFileURL = audioFileURL {
+//                audioFile = try? AVAudioFile(forReading: audioFileURL)
+////            }
+//        }
+//    }
+//
 //    var audioFile: AVAudioFile? {
+//        willSet {
 //        didSet {
 //            if let audioFile = audioFile {
 //                audioFormat = audioFile.processingFormat
@@ -22,19 +78,28 @@ class AVAudioEngineService: AVAudioEngine {
 //        }
 //    }
 //
-//    var audioFileURL: URL? {
+//    var audioFormat: AVAudioFormat? {
 //        didSet {
-//            if let audioFileURL = audioFileURL {
-//                audioFile = try? AVAudioFile(forReading: audioFileURL)
+//            if let audioFormat = audioFormat {
+//                let audioFrameCount = AVAudioFrameCount(audioFile!.length)
+//                audioBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioFrameCount)
 //            }
 //        }
 //    }
 //
-//    var audioFormat: AVAudioFormat?
+//    var audioBuffer: AVAudioPCMBuffer?
 //
-//    init(playFileAt url: URL) {
-//        super.init()
+//    init(withUrl url: URL) {
 //        audioFileURL = url
+//
+//        do {
+//            if let audioBuffer = audioBuffer {
+//                try audioFile?.read(into: audioBuffer)
+//            }
+//        } catch let error {
+//            print(error.localizedDescription)
+//        }
+//
 //        engine.attach(player)
 //        engine.connect(player, to: engine.mainMixerNode, format: audioFormat)
 //
@@ -45,72 +110,20 @@ class AVAudioEngineService: AVAudioEngine {
 //        } catch let error {
 //            print(error.localizedDescription)
 //        }
+//        super.init()
 //    }
 //
-//    func scheduleAudioFile(atTime: Double) {
-//        guard let audioFile = audioFile, let audioFormat = audioFormat else { return }
+//    func scheduleBuffer(atTime: Double) {
+//        let rate = audioFormat?.sampleRate
+//        let delay = AVAudioFramePosition(atTime * rate!)
+//        let startTime = AVAudioTime(sampleTime: delay, atRate: rate!)
 //
-//        let startSampleTime = (player.lastRenderTime?.sampleTime)!
-//
-//        let startTime = AVAudioTime(sampleTime: startSampleTime + Int64(((atTime) * audioFormat.sampleRate)), atRate: audioFormat.sampleRate)
-//
-//        player.scheduleFile(audioFile, at: startTime) {
+//        player.scheduleBuffer(audioBuffer!, at: startTime, options: .loops) {
 //            print("complete")
 //        }
 //    }
 //
 //    func startPlay(atTime: Double) {
-//        scheduleAudioFile(atTime: atTime)
-//        player.play()
+////        scheduleBuffer(atTime: atTime)
+////        player.play()
 //    }
-    
-    func startEngine(playFileAt: URL, atTime delayTime: Double) {
-        stop()
-        
-        DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(Int(delayTime))) {
-            do {
-                try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .duckOthers])
-            } catch {
-                
-            }
-        }
-
-        do {
-
-            let audioFile = try AVAudioFile(forReading: playFileAt)
-            let audioFormat = audioFile.processingFormat
-            let audioFrameCount = AVAudioFrameCount(audioFile.length)
-            guard let audioFileBuffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioFrameCount) else { return }
-
-            try audioFile.read(into: audioFileBuffer)
-
-            //Nodes
-            let player = AVAudioPlayerNode()
-            let mixer = self.mainMixerNode
-
-            self.attach(player)
-
-            self.connect(player, to: mixer, format: audioFormat)
-            self.prepare()
-            
-            try self.start()
-            
-            let rate = audioFormat.sampleRate
-            let delay = AVAudioFramePosition(delayTime * rate)
-            let startTime = AVAudioTime(sampleTime: delay, atRate: rate)
-
-            player.scheduleBuffer(audioFileBuffer, at: startTime, options: .loops) {
-                print("complete")
-            }
-
-            player.play()
-
-        } catch let error as NSError {
-            debugPrint(error, error.userInfo)
-        }
-    }
-}
-
-//let startFramePosition: AVAudioFramePosition = (player.lastRenderTime?.sampleTime)!
-//let startTime = AVAudioTime(sampleTime: startFramePosition + Int64(delayTime), atRate: audioFormat.sampleRate)
-//startFramePosition не нужОн. Работает через mach_absolute_time() в hostTime, или вообзе без него.

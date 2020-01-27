@@ -16,6 +16,7 @@ class AVAudioEngineWorker {
     
     var engine: AVAudioEngineService?
     let mpVolumeView: HiddenMPVolumeView = HiddenMPVolumeView()
+    var isPlaying = false
     
     var userVolumeValue: Float
     
@@ -33,7 +34,6 @@ class AVAudioEngineWorker {
     }
     
     func startRingtone(atTime time: Double, viewModel: SettingsViewModel?) {
-        self.userVolumeValue = AVAudioSession.sharedInstance().outputVolume
         self.addNotificationObserverForVibration()
         
         guard
@@ -46,13 +46,14 @@ class AVAudioEngineWorker {
         print(viewModel.ringtone.persistentId)
         
         self.engine = AVAudioEngineService()
-        //        self.engine = AVAudioEngineService(playFileAt: url)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(Int(time))) {
+            self.userVolumeValue = AVAudioSession.sharedInstance().outputVolume
             self.mpVolumeView.setVolume(viewModel.alarmVolume)
             self.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+            self.isPlaying = true
         }
-        //        self.engine?.startPlay(atTime: time)
+        
         self.avEngineQueue.async() {
             defer { self.semaphore.signal() }
             self.semaphore.wait()
@@ -60,46 +61,22 @@ class AVAudioEngineWorker {
         }
         
         if viewModel.isVibrated {
-            self.startVibrate(atTime: time)
+            VibrationService.startVibrate(afterDelayTime: time)
         }
     }
     
     func stopRingtone() {
-        self.stopVibrate()
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        print(#function)
+        VibrationService.stopVibrate()
         self.mpVolumeView.setVolume(userVolumeValue)
         engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
         
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
-        } catch {
-            print(error.localizedDescription)
-        }
+        avAudioSessionPlayback()
         
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    //MARK: - Start Stop Vibration
-    private func startVibrate() {
-        self.startVibrate(atTime: 0)
-    }
-    
-    private func startVibrate(atTime time: Double) {
         
-        Timer.scheduledTimer(withTimeInterval: time, repeats: false) { (_) in
-            //vibrate phone first
-            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-            //set vibrate when kSystemSoundID_Vibrate is completed. Kind of recursion
-            AudioServicesAddSystemSoundCompletion(kSystemSoundID_Vibrate,
-                                                  nil,
-                                                  nil,
-                                                  { _,_ in
-                                                    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) },
-                                                  nil)
-        }
-    }
-    
-    private func stopVibrate() {
-        AudioServicesRemoveSystemSoundCompletion(kSystemSoundID_Vibrate)
+        isPlaying = false
     }
     
     //MARK: - Notification observe for Vibration
@@ -116,9 +93,9 @@ class AVAudioEngineWorker {
             let isActive = dic[.startStopVibrationFromNotification] else { return }
         
         if isActive && engine != nil {
-            startVibrate()
+            VibrationService.startVibrate()
         } else {
-            stopVibrate()
+            VibrationService.stopVibrate()
         }
     }
     

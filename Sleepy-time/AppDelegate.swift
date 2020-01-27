@@ -38,11 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         //MARK: - For not interupting other sounds
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
-        } catch let error as NSError{
-            print(error.localizedDescription)
-        }
+        avAudioSessionPlayback()
         
         //MARK: - Notification setup
         UNNotifications.notificationCenter.delegate = UNNotifications
@@ -72,7 +68,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         print(#function)
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        
+        if AVAudioEngineWorker.shared.isPlaying {
+            print("isPlaying")
+            let window = (UIApplication.shared.delegate as? AppDelegate)?.window
+            let navVC = (window?.rootViewController as? UINavigationController)
+            let mainVC = navVC?.viewControllers.first
+            navVC?.popToRootViewController(animated: true)
+            let alarmVC = AlarmViewController()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                mainVC?.present(alarmVC, animated: true, completion: nil)
+            }
+        }
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
