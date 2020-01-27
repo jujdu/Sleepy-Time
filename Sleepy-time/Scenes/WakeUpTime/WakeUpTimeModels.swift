@@ -14,6 +14,7 @@ enum WakeUpTime {
         struct Request {
             enum RequestType {
                 case getWakeUpTime
+                case setWakeUpTime(date: Date)
             }
         }
         struct Response {

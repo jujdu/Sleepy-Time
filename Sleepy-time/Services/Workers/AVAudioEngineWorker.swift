@@ -29,28 +29,28 @@ class AVAudioEngineWorker {
     }
     
     //MARK: - Start/Stop Ringtone Methods
-    func startRingtone(viewModel: SettingsViewModel?) {
-        self.startRingtone(atTime: 0, viewModel: viewModel)
+    func startRingtone(settings: Settings?) {
+        self.startRingtone(atTime: 0, settings: settings)
     }
     
-    func startRingtone(atTime time: Double, viewModel: SettingsViewModel?) {
+    func startRingtone(atTime time: Double, settings: Settings?) {
         self.addNotificationObserverForVibration()
         
         guard
-            let viewModel = viewModel,
-            let item = AVAudioEngineWorker.getRingtoneWithPersistentId(viewModel.ringtone.persistentId),
+            let settings = settings,
+            let item = AVAudioEngineWorker.getRingtoneWithPersistentId(settings.ringtone.persistentId),
             let url = item.assetURL else {
                 print("Cannot get url from given persistentId")
                 return }
         
-        print(viewModel.ringtone.persistentId)
+        print(item)
         
         self.engine = AVAudioEngineService()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(Int(time))) {
             self.userVolumeValue = AVAudioSession.sharedInstance().outputVolume
-            self.mpVolumeView.setVolume(viewModel.alarmVolume)
-            self.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+            self.mpVolumeView.setVolume(Float(settings.alarmVolume))
+            self.engine?.mainMixerNode.outputVolume = Float(settings.alarmVolume)
             self.isPlaying = true
         }
         
@@ -60,7 +60,7 @@ class AVAudioEngineWorker {
             self.engine?.startEngine(playFileAt: url, atTime: time)
         }
         
-        if viewModel.isVibrated {
+        if settings.isVibrated {
             VibrationService.startVibrate(afterDelayTime: time)
         }
     }
@@ -100,7 +100,8 @@ class AVAudioEngineWorker {
     }
     
     //MARK: - Support Methods
-    public static func getRingtoneWithPersistentId(_ id: String) -> MPMediaItem? {
+    public static func getRingtoneWithPersistentId(_ id: String?) -> MPMediaItem? {
+        guard let id = id else { return nil }
         let predicate = MPMediaPropertyPredicate(value: id, forProperty: MPMediaItemPropertyPersistentID)
         let query = MPMediaQuery()
         query.addFilterPredicate(predicate)

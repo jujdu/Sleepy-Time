@@ -30,12 +30,11 @@ extension UIViewController {
 
 extension WakeUpTimeViewController {
     func createAlarmTimeAlert(date: Date) -> UIAlertController {
-        
         let alert = UIAlertController(title: "Alarm", message: "Do you really want to set the alarm\n at \(date.shortStyleString())?", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .default) { (_) in
-            self.appDelegate?.UNNotifications.scheduleNotification(atDate: date)
-        }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let ok = UIAlertAction(title: "OK", style: .default) { (_) in
+            self.interactor?.makeRequest(request: .setWakeUpTime(date: date))
+        }
         alert.addAction(ok)
         alert.addAction(cancel)
         return alert

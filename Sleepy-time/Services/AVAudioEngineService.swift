@@ -37,7 +37,7 @@ class AVAudioEngineService: AVAudioEngine {
             try start()
             
             let rate = audioFormat.sampleRate
-            let delay = AVAudioFramePosition((0.5 + delayTime) * rate)
+            let delay = AVAudioFramePosition((1 + delayTime) * rate)
             let startTime = AVAudioTime(sampleTime: delay, atRate: rate)
             
             player.scheduleBuffer(audioFileBuffer, at: startTime, options: .loops) {

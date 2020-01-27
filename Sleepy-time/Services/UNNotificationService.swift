@@ -8,14 +8,13 @@
 
 import UIKit
 import UserNotifications
-import MediaPlayer
-import CoreHaptics
-
 
 class UNNotificationService: NSObject {
     
     let notificationCenter = UNUserNotificationCenter.current()
     var avWorker = AVAudioEngineWorker.shared
+    
+    var settings: Settings?
     
     //ask user if we can push notifications to him
     func requestAuthorization() {
@@ -34,7 +33,7 @@ class UNNotificationService: NSObject {
     }
     
     //set timer for notifications
-    func scheduleNotification(atDate: Date) {
+    func scheduleNotification(atDate: Date, withSettings settings: Settings?) {
         
         //calculate time interval
         let atDate = Date() + 15
@@ -81,11 +80,15 @@ class UNNotificationService: NSObject {
         notificationCenter.setNotificationCategories([category])
         
         print(#function)
-        
-        let viewModel = SettingsViewModel.init(snoozeTime: 1, fallAsleepTime: 1, ringtone: SettingsViewModel.Ringtone(artistName: "", ringtoneName: "", persistentId: "1941610159300640504"), isVibrated: true, alarmVolume: 0.1) 
 
-        AVAudioEngineWorker.shared.startRingtone(atTime: timeInterval, viewModel: viewModel)
-//        AVPlayerWor.startRingtone(atTime: timeInterval, viewModel: viewModel)
+        self.settings = settings
+        AVAudioEngineWorker.shared.startRingtone(atTime: timeInterval, settings: settings)
+    }
+    
+    private func snoozeScheduleNotification() {
+        guard let settings = settings, let snoozeTime = settings.snoozeTime else { return }
+        let date = Date() + Double(snoozeTime)
+        self.scheduleNotification(atDate: date, withSettings: settings)
     }
 }
 
@@ -117,7 +120,9 @@ extension UNNotificationService: UNUserNotificationCenterDelegate {
         case UNNotificationKeys.Identifiers.Actions.snooze:
             print("Snooze action")
             self.avWorker.stopRingtone()
-            self.scheduleNotification(atDate: Date() + 10)
+            
+//            self.scheduleNotification(atDate: Date() + 10)
+            self.snoozeScheduleNotification()
         case UNNotificationKeys.Identifiers.Actions.stop:
             print("Stop action")
             self.avWorker.stopRingtone()
