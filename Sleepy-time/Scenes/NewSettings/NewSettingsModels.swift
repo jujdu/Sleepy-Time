@@ -14,7 +14,9 @@ enum NewSettings {
         struct Request {
             enum RequestType {
                 case getSettings
-                case updateSettings(settings: SettingsViewModel)
+                case updateSettings(viewModel: SettingsViewModel)
+                case startRingtone(viewModel: SettingsViewModel)
+                case stopRingtone
             }
         }
         struct Response {

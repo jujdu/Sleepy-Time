@@ -11,6 +11,7 @@ import UIKit
 protocol NewSettingsBusinessLogic {
     func makeRequest(request: NewSettings.Model.Request.RequestType)
     var settings: Settings? { get set }
+    var avWorker: AVAudioEngineWorker { get }
 }
 
 protocol NewSettingsDataStore {
@@ -22,6 +23,7 @@ class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
     var presenter: NewSettingsPresentationLogic?
     var worker = SettingsWorker()
     var settings: Settings?
+    var avWorker = AVAudioEngineWorker.shared
     
     func makeRequest(request: NewSettings.Model.Request.RequestType) {
         switch request {
@@ -35,6 +37,10 @@ class NewSettingsInteractor: NewSettingsBusinessLogic, NewSettingsDataStore {
             worker.updateSettings(settingsToUpdate: settings, completionHandler: { (settings) in
                 self.settings = settings
             })
+        case .startRingtone(let settingsViewModel):
+            avWorker.startRingtone(settings: settingsFromSettingsViewModel(settingsViewModel))
+        case .stopRingtone:
+            avWorker.stopRingtone()
         }
     }
     

@@ -34,22 +34,20 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     private lazy var mediaPicker = MPMediaPickerController.self(mediaTypes: .music)
     
     lazy private var avEngineQueue: DispatchQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
-
-    var avWorker = AVPlayerWorker.shared
     
     private var isPlaying: Bool = false {
         willSet {
             if newValue {
-                view.addSubview(mpVolumeView)
-                avWorker.startRingtone(viewModel: viewModel)
                 ringtonePlayButton.setImage(UIImage(systemName: AppImages.pause), for: .normal)
+                view.addSubview(mpVolumeView)
+                interactor?.makeRequest(request: .startRingtone(viewModel: viewModel))
             } else {
                 //откладываю ремув, чтобы при остановке engine не появлялся MPVolumeSlider
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                ringtonePlayButton.setImage(UIImage(systemName: AppImages.play), for: .normal)
+                interactor?.makeRequest(request: .stopRingtone)
+                DispatchQueue.main.async() {
                     self.mpVolumeView.removeFromSuperview()
                 }
-                avWorker.stopRingtone()
-                ringtonePlayButton.setImage(UIImage(systemName: AppImages.play), for: .normal)
             }
         }
     }
@@ -176,8 +174,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     @IBAction func setRingtoneVolume(_ sender: UISlider) {
         viewModel.alarmVolume = sender.value
         if isPlaying {
-            avWorker.player?.setVolume(viewModel.alarmVolume, fadeDuration: 0)
-//            avWorker.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
+            AVAudioEngineWorker.shared.engine?.mainMixerNode.outputVolume = viewModel.alarmVolume
             mpVolumeView.setVolume(sender.value)
         }
 
@@ -189,7 +186,7 @@ class NewSettingsViewController: UITableViewController, NewSettingsDisplayLogic 
     
     @IBAction func tapDoneButton(_ sender: Any) {
         if interactor?.settings != nil {
-            interactor?.makeRequest(request: .updateSettings(settings: viewModel))
+            interactor?.makeRequest(request: .updateSettings(viewModel: viewModel))
             router?.routeToMain()
         }
     }

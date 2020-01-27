@@ -14,9 +14,7 @@ class AVAudioEngineService: AVAudioEngine {
     func startEngine(playFileAt: URL, atTime delayTime: Double) {
         
         stop()
-        
-        avAudioSessionPlayAndRecord(afterTime: delayTime)
-        
+                
         do {
             let audioFile = try AVAudioFile(forReading: playFileAt)
             let audioFormat = audioFile.processingFormat
@@ -37,7 +35,7 @@ class AVAudioEngineService: AVAudioEngine {
             try start()
             
             let rate = audioFormat.sampleRate
-            let delay = AVAudioFramePosition((1 + delayTime) * rate)
+            let delay = AVAudioFramePosition((0.5 + delayTime) * rate)
             let startTime = AVAudioTime(sampleTime: delay, atRate: rate)
             
             player.scheduleBuffer(audioFileBuffer, at: startTime, options: .loops) {

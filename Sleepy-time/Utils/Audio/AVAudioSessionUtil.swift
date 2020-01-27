@@ -10,6 +10,7 @@ import Foundation
 import AVFoundation
 
 public func avAudioSessionPlayAndRecord(afterTime time: Double) {
+    //main thread is blocking if something in category is changed.
     DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(Int(time))) {
         do {
             try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.defaultToSpeaker, .duckOthers])
@@ -20,10 +21,12 @@ public func avAudioSessionPlayAndRecord(afterTime time: Double) {
 }
 
 public func avAudioSessionPlayback() {
-    do {
-        try AVAudioSession.sharedInstance().setCategory(.playback, options: [.mixWithOthers])
-    } catch let error as NSError{
-        print(error.localizedDescription)
+    DispatchQueue.global().async {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playAndRecord, options: [.mixWithOthers])
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
     }
 }
 

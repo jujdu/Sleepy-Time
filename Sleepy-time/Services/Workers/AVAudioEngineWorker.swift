@@ -17,7 +17,6 @@ class AVAudioEngineWorker {
     var engine: AVAudioEngineService?
     let mpVolumeView: HiddenMPVolumeView = HiddenMPVolumeView()
     var isPlaying = false
-    
     var userVolumeValue: Float
     
     private var avEngineQueue = DispatchQueue(label: "avEngineQueue", qos: .userInitiated, attributes: .concurrent)
@@ -53,7 +52,9 @@ class AVAudioEngineWorker {
             self.engine?.mainMixerNode.outputVolume = Float(settings.alarmVolume)
             self.isPlaying = true
         }
-        
+
+        avAudioSessionPlayAndRecord(afterTime: time)
+
         self.avEngineQueue.async() {
             defer { self.semaphore.signal() }
             self.semaphore.wait()
@@ -70,7 +71,7 @@ class AVAudioEngineWorker {
         print(#function)
         VibrationService.stopVibrate()
         self.mpVolumeView.setVolume(userVolumeValue)
-        engine = nil //engine долго стартует в бэке, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
+        engine = nil //engine долго стартует, поэтому если быстро нажимать то он стартует при состоянии: пауза. Для этого обнуляю.
         
         avAudioSessionPlayback()
         

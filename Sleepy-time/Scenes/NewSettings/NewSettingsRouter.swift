@@ -32,9 +32,8 @@ class NewSettingsRouter: NSObject, NewSettingsRoutingLogic, NewSettingsDataPassi
     // MARK: - Navigation
     
     func navigateToMain(source: NewSettingsViewController, destination: MainViewController) {
-        source.avWorker.stopRingtone()
-        source.avWorker.mpVolumeView.setVolume(source.avWorker.userVolumeValue)
+        source.interactor?.avWorker.stopRingtone()
+        source.interactor?.avWorker.mpVolumeView.setVolume(source.interactor!.avWorker.userVolumeValue)
         source.dismiss(animated: true, completion: nil)
     }
-    
 }
