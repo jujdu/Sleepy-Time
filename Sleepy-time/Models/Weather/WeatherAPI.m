@@ -35,6 +35,26 @@ MSWelcome *_Nullable MSWelcomeFromJSON(NSString *json, NSStringEncoding encoding
 }
 
 @implementation MSWelcome
+
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        NSDictionary *object = dictionary[@"currently"];
+        
+        self.timezone = dictionary[@"timezone"];
+        
+        MSCurrently *currently = [[MSCurrently alloc]init];
+        currently.temperature = [object[@"temperature"] doubleValue];
+        currently.apparentTemperature = [object[@"apparentTemperature"] doubleValue];
+        
+        self.currently = currently;
+    }
+    return self;
+}
+
+
 + (NSDictionary<NSString *, NSString *> *)properties {
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{

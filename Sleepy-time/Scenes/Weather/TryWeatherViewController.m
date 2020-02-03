@@ -7,6 +7,7 @@
 //
 
 #import "TryWeatherViewController.h"
+#import "WeatherAPI.h"
 
 @interface TryWeatherViewController ()
 
@@ -33,11 +34,15 @@
                                                       options:NSJSONReadingMutableContainers
                                                         error:&jsonError];
             
-            if ([json isKindOfClass:[NSArray class]]) {
-                NSLog(@"%@", (NSArray *)json);
-            } else {
-                NSLog(@"%@", (NSDictionary *)json);
-            }
+            MSWelcome *welcome = [[MSWelcome alloc]initWithDictionary:json];
+            
+            NSLog(@"%@", welcome);
+            
+//            if ([json isKindOfClass:[NSArray class]]) {
+//                NSLog(@"%@", (NSArray *)json);
+//            } else {
+//                NSLog(@"%@", (NSDictionary *)json);
+//            }
         }
         
     }] resume];

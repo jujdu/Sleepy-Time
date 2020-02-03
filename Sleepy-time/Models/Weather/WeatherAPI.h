@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)   NSString *timezone;
 @property (nonatomic, strong) MSCurrently *currently;
 //@property (nonatomic, strong) MSHourly *hourly;
+
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 @end
 
 @interface MSCurrently : NSObject
