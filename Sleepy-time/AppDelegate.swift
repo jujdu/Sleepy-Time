@@ -21,10 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: - Windows setup
         window = UIWindow(frame: UIScreen.main.bounds)
-        let viewController = MainViewController()
+//        let viewController = MainViewController()
+        let viewController = TryWeatherViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        
         
 //        viewController.context = coreDataStack.persistentContainer.viewContext
         
