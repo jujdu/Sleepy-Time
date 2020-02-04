@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MSWelcome;
+@class Weather;
 @class MSCurrently;
 @class MSHourly;
 
@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Object interfaces
 
-@interface MSWelcome : NSObject
+@interface Weather : NSObject
 @property (nonatomic, copy)   NSString *timezone;
 @property (nonatomic, strong) MSCurrently *currently;
 @property (nonatomic, strong) MSHourly *hourly;

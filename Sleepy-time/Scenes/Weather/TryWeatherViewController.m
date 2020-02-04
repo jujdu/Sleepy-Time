@@ -39,7 +39,7 @@
 
             
             
-            MSWelcome *welcome = [MSWelcome fromJSONDictionary:json];
+            Weather *welcome = [Weather fromJSONDictionary:json];
             
             sleep(2);
             

@@ -10,55 +10,80 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@implementation MSWelcome
+#pragma mark - Private interfaces
+@interface MSHourly (JSONConversion)
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+@end
+
+@interface MSCurrently (JSONConversion)
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+@end
+
+#pragma mark - Implementation Weather
+@implementation Weather
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict {
-    return dict ? [[MSWelcome alloc] initWithDictionary:dict] : nil;
+    return dict ? [[Weather alloc] initWithDictionary:dict] : nil;
 }
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
     self = [super init];
     if (self) {
-
-        self.timezone = dictionary[@"timezone"];
-
-        MSCurrently *currently = [[MSCurrently alloc]init];
-
-//        currently.temperature = [[[dictionary objectForKey:@"currently"] objectForKey:@"temperature"] doubleValue];
-
-        currently.temperature = [[dictionary valueForKeyPath:@"currently.temperature"] doubleValue];
-        currently.apparentTemperature = [[dictionary valueForKeyPath:@"currently.apparentTemperature"] doubleValue];
-
-        self.currently = currently;
-
-        MSHourly *hourly = [[MSHourly alloc]init];
-
-        hourly.icon = [dictionary valueForKeyPath:@"hourly.icon"];
-        hourly.summary = [dictionary valueForKeyPath:@"hourly.summary"];
-
-        NSMutableArray *dataArray = [NSMutableArray array];
-        for (NSDictionary *dic in [dictionary valueForKeyPath:@"hourly.data"]) {
-            MSCurrently *currently = [[MSCurrently alloc]init];
-            currently.temperature = [[dic valueForKeyPath:@"temperature"] doubleValue];
-            currently.apparentTemperature = [[dic valueForKeyPath:@"apparentTemperature"] doubleValue];
-            [dataArray addObject:currently];
-        }
-        hourly.data = dataArray;
-
-        self.hourly = hourly;
+        self.timezone = dict[@"timezone"];
+        self.currently = [MSCurrently fromJSONDictionary:dict[@"currently"]];
+        self.hourly = [MSHourly fromJSONDictionary:dict[@"hourly"]];
     }
     return self;
 }
 
 @end
 
-@implementation MSHourly
+#pragma mark - Implementation MSCurrently
+@implementation MSCurrently
+
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict {
+    return dict ? [[MSCurrently alloc] initWithDictionary:dict] : nil;
+}
+
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
+    self = [super init];
+    if (self) {
+        self.temperature = [dict[@"temperature"] doubleValue];
+        self.apparentTemperature = [dict[@"apparentTemperature"] doubleValue];
+    }
+    return self;
+}
 
 @end
 
-@implementation MSCurrently
+#pragma mark - Implementation MSHourly
+@implementation MSHourly
 
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict {
+    return dict ? [[MSHourly alloc] initWithDictionary:dict] : nil;
+}
 
+- (instancetype)initWithDictionary:(NSDictionary *)dict {
+    self = [super init];
+    if (self) {
+        self.icon = dict[@"icon"];
+        self.summary = dict[@"summary"];
+
+        NSMutableArray *dataArray = [NSMutableArray array];
+        for (NSDictionary *nestedDict in dict[@"data"]) {
+            MSCurrently *currently = [MSCurrently fromJSONDictionary:nestedDict];
+            [dataArray addObject:currently];
+        }
+        self.data = dataArray;
+    }
+    return self;
+}
+                       
 @end
 
 NS_ASSUME_NONNULL_END
+
+//возможно сделать через один инициализатор и добираться до объектов через разные способы. Второй key value coding показывает свои преимущества.
+//        currently.temperature = [[[dictionary objectForKey:@"currently"] objectForKey:@"temperature"] doubleValue];
+//currently.apparentTemperature = [[dictionary valueForKeyPath:@"currently.apparentTemperature"] doubleValue];
+
