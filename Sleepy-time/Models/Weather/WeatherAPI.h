@@ -19,9 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MSWelcome : NSObject
 @property (nonatomic, copy)   NSString *timezone;
 @property (nonatomic, strong) MSCurrently *currently;
-//@property (nonatomic, strong) MSHourly *hourly;
+@property (nonatomic, strong) MSHourly *hourly;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
++ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error;
+
 @end
 
 @interface MSCurrently : NSObject

@@ -1,110 +1,51 @@
+////
+////  WeatherAPI.m
+////  Sleepy-time
+////
+////  Created by Michael Sidoruk on 03.02.2020.
+////  Copyright © 2020 Michael Sidoruk. All rights reserved.
+////
 //
-//  WeatherAPI.m
-//  Sleepy-time
+//#import "WeatherAPI.h"
 //
-//  Created by Michael Sidoruk on 03.02.2020.
-//  Copyright © 2020 Michael Sidoruk. All rights reserved.
+//NS_ASSUME_NONNULL_BEGIN
 //
-
-#import "WeatherAPI.h"
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface MSWelcome (JSONConversion)
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
-@end
-
-@interface MSCurrently (JSONConversion)
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
-@end
-
-#pragma mark - JSON serialization
-
-MSWelcome *_Nullable MSWelcomeFromData(NSData *data, NSError **error) {
-    @try {
-        id json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:error];
-        return *error ? nil : [MSWelcome fromJSONDictionary:json];
-    } @catch (NSException *exception) {
-        *error = [NSError errorWithDomain:@"JSONSerialization" code:-1 userInfo:@{ @"exception": exception }];
-        return nil;
-    }
-}
-
-MSWelcome *_Nullable MSWelcomeFromJSON(NSString *json, NSStringEncoding encoding, NSError **error) {
-    return MSWelcomeFromData([json dataUsingEncoding:encoding], error);
-}
-
-@implementation MSWelcome
-
-
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary
-{
-    self = [super init];
-    if (self) {
-        NSDictionary *object = dictionary[@"currently"];
-        
-        self.timezone = dictionary[@"timezone"];
-        
-        MSCurrently *currently = [[MSCurrently alloc]init];
-        currently.temperature = [object[@"temperature"] doubleValue];
-        currently.apparentTemperature = [object[@"apparentTemperature"] doubleValue];
-        
-        self.currently = currently;
-    }
-    return self;
-}
-
-
-+ (NSDictionary<NSString *, NSString *> *)properties {
-    static NSDictionary<NSString *, NSString *> *properties;
-    return properties = properties ? properties : @{
-        @"timezone": @"timezone",
-        @"currently": @"currently",
-    };
-}
-
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error {
-    return MSWelcomeFromData(data, error);
-}
-
-+ (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error {
-    return MSWelcomeFromJSON(json, encoding, error);
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict {
-    return dict ? [[MSWelcome alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict {
-    if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
-        _currently = [MSCurrently fromJSONDictionary:(id)_currently];
-    }
-    return self;
-}
-
-@end
-
-@implementation MSCurrently
-+ (NSDictionary<NSString *, NSString *> *)properties {
-    static NSDictionary<NSString *, NSString *> *properties;
-    return properties = properties ? properties : @{
-        @"temperature": @"temperature",
-        @"apparentTemperature": @"apparentTemperature",
-    };
-}
-
-+ (instancetype)fromJSONDictionary:(NSDictionary *)dict {
-    return dict ? [[MSCurrently alloc] initWithJSONDictionary:dict] : nil;
-}
-
-- (instancetype)initWithJSONDictionary:(NSDictionary *)dict {
-    if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
-    }
-    return self;
-}
-
-@end
-
-NS_ASSUME_NONNULL_END
+//@implementation MSWelcome
+//
+//- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+//    self = [super init];
+//    if (self) {
+//
+//        self.timezone = dictionary[@"timezone"];
+//
+//        MSCurrently *currently = [[MSCurrently alloc]init];
+//
+////        currently.temperature = [[[dictionary objectForKey:@"currently"] objectForKey:@"temperature"] doubleValue];
+//
+//        currently.temperature = [[dictionary valueForKeyPath:@"currently.temperature"] doubleValue];
+//        currently.apparentTemperature = [[dictionary valueForKeyPath:@"currently.apparentTemperature"] doubleValue];
+//
+//        self.currently = currently;
+//
+//        MSHourly *hourly = [[MSHourly alloc]init];
+//
+//        hourly.icon = [dictionary valueForKeyPath:@"hourly.icon"];
+//        hourly.summary = [dictionary valueForKeyPath:@"hourly.summary"];
+//
+//        NSMutableArray *dataArray = [NSMutableArray array];
+//        for (NSDictionary *dic in [dictionary valueForKeyPath:@"hourly.data"]) {
+//            MSCurrently *currently = [[MSCurrently alloc]init];
+//            currently.temperature = [[dic valueForKeyPath:@"temperature"] doubleValue];
+//            currently.apparentTemperature = [[dic valueForKeyPath:@"apparentTemperature"] doubleValue];
+//            [dataArray addObject:currently];
+//        }
+//        hourly.data = dataArray;
+//
+//        self.hourly = hourly;
+//    }
+//    return self;
+//}
+//
+//@end
+//
+//NS_ASSUME_NONNULL_END
