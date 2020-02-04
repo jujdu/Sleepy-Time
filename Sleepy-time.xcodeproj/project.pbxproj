@@ -75,7 +75,6 @@
 		6FCFDF2B23A8F70200CE9D5E /* SettingsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCFDF2A23A8F70200CE9D5E /* SettingsWorker.swift */; };
 		6FF3101923E82E59001AD3AA /* TryWeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF3101723E82E59001AD3AA /* TryWeatherViewController.m */; };
 		6FF3101A23E82E59001AD3AA /* TryWeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FF3101823E82E59001AD3AA /* TryWeatherViewController.xib */; };
-		6FF3102023E96F66001AD3AA /* WeatherAPIExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF3101F23E96F66001AD3AA /* WeatherAPIExample.m */; };
 		6FF347FA23BB35C1003D5554 /* MPVolumeView+UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF347F923BB35C1003D5554 /* MPVolumeView+UIView+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -166,7 +165,6 @@
 		6FF3101623E82E59001AD3AA /* TryWeatherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TryWeatherViewController.h; sourceTree = "<group>"; };
 		6FF3101723E82E59001AD3AA /* TryWeatherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TryWeatherViewController.m; sourceTree = "<group>"; };
 		6FF3101823E82E59001AD3AA /* TryWeatherViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TryWeatherViewController.xib; sourceTree = "<group>"; };
-		6FF3101F23E96F66001AD3AA /* WeatherAPIExample.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherAPIExample.m; sourceTree = "<group>"; };
 		6FF347F923BB35C1003D5554 /* MPVolumeView+UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MPVolumeView+UIView+Extensi\U0010on.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -307,7 +305,6 @@
 		6F96E6D323E88EAC00558A1F /* Weather */ = {
 			isa = PBXGroup;
 			children = (
-				6FF3101F23E96F66001AD3AA /* WeatherAPIExample.m */,
 				6F96E6D023E88EA600558A1F /* WeatherAPI.h */,
 				6F96E6D123E88EA600558A1F /* WeatherAPI.m */,
 			);
@@ -551,7 +548,6 @@
 				6F4FD65723C770F500E868F2 /* UNNotificationService.swift in Sources */,
 				6F90928123A11B10002C1313 /* TrashFile.swift in Sources */,
 				6F42F89823DAF9410033D1A1 /* Notfication.Name + Extensions.swift in Sources */,
-				6FF3102023E96F66001AD3AA /* WeatherAPIExample.m in Sources */,
 				6FCFDF2B23A8F70200CE9D5E /* SettingsWorker.swift in Sources */,
 				6FAB430A23A370C90050BCF6 /* NewSettingsModels.swift in Sources */,
 				6FF3101923E82E59001AD3AA /* TryWeatherViewController.m in Sources */,

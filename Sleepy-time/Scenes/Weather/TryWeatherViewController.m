@@ -33,7 +33,13 @@
         
         if (data) {
             
-            MSWelcome *welcome = [MSWelcome fromData:data error:&error];
+            NSError *error = nil;
+            
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+
+            
+            
+            MSWelcome *welcome = [MSWelcome fromJSONDictionary:json];
             
             sleep(2);
             

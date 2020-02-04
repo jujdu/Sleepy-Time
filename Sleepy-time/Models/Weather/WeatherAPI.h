@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) MSCurrently *currently;
 @property (nonatomic, strong) MSHourly *hourly;
 
-+ (_Nullable instancetype)fromData:(NSData *)data error:(NSError *_Nullable *)error;
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 
 @end
 
