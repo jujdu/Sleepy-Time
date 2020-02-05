@@ -21,23 +21,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: - Windows setup
         window = UIWindow(frame: UIScreen.main.bounds)
-//        let viewController = MainViewController()
-        let viewController = TryWeatherViewController()
-        let navigationController = UINavigationController(rootViewController: viewController)
-        window?.rootViewController = navigationController
+        //        let viewController = MainViewController()
+        //        let viewController = TryWeatherViewController()
+        //        let navigationController = UINavigationController(rootViewController: viewController)
+        //        window?.rootViewController = navigationController
+        //        window?.makeKeyAndVisible()
+        let viewController = MainTabBarController()
+//        let navigationController = UINavigationController(rootViewController: viewController)
+        window?.rootViewController = viewController
         window?.makeKeyAndVisible()
         
         
 //        viewController.context = coreDataStack.persistentContainer.viewContext
         
         //MARK: - NC setup
-        navigationController.navigationBar.barStyle = .black
-        navigationController.navigationBar.isTranslucent = true
-        //        navigationController.navigationBar.tintColor = .white
-        navigationController.navigationBar.titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
-        ]
+//        navigationController.navigationBar.barStyle = .black
+//        navigationController.navigationBar.isTranslucent = true
+//        //        navigationController.navigationBar.tintColor = .white
+//        navigationController.navigationBar.titleTextAttributes = [
+//            NSAttributedString.Key.foregroundColor: UIColor.white,
+//            NSAttributedString.Key.font: UIFont(name: AppFonts.avenirHeavy, size: 18)!
+//        ]
         
         //MARK: - For not interupting other sounds
         avAudioSessionPlayback()

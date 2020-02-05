@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Weather;
+@class MSWeather;
 @class MSCurrently;
 @class MSHourly;
 
@@ -16,34 +16,34 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Object interfaces
 
-@interface Weather : NSObject
-@property (nonatomic, copy)   NSString *timezone;
-@property (nonatomic, strong) MSCurrently *currently;
-@property (nonatomic, strong) MSHourly *hourly;
+@interface MSWeather : NSObject
+@property (copy, nonatomic) NSString *timezone;
+@property (strong, nonatomic) MSCurrently *currently;
+@property (strong, nonatomic) MSHourly *hourly;
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict;
 
 @end
 
 @interface MSCurrently : NSObject
-//@property (nonatomic, assign) NSInteger time;
-//@property (nonatomic, copy)   NSString *summary;
-//@property (nonatomic, copy)   NSString *icon;
-//@property (nonatomic, assign) double precipProbability;
-//@property (nonatomic, copy)   NSString *precipType;
-@property (nonatomic, assign) double temperature;
-@property (nonatomic, assign) double apparentTemperature;
-//@property (nonatomic, assign) double humidity;
-//@property (nonatomic, assign) double pressure;
-//@property (nonatomic, assign) double windSpeed;
-//@property (nonatomic, assign) NSInteger uvIndex;
-//@property (nonatomic, assign) NSInteger visibility;
+//@property (assign, nonatomic) NSInteger time;
+//@property (copy, nonatomic)   NSString *summary;
+//@property (copy, nonatomic)   NSString *icon;
+//@property (assign, nonatomic) double precipProbability;
+//@property (copy, nonatomic)   NSString *precipType;
+@property (assign, nonatomic) double temperature;
+@property (assign, nonatomic) double apparentTemperature;
+//@property (assign, nonatomic) double humidity;
+//@property (assign, nonatomic) double pressure;
+//@property (assign, nonatomic) double windSpeed;
+//@property (assign, nonatomic) NSInteger uvIndex;
+//@property (assign, nonatomic) NSInteger visibility;
 @end
 
 @interface MSHourly : NSObject
-@property (nonatomic, copy) NSString *summary;
-@property (nonatomic, copy) NSString *icon;
-@property (nonatomic, copy) NSArray<MSCurrently *> *data;
+@property (copy, nonatomic) NSString *summary;
+@property (copy, nonatomic) NSString *icon;
+@property (copy, nonatomic) NSArray<MSCurrently *> *data;
 @end
 
 NS_ASSUME_NONNULL_END

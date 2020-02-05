@@ -20,10 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - Implementation Weather
-@implementation Weather
+@implementation MSWeather
 
 + (instancetype)fromJSONDictionary:(NSDictionary *)dict {
-    return dict ? [[Weather alloc] initWithDictionary:dict] : nil;
+    return dict ? [[MSWeather alloc] initWithDictionary:dict] : nil;
 }
 
 - (instancetype)initWithDictionary:(NSDictionary *)dict {

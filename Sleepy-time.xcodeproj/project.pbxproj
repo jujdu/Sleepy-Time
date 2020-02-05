@@ -42,6 +42,7 @@
 		6F4FD65A23C776D900E868F2 /* AlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4FD65923C776D900E868F2 /* AlarmViewController.swift */; };
 		6F5150B42385A47100F9B977 /* UIDatePickerLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5150B32385A47100F9B977 /* UIDatePickerLabel.swift */; };
 		6F531330239FBD7100AF5B56 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */; };
+		6F54556A23EAE90600BC8861 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F54556923EAE90600BC8861 /* MainTabBarController.swift */; };
 		6F7D93102387FC44006A8640 /* SleepyTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7D930F2387FC44006A8640 /* SleepyTime.swift */; };
 		6F7D93192387FFA2006A8640 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7D93122387FFA2006A8640 /* MainPresenter.swift */; };
 		6F7D931A2387FFA2006A8640 /* MainWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7D93132387FFA2006A8640 /* MainWorker.swift */; };
@@ -127,6 +128,7 @@
 		6F4FD65923C776D900E868F2 /* AlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmViewController.swift; sourceTree = "<group>"; };
 		6F5150B32385A47100F9B977 /* UIDatePickerLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDatePickerLabel.swift; sourceTree = "<group>"; };
 		6F53132F239FBD7100AF5B56 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		6F54556923EAE90600BC8861 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		6F7D930F2387FC44006A8640 /* SleepyTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepyTime.swift; sourceTree = "<group>"; };
 		6F7D93122387FFA2006A8640 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
 		6F7D93132387FFA2006A8640 /* MainWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWorker.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 		6F7D93112387FF90006A8640 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				6F54556923EAE90600BC8861 /* MainTabBarController.swift */,
 				6F4FD65823C776B100E868F2 /* Alarm */,
 				6F7D93202387FFBA006A8640 /* Main */,
 				6F1FF78A23880A4100FD7630 /* WakeUpTime */,
@@ -509,6 +512,7 @@
 				6F7EFDC023A77D3F00A16928 /* SettingsAPI.swift in Sources */,
 				6F3E18B023BAA1E00098314F /* AVAudioEngineService.swift in Sources */,
 				6FB539362326C2C800B5DB92 /* Constants.swift in Sources */,
+				6F54556A23EAE90600BC8861 /* MainTabBarController.swift in Sources */,
 				6FB7D8AF2331AD5A00B40711 /* WakeUpTimeCell.swift in Sources */,
 				6F7D93192387FFA2006A8640 /* MainPresenter.swift in Sources */,
 				6F531330239FBD7100AF5B56 /* CoreDataStack.swift in Sources */,

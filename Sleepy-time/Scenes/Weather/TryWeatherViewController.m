@@ -36,13 +36,8 @@
             NSError *error = nil;
             
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-
-            
-            
-            Weather *welcome = [Weather fromJSONDictionary:json];
-            
-            sleep(2);
-            
+      
+            MSWeather *welcome = [MSWeather fromJSONDictionary:json];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"%d", (int)welcome.currently.temperature);
